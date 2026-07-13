@@ -17,44 +17,44 @@
   }
 
   body {
-    @apply bg-dark-950 text-dark-100 font-sans;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    @apply bg-dark-950 text-dark-200 font-sans;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   /* Light mode overrides */
   html:not(.dark) body {
-    @apply bg-gray-50 text-gray-900;
+    @apply bg-dark-50 text-dark-800;
   }
 
   ::selection {
-    @apply bg-primary-500/30 text-primary-200;
+    @apply bg-primary-500/20 text-primary-300;
   }
 
   /* Custom Scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-dark-900;
+    @apply bg-dark-950;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-dark-600 rounded-full;
+    @apply bg-dark-700 rounded-full;
     transition: background-color 0.2s;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-dark-500;
+    @apply bg-dark-600;
   }
 
   html:not(.dark) ::-webkit-scrollbar-track {
-    @apply bg-gray-100;
+    @apply bg-dark-50;
   }
 
   html:not(.dark) ::-webkit-scrollbar-thumb {
-    @apply bg-gray-400;
+    @apply bg-dark-200;
   }
 }
 
@@ -62,32 +62,32 @@
    Component Layer
    ======================================== */
 @layer components {
-  /* Glassmorphism Card */
+  /* SaaS-Level Premium Card */
   .glass-card {
-    @apply bg-dark-800/40 backdrop-blur-xl border border-dark-700/50 rounded-2xl shadow-glass;
-    transition: all 0.3s ease;
+    @apply bg-dark-800 border border-dark-700/60 rounded-xl shadow-sm;
+    transition: all 0.2s ease-in-out;
   }
 
   .glass-card:hover {
-    @apply bg-dark-800/60 border-dark-600/60 shadow-glass-lg;
-    transform: translateY(-2px);
+    @apply border-dark-600/80 shadow-md;
+    transform: translateY(-1px);
   }
 
   html:not(.dark) .glass-card {
-    @apply bg-white/70 border-gray-200/60 shadow-lg;
+    @apply bg-white border border-dark-200 shadow-sm;
   }
 
   html:not(.dark) .glass-card:hover {
-    @apply bg-white/90 border-gray-300/70 shadow-xl;
+    @apply border-dark-300/80 shadow-md;
   }
 
-  /* Glassmorphism Navbar */
+  /* SaaS-Level Premium Navbar */
   .glass-nav {
-    @apply bg-dark-900/70 backdrop-blur-xl border-b border-dark-700/50;
+    @apply bg-dark-950/80 backdrop-blur-md border-b border-dark-700/60;
   }
 
   html:not(.dark) .glass-nav {
-    @apply bg-white/80 border-gray-200/60;
+    @apply bg-white/80 backdrop-blur-md border-b border-dark-200;
   }
 
   /* Gradient Text */
@@ -97,36 +97,37 @@
 
   /* Gradient Background */
   .gradient-bg {
-    @apply bg-gradient-to-br from-primary-900 via-dark-900 to-dark-950;
+    @apply bg-gradient-to-br from-primary-950 via-dark-950 to-dark-950;
     background-size: 200% 200%;
     animation: gradient 8s ease infinite;
   }
 
-  /* Gradient Button */
+  /* Premium SaaS Primary Button */
   .btn-gradient {
-    @apply bg-gradient-to-r from-primary-600 to-primary-500 text-white font-semibold rounded-xl
-           px-6 py-3 shadow-glow transition-all duration-300 hover:shadow-glow-lg
-           hover:from-primary-500 hover:to-primary-400 active:scale-95;
+    @apply bg-primary-600 hover:bg-primary-500 text-white font-medium rounded-lg
+           px-5 py-2.5 transition-all duration-200 active:scale-[0.98] shadow-sm;
   }
 
-  /* Outline Button */
+  /* Premium SaaS Secondary/Outline Button */
   .btn-outline {
-    @apply border-2 border-primary-600/50 text-primary-400 font-semibold rounded-xl
-           px-6 py-3 transition-all duration-300 hover:bg-primary-600/10
-           hover:border-primary-500 active:scale-95;
+    @apply border border-dark-700 text-dark-200 font-medium rounded-lg
+           px-5 py-2.5 transition-all duration-200 hover:bg-dark-800 hover:text-dark-100 active:scale-[0.98];
+  }
+
+  html:not(.dark) .btn-outline {
+    @apply border-dark-200 text-dark-700 hover:bg-dark-100 hover:text-dark-900;
   }
 
   /* Input Field */
   .input-field {
-    @apply w-full bg-dark-800/50 border border-dark-600/50 rounded-xl px-4 py-3
-           text-dark-100 placeholder-dark-400 transition-all duration-300
-           focus:outline-none focus:border-primary-500/60 focus:ring-2 focus:ring-primary-500/20
-           focus:bg-dark-800/70;
+    @apply w-full bg-dark-900/50 border border-dark-700 rounded-lg px-4 py-2.5
+           text-dark-100 placeholder-dark-500 transition-all duration-200
+           focus:outline-none focus:border-primary-500/80 focus:ring-4 focus:ring-primary-500/10;
   }
 
   html:not(.dark) .input-field {
-    @apply bg-white border-gray-300 text-gray-900 placeholder-gray-400
-           focus:border-primary-500 focus:ring-primary-500/20;
+    @apply bg-white border-dark-200 text-dark-800 placeholder-dark-400
+           focus:border-primary-500/80 focus:ring-4 focus:ring-primary-500/10;
   }
 
   /* Badge */

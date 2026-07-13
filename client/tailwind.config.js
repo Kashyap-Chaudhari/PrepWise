@@ -6,56 +6,57 @@ export default {
     extend: {
       colors: {
         primary: {
-          50: '#f0f9ff',
-          100: '#e0f2fe',
-          200: '#bae6fd',
-          300: '#7dd3fc',
-          400: '#38bdf8',
-          500: '#0ea5e9', // Professional Electric Cyan-Blue
-          600: '#0284c7',
-          700: '#0369a1',
-          800: '#075985',
-          900: '#0c4a6e',
-          950: '#082f49',
+          50: '#f5f3ff',
+          100: '#ede9fe',
+          200: '#ddd6fe',
+          300: '#c4b5fd',
+          400: '#a78bfa',
+          500: '#8b5cf6', // SaaS premium Violet/Indigo
+          600: '#7c3aed',
+          700: '#6d28d9',
+          800: '#5b21b6',
+          900: '#4c1d95',
+          950: '#2e1065',
         },
         secondary: {
-          50: '#f0fdf4',
-          100: '#dcfce7',
-          200: '#bbf7d0',
-          300: '#86efac',
-          400: '#4ade80',
-          500: '#22c55e', // Emerald Success
-          600: '#16a34a',
-          700: '#15803d',
-          800: '#166534',
-          900: '#14532d',
-          950: '#052e16',
+          50: '#ecfdf5',
+          100: '#d1fae5',
+          200: '#a7f3d0',
+          300: '#6ee7b7',
+          400: '#34d399',
+          500: '#10b981', // Emerald Success
+          600: '#059669',
+          700: '#047857',
+          800: '#065f46',
+          900: '#064e3b',
+          950: '#022c22',
         },
         accent: {
-          50: '#f8fafc',
-          100: '#f1f5f9',
-          200: '#e2e8f0',
-          300: '#cbd5e1',
-          400: '#94a3b8',
-          500: '#64748b', // Slate Neutral
-          600: '#475569',
-          700: '#334155',
-          800: '#1e293b',
-          900: '#0f172a',
-          955: '#0f172a',
+          50: '#fdf2f8',
+          100: '#fce7f3',
+          200: '#fbcfe8',
+          300: '#f472b6',
+          400: '#ec4899',
+          500: '#db2777', // Soft Pink/Fuchsia for warnings/highlights
+          600: '#c026d3',
+          700: '#9d174d',
+          800: '#831843',
+          900: '#500724',
+          955: '#500724',
         },
         dark: {
-          50: '#f8fafc',
-          100: '#e2e8f0',
-          200: '#cbd5e1',
-          300: '#94a3b8',
-          400: '#64748b',
-          500: '#475569',
-          600: '#334155',
-          700: '#1e293b',
-          800: '#0f172a',
-          900: '#090d16', // Professional rich dark gray/blue
-          950: '#05070c', // Ultimate clean dark background
+          50: '#fafafa', // Zinc 50
+          100: '#f4f4f5', // Zinc 100
+          200: '#e4e4e7', // Zinc 200
+          300: '#cbd5e1', 
+          400: '#a1a1aa', // Zinc 400
+          500: '#71717a', // Zinc 500
+          600: '#52525b', // Zinc 600
+          705: '#3f3f46', // Zinc 700
+          700: '#27272a', // Zinc 800
+          800: '#18181b', // Zinc 900
+          900: '#0f0f11', // Darker Zinc
+          950: '#09090b', // Zinc 950 (Perfect SaaS dark background)
         },
       },
       fontFamily: {
