@@ -92,28 +92,28 @@
 
   /* Gradient Text */
   .gradient-text {
-    @apply bg-gradient-to-r from-primary-400 via-accent-400 to-secondary-400 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-primary-400 to-primary-600 bg-clip-text text-transparent;
   }
 
   /* Gradient Background */
   .gradient-bg {
-    @apply bg-gradient-to-br from-primary-600 via-accent-600 to-secondary-600;
+    @apply bg-gradient-to-br from-primary-900 via-dark-900 to-dark-950;
     background-size: 200% 200%;
     animation: gradient 8s ease infinite;
   }
 
   /* Gradient Button */
   .btn-gradient {
-    @apply bg-gradient-to-r from-primary-500 to-accent-500 text-white font-semibold rounded-xl
+    @apply bg-gradient-to-r from-primary-600 to-primary-500 text-white font-semibold rounded-xl
            px-6 py-3 shadow-glow transition-all duration-300 hover:shadow-glow-lg
-           hover:from-primary-400 hover:to-accent-400 active:scale-95;
+           hover:from-primary-500 hover:to-primary-400 active:scale-95;
   }
 
   /* Outline Button */
   .btn-outline {
-    @apply border-2 border-primary-500/50 text-primary-400 font-semibold rounded-xl
-           px-6 py-3 transition-all duration-300 hover:bg-primary-500/10
-           hover:border-primary-400 active:scale-95;
+    @apply border-2 border-primary-600/50 text-primary-400 font-semibold rounded-xl
+           px-6 py-3 transition-all duration-300 hover:bg-primary-600/10
+           hover:border-primary-500 active:scale-95;
   }
 
   /* Input Field */
