@@ -31,27 +31,27 @@ export default {
           900: '#164e63',
         },
         accent: {
-          50: '#f5f3ff',
-          100: '#ede9fe',
-          200: '#ddd6fe',
-          300: '#c4b5fd',
-          400: '#a78bfa',
-          500: '#8B5CF6', // Specified Accent
-          600: '#7c3aed',
-          700: '#6d28d9',
+          50: '#fffbeb',
+          100: '#fef3c7',
+          200: '#fde68a',
+          300: '#fcd34d',
+          400: '#fbbf24',
+          500: '#F59E0B', // Aurora OS Dark Accent
+          600: '#D97706', // Aurora OS Light Accent
+          700: '#b45309',
         },
         dark: {
-          50: '#FAFAFB', // Specified Light Bg
-          100: '#FFFFFF', // Specified Light Surface
-          200: '#E4E4E7', // Specified Light Border
+          50: '#FAFAFB', // Light Bg
+          100: '#FFFFFF', // Light Surface
+          200: '#E4E4E7', // Light Border
           300: '#d4d4d8', 
-          400: '#A1A1AA', // Specified Dark Muted Text
-          500: '#52525B', // Specified Light Muted Text
+          400: '#A1A1AA', // Dark Muted
+          500: '#52525B', // Light Muted
           600: '#3f3f46',
           700: '#27272a',
-          800: '#18181B', // Specified Dark Cards
-          900: '#111114', // Specified Dark Surface
-          950: '#0A0A0B', // Specified Dark Background
+          800: '#18181B', // Dark Cards
+          900: '#111114', // Dark Surface
+          950: '#09090B', // Aurora OS Dark Background
         },
       },
       fontFamily: {
