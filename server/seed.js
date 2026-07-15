@@ -1,9 +1,15 @@
+import dns from 'dns';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import Question from './models/Question.js';
 import User from './models/User.js';
 
+try {
+  dns.setServers(['8.8.8.8', '1.1.1.1']);
+} catch (e) {}
+
 dotenv.config();
+
 
 const questions = [
   // ===================== APTITUDE - Quantitative =====================
