@@ -1,16 +1,19 @@
 import { useState, useEffect } from 'react';
-import { HiOutlineArrowLeft, HiOutlineSearch, HiOutlineLightBulb, HiOutlineCheckCircle, HiOutlinePlay } from 'react-icons/hi';
+import { HiOutlineArrowLeft, HiOutlineSearch, HiOutlineLightBulb, HiOutlineCheckCircle, HiOutlinePlay, HiChevronLeft, HiChevronRight } from 'react-icons/hi';
 import { CODING_LANGUAGES } from '../constants';
 import useQuestions from '../hooks/useQuestions';
 import Button from '../components/Button';
 import Loader from '../components/Loader';
 import toast from 'react-hot-toast';
 
+const ITEMS_PER_PAGE = 20;
+
 const Coding = () => {
   const [selectedLanguage, setSelectedLanguage] = useState(null);
   const [selectedQuestion, setSelectedQuestion] = useState(null);
   const [difficultyFilter, setDifficultyFilter] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
   const [solvedQuestions, setSolvedQuestions] = useState(new Set());
   const [code, setCode] = useState('');
   const [showHint, setShowHint] = useState(false);
@@ -29,6 +32,7 @@ const Coding = () => {
     setSelectedLanguage(lang);
     setDifficultyFilter('');
     setSearchQuery('');
+    setCurrentPage(1);
     setSelectedQuestion(null);
   };
 
@@ -316,37 +320,92 @@ const Coding = () => {
       {loading ? (
         <Loader text={`Loading ${selectedLanguage.name} challenges...`} />
       ) : filteredQuestions.length > 0 ? (
-        <div className="grid grid-cols-1 gap-4">
-          {filteredQuestions.map((q) => {
-            const difficultyClass =
-              q.difficulty === 'easy'
-                ? 'badge-easy'
-                : q.difficulty === 'medium'
-                ? 'badge-medium'
-                : 'badge-hard';
+        <>
+          <div className="grid grid-cols-1 gap-4">
+            {filteredQuestions
+              .slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE)
+              .map((q) => {
+                const difficultyClass =
+                  q.difficulty === 'easy'
+                    ? 'badge-easy'
+                    : q.difficulty === 'medium'
+                    ? 'badge-medium'
+                    : 'badge-hard';
 
-            return (
-              <div
-                key={q._id}
-                onClick={() => handleSelectQuestion(q)}
-                className="glass-card p-5 cursor-pointer hover:-translate-y-0.5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 group"
-              >
-                <div className="min-w-0">
-                  <h3 className="text-sm font-semibold text-dark-100 group-hover:text-primary-400 transition-colors">
-                    {q.title}
-                  </h3>
-                  <p className="text-xs text-dark-400 mt-1">Topic: {q.topic || q.subject}</p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className={`badge ${difficultyClass}`}>{q.difficulty}</span>
-                  {solvedQuestions.has(q._id) && (
-                    <HiOutlineCheckCircle className="w-5 h-5 text-emerald-400 flex-shrink-0" />
-                  )}
-                </div>
+                return (
+                  <div
+                    key={q._id}
+                    onClick={() => handleSelectQuestion(q)}
+                    className="glass-card p-5 cursor-pointer hover:-translate-y-0.5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 group"
+                  >
+                    <div className="min-w-0">
+                      <h3 className="text-sm font-semibold text-dark-100 group-hover:text-primary-400 transition-colors">
+                        {q.title}
+                      </h3>
+                      <p className="text-xs text-dark-400 mt-1">Topic: {q.topic || q.subject}</p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className={`badge ${difficultyClass}`}>{q.difficulty}</span>
+                      {solvedQuestions.has(q._id) && (
+                        <HiOutlineCheckCircle className="w-5 h-5 text-emerald-400 flex-shrink-0" />
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+
+          {/* Pagination Controls */}
+          {Math.ceil(filteredQuestions.length / ITEMS_PER_PAGE) > 1 && (
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 glass-card p-4 mt-6">
+              <div className="text-xs text-dark-400">
+                Showing <span className="font-semibold text-dark-200">{(currentPage - 1) * ITEMS_PER_PAGE + 1}</span> to{' '}
+                <span className="font-semibold text-dark-200">
+                  {Math.min(currentPage * ITEMS_PER_PAGE, filteredQuestions.length)}
+                </span>{' '}
+                of <span className="font-semibold text-dark-200">{filteredQuestions.length}</span> questions
               </div>
-            );
-          })}
-        </div>
+              <div className="flex items-center gap-2">
+                <button
+                  disabled={currentPage === 1}
+                  onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                  className="px-3 py-1.5 rounded-xl border border-dark-700/50 bg-dark-800/40 text-xs font-medium text-dark-200 hover:bg-dark-700/50 disabled:opacity-40 disabled:cursor-not-allowed transition-all flex items-center gap-1"
+                >
+                  <HiChevronLeft className="w-4 h-4" /> Previous
+                </button>
+
+                {Array.from(
+                  { length: Math.ceil(filteredQuestions.length / ITEMS_PER_PAGE) },
+                  (_, i) => i + 1
+                ).map((page) => (
+                  <button
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    className={`w-8 h-8 rounded-xl text-xs font-semibold transition-all ${
+                      currentPage === page
+                        ? 'bg-primary-500 text-white shadow-lg shadow-primary-500/25'
+                        : 'border border-dark-700/50 bg-dark-800/40 text-dark-300 hover:text-dark-100 hover:bg-dark-700/50'
+                    }`}
+                  >
+                    {page}
+                  </button>
+                ))}
+
+                <button
+                  disabled={currentPage === Math.ceil(filteredQuestions.length / ITEMS_PER_PAGE)}
+                  onClick={() =>
+                    setCurrentPage((prev) =>
+                      Math.min(prev + 1, Math.ceil(filteredQuestions.length / ITEMS_PER_PAGE))
+                    )
+                  }
+                  className="px-3 py-1.5 rounded-xl border border-dark-700/50 bg-dark-800/40 text-xs font-medium text-dark-200 hover:bg-dark-700/50 disabled:opacity-40 disabled:cursor-not-allowed transition-all flex items-center gap-1"
+                >
+                  Next <HiChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          )}
+        </>
       ) : (
         <div className="text-center py-12 glass-card">
           <p className="text-sm text-dark-400">No {selectedLanguage.name} challenges found.</p>

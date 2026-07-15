@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { HiOutlineArrowLeft, HiOutlineSearch, HiOutlineBookOpen, HiOutlineCheckCircle } from 'react-icons/hi';
+import { HiOutlineArrowLeft, HiOutlineSearch, HiOutlineBookOpen, HiOutlineCheckCircle, HiChevronLeft, HiChevronRight } from 'react-icons/hi';
 import { DSA_TOPICS } from '../constants';
 import useQuestions from '../hooks/useQuestions';
 import Button from '../components/Button';
@@ -7,10 +7,13 @@ import Loader from '../components/Loader';
 import questionService from '../services/questionService';
 import toast from 'react-hot-toast';
 
+const ITEMS_PER_PAGE = 20;
+
 const DSA = () => {
   const [selectedTopic, setSelectedTopic] = useState(null);
   const [difficultyFilter, setDifficultyFilter] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
   const [selectedQuestion, setSelectedQuestion] = useState(null);
   const [solvedQuestions, setSolvedQuestions] = useState(new Set());
   const [showHint, setShowHint] = useState(false);
@@ -31,6 +34,7 @@ const DSA = () => {
     setSelectedTopic(topic);
     setDifficultyFilter('');
     setSearchQuery('');
+    setCurrentPage(1);
     setSelectedQuestion(null);
     setShowHint(false);
     setShowSolution(false);
@@ -279,45 +283,102 @@ const DSA = () => {
       {loading ? (
         <Loader text="Fetching DSA questions..." />
       ) : filteredQuestions.length > 0 ? (
-        <div className="grid grid-cols-1 gap-4">
-          {filteredQuestions.map((q, index) => {
-            const difficultyClass =
-              q.difficulty === 'easy'
-                ? 'badge-easy'
-                : q.difficulty === 'medium'
-                ? 'badge-medium'
-                : 'badge-hard';
+        <>
+          <div className="grid grid-cols-1 gap-4">
+            {filteredQuestions
+              .slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE)
+              .map((q, index) => {
+                const difficultyClass =
+                  q.difficulty === 'easy'
+                    ? 'badge-easy'
+                    : q.difficulty === 'medium'
+                    ? 'badge-medium'
+                    : 'badge-hard';
 
-            return (
-              <div
-                key={q._id}
-                onClick={() => setSelectedQuestion(q)}
-                className="glass-card p-5 cursor-pointer hover:-translate-y-0.5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 group"
-              >
-                <div className="flex items-start gap-3 min-w-0">
-                  <span className="w-7 h-7 rounded-lg bg-dark-800 flex items-center justify-center text-xs font-bold text-dark-400 flex-shrink-0 group-hover:bg-primary-500/10 group-hover:text-primary-400 transition-colors">
-                    {index + 1}
-                  </span>
-                  <div className="min-w-0">
-                    <h3 className="text-sm font-semibold text-dark-100 group-hover:text-primary-400 transition-colors truncate">
-                      {q.title}
-                    </h3>
-                    <p className="text-xs text-dark-400 mt-1 truncate">
-                      {q.question.slice(0, 100)}...
-                    </p>
+                const globalIndex = (currentPage - 1) * ITEMS_PER_PAGE + index + 1;
+
+                return (
+                  <div
+                    key={q._id}
+                    onClick={() => setSelectedQuestion(q)}
+                    className="glass-card p-5 cursor-pointer hover:-translate-y-0.5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 group"
+                  >
+                    <div className="flex items-start gap-3 min-w-0">
+                      <span className="w-7 h-7 rounded-lg bg-dark-800 flex items-center justify-center text-xs font-bold text-dark-400 flex-shrink-0 group-hover:bg-primary-500/10 group-hover:text-primary-400 transition-colors">
+                        {globalIndex}
+                      </span>
+                      <div className="min-w-0">
+                        <h3 className="text-sm font-semibold text-dark-100 group-hover:text-primary-400 transition-colors truncate">
+                          {q.title}
+                        </h3>
+                        <p className="text-xs text-dark-400 mt-1 truncate">
+                          {q.question.slice(0, 100)}...
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-end gap-3 flex-shrink-0">
+                      <span className={`badge ${difficultyClass}`}>{q.difficulty}</span>
+                      {solvedQuestions.has(q._id) && (
+                        <HiOutlineCheckCircle className="w-5 h-5 text-emerald-400 flex-shrink-0" />
+                      )}
+                    </div>
                   </div>
-                </div>
+                );
+              })}
+          </div>
 
-                <div className="flex items-center justify-end gap-3 flex-shrink-0">
-                  <span className={`badge ${difficultyClass}`}>{q.difficulty}</span>
-                  {solvedQuestions.has(q._id) && (
-                    <HiOutlineCheckCircle className="w-5 h-5 text-emerald-400 flex-shrink-0" />
-                  )}
-                </div>
+          {/* Pagination Controls */}
+          {Math.ceil(filteredQuestions.length / ITEMS_PER_PAGE) > 1 && (
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 glass-card p-4 mt-6">
+              <div className="text-xs text-dark-400">
+                Showing <span className="font-semibold text-dark-200">{(currentPage - 1) * ITEMS_PER_PAGE + 1}</span> to{' '}
+                <span className="font-semibold text-dark-200">
+                  {Math.min(currentPage * ITEMS_PER_PAGE, filteredQuestions.length)}
+                </span>{' '}
+                of <span className="font-semibold text-dark-200">{filteredQuestions.length}</span> questions
               </div>
-            );
-          })}
-        </div>
+              <div className="flex items-center gap-2">
+                <button
+                  disabled={currentPage === 1}
+                  onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                  className="px-3 py-1.5 rounded-xl border border-dark-700/50 bg-dark-800/40 text-xs font-medium text-dark-200 hover:bg-dark-700/50 disabled:opacity-40 disabled:cursor-not-allowed transition-all flex items-center gap-1"
+                >
+                  <HiChevronLeft className="w-4 h-4" /> Previous
+                </button>
+
+                {Array.from(
+                  { length: Math.ceil(filteredQuestions.length / ITEMS_PER_PAGE) },
+                  (_, i) => i + 1
+                ).map((page) => (
+                  <button
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    className={`w-8 h-8 rounded-xl text-xs font-semibold transition-all ${
+                      currentPage === page
+                        ? 'bg-primary-500 text-white shadow-lg shadow-primary-500/25'
+                        : 'border border-dark-700/50 bg-dark-800/40 text-dark-300 hover:text-dark-100 hover:bg-dark-700/50'
+                    }`}
+                  >
+                    {page}
+                  </button>
+                ))}
+
+                <button
+                  disabled={currentPage === Math.ceil(filteredQuestions.length / ITEMS_PER_PAGE)}
+                  onClick={() =>
+                    setCurrentPage((prev) =>
+                      Math.min(prev + 1, Math.ceil(filteredQuestions.length / ITEMS_PER_PAGE))
+                    )
+                  }
+                  className="px-3 py-1.5 rounded-xl border border-dark-700/50 bg-dark-800/40 text-xs font-medium text-dark-200 hover:bg-dark-700/50 disabled:opacity-40 disabled:cursor-not-allowed transition-all flex items-center gap-1"
+                >
+                  Next <HiChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          )}
+        </>
       ) : (
         <div className="text-center py-12 glass-card">
           <HiOutlineBookOpen className="w-12 h-12 text-dark-500 mx-auto mb-3" />
