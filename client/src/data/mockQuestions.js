@@ -256,115 +256,37 @@ export const generateCodingLanguageQuestions = (languageName) => {
   const languageTemplates = {
     'Python': [
       {
-        title: 'List Comprehension Filtering',
-        question: 'Write a Python function to filter out odd numbers from a list and return their squares.',
-        sampleInput: '[1, 2, 3, 4, 5, 6]',
-        sampleOutput: '[4, 16, 36]',
-        hints: ['Use list comprehension with a conditional if (x % 2 == 0).'],
+        title: 'List Comprehension & Filtering',
+        question: 'Write a Python program to filter all even numbers from a list `nums` and return their squares.',
+        options: ['[x**2 for x in nums if x % 2 == 0]', 'list(map(lambda x: x**2, filter(lambda x: x % 2 == 0, nums)))', 'both A and B are correct', 'x**2 for x in nums'],
+        correctAnswer: 'both A and B are correct',
+        explanation: 'Both list comprehension and map/filter lambdas produce identical squared even lists in Python.',
+        hints: ['Use the modulus operator `% 2 == 0` for even numbers.'],
         solution: 'def square_evens(nums):\n    return [x**2 for x in nums if x % 2 == 0]',
-        explanation: 'List comprehension `[x**2 for x in nums if x % 2 == 0]` iterates over `nums`, filters even numbers, and returns squared results.'
-      },
-      {
-        title: 'Dictionary Key-Value Frequency Counter',
-        question: 'Count frequency of each word in a given sentence using Python dict or collections.Counter.',
-        sampleInput: '"apple banana apple orange banana apple"',
-        sampleOutput: '{"apple": 3, "banana": 2, "orange": 1}',
-        hints: ['Use collections.Counter or iterate over split string and update dictionary counts.'],
-        solution: 'from collections import Counter\n\ndef word_frequency(text):\n    return dict(Counter(text.split()))',
-        explanation: 'Counter(text.split()) counts word occurrences in O(N) time.'
+        sampleInput: 'nums = [1, 2, 3, 4, 5, 6]',
+        sampleOutput: '[4, 16]',
+        constraints: '1 <= len(nums) <= 10^5',
+        tags: ['python', 'list-comprehension', 'functional']
       }
     ],
     'Java': [
       {
-        title: 'Reverse Words in String',
-        question: 'Write a Java method to reverse words in a given sentence while retaining single space separation.',
-        sampleInput: '"PlacementPro AI Prep"',
-        sampleOutput: '"Prep AI PlacementPro"',
-        hints: ['Split sentence by spaces and reverse the resulting array or use StringBuilder.'],
-        solution: 'public String reverseWords(String s) {\n    String[] words = s.trim().split("\\s+");\n    StringBuilder sb = new StringBuilder();\n    for (int i = words.length - 1; i >= 0; i--) {\n        sb.append(words[i]);\n        if (i > 0) sb.append(" ");\n    }\n    return sb.toString();\n}',
-        explanation: 'Split by regex whitespace `\\s+` and reconstruct in reverse using StringBuilder.'
-      }
-    ],
-    'C++': [
-      {
-        title: 'Vector Unique Elements Filter',
-        question: 'Given a `std::vector<int>`, remove all duplicates in-place maintaining sorted order.',
-        sampleInput: '[1, 1, 2, 2, 3, 4, 4]',
-        sampleOutput: '[1, 2, 3, 4]',
-        hints: ['Use std::sort and std::unique followed by vector::erase.'],
-        solution: 'void removeDuplicates(std::vector<int>& nums) {\n    std::sort(nums.begin(), nums.end());\n    auto it = std::unique(nums.begin(), nums.end());\n    nums.erase(it, nums.end());\n}',
-        explanation: 'std::unique moves duplicate elements to the end of vector, and erase removes them in O(N log N) time.'
-      }
-    ],
-    'C': [
-      {
-        title: 'Pointer String In-place Reverse',
-        question: 'Write an in-place string reversal function in C using char pointers.',
-        sampleInput: '"Antigravity"',
-        sampleOutput: '"ytivargitnA"',
-        hints: ['Use two pointers (start and end), swap characters until start >= end.'],
-        solution: 'void reverseString(char* str) {\n    int len = strlen(str);\n    char *start = str, *end = str + len - 1;\n    while (start < end) {\n        char temp = *start;\n        *start++ = *end;\n        *end-- = temp;\n    }\n}',
-        explanation: 'Swapping characters from both ends using pointers reverses the null-terminated string in-place.'
-      }
-    ],
-    'JavaScript': [
-      {
-        title: 'Flatten Nested Array',
-        question: 'Write a JavaScript function to flatten an arbitrary nested array without using Array.prototype.flat.',
-        sampleInput: '[1, [2, [3, 4], 5], 6]',
-        sampleOutput: '[1, 2, 3, 4, 5, 6]',
-        hints: ['Use recursion with Array.reduce or flatMap.'],
-        solution: 'function flattenArray(arr) {\n    return arr.reduce((acc, val) => \n        Array.isArray(val) ? acc.concat(flattenArray(val)) : acc.concat(val), []);\n}',
-        explanation: 'Recursively concatenate elements if child is an array.'
-      }
-    ],
-    'TypeScript': [
-      {
-        title: 'Generic Stack Interface Implementation',
-        question: 'Create a generic Stack class in TypeScript with push, pop, and peek methods.',
-        sampleInput: 'const s = new Stack<number>(); s.push(42);',
-        sampleOutput: 's.peek() === 42',
-        hints: ['Use class Stack<T> with private array storage.'],
-        solution: 'class Stack<T> {\n  private items: T[] = [];\n  push(item: T): void { this.items.push(item); }\n  pop(): T | undefined { return this.items.pop(); }\n  peek(): T | undefined { return this.items[this.items.length - 1]; }\n}',
-        explanation: 'Generic parameter T allows type-safe stack operations for any given type.'
-      }
-    ],
-    'C#': [
-      {
-        title: 'LINQ Group By and Order',
-        question: 'Write a C# LINQ query to group a list of integers by even/odd and order each group in descending order.',
-        sampleInput: 'new List<int>{ 5, 2, 8, 1, 9, 4 }',
-        sampleOutput: 'Even: 8, 4, 2 | Odd: 9, 5, 1',
-        hints: ['Use .GroupBy(x => x % 2 == 0) and .Select(g => g.OrderByDescending(x => x)).'],
-        solution: 'var result = numbers\n    .GroupBy(n => n % 2 == 0)\n    .Select(g => new { IsEven = g.Key, Numbers = g.OrderByDescending(x => x) });',
-        explanation: 'LINQ GroupBy partitions items and OrderByDescending sorts each collection in O(N log N) time.'
-      }
-    ],
-    'PHP': [
-      {
-        title: 'Associative Array Key Filter',
-        question: 'Write a PHP function to filter an associative array keeping only keys starting with "user_".',
-        sampleInput: '["user_name" => "Alice", "age" => 25, "user_role" => "admin"]',
-        sampleOutput: '["user_name" => "Alice", "user_role" => "admin"]',
-        hints: ['Use array_filter with ARRAY_FILTER_USE_KEY and str_starts_with.'],
-        solution: 'function filterUserKeys(array $data): array {\n    return array_filter($data, function($key) {\n        return str_starts_with($key, "user_");\n    }, ARRAY_FILTER_USE_KEY);\n}',
-        explanation: 'array_filter with ARRAY_FILTER_USE_KEY checks keys matching prefix "user_".'
-      }
-    ],
-    'SQL': [
-      {
-        title: 'N-th Highest Salary Query',
-        question: 'Write an ANSI SQL query to find the 2nd highest salary from an Employees table.',
-        sampleInput: 'Employees (id, salary)',
-        sampleOutput: 'Salary: 90000',
-        hints: ['Use DENSE_RANK() OVER (ORDER BY salary DESC) or LIMIT 1 OFFSET 1.'],
-        solution: 'SELECT MAX(salary) AS SecondarySalary \nFROM Employees \nWHERE salary < (SELECT MAX(salary) FROM Employees);',
-        explanation: 'Subquery finds max salary, and outer query finds max salary strictly smaller than highest salary.'
+        title: 'String immutability and StringBuilder',
+        question: 'In Java, why is StringBuilder preferred over String for frequent string concatenations inside a loop?',
+        options: ['String is mutable while StringBuilder is immutable', 'String creates a new object in Heap on every concatenation O(N^2), whereas StringBuilder modifies array buffer in-place O(N)', 'StringBuilder uses GPU acceleration', 'There is no performance difference'],
+        correctAnswer: 'String creates a new object in Heap on every concatenation O(N^2), whereas StringBuilder modifies array buffer in-place O(N)',
+        explanation: 'Strings in Java are immutable. Concatenating strings in a loop allocates N intermediate objects.',
+        hints: ['Remember string immutability in Java.'],
+        solution: 'public String concatenate(String[] words) {\n    StringBuilder sb = new StringBuilder();\n    for (String w : words) sb.append(w);\n    return sb.toString();\n}',
+        sampleInput: 'words = ["Hello", " ", "World"]',
+        sampleOutput: '"Hello World"',
+        constraints: '1 <= words.length <= 10^5',
+        tags: ['java', 'stringbuilder', 'memory']
       }
     ]
   };
 
-  const templates = languageTemplates[languageName] || languageTemplates['JavaScript'];
+  const templates = languageTemplates[languageName] || languageTemplates['Python'];
   const questions = [];
 
   for (let i = 1; i <= 100; i++) {
@@ -373,21 +295,22 @@ export const generateCodingLanguageQuestions = (languageName) => {
 
     questions.push({
       _id: `mock-coding-${languageName.toLowerCase().replace(/[^a-z0-9]/g, '')}-${i}`,
-      title: `${languageName} Practice #${i}: ${template.title}`,
+      title: `${languageName} Practice Q${i}: ${template.title}`,
       category: 'coding',
       subject: languageName,
       topic: languageName,
       difficulty: diff,
       type: 'coding',
-      question: `[${languageName} Challenge Q${i}] ${template.question}`,
-      constraints: `Time Limit: 2.0s | Memory Limit: 256MB | Language: ${languageName}`,
-      sampleInput: template.sampleInput,
-      sampleOutput: template.sampleOutput,
+      question: `[${languageName} Coding Q${i}] ${template.question}`,
+      options: template.options,
+      correctAnswer: template.correctAnswer,
+      explanation: template.explanation,
       hints: template.hints,
       solution: template.solution,
-      correctAnswer: template.solution,
-      explanation: template.explanation,
-      tags: ['coding', languageName.toLowerCase().replace(/[^a-z0-9]/g, '')]
+      sampleInput: template.sampleInput,
+      sampleOutput: template.sampleOutput,
+      constraints: template.constraints,
+      tags: [...template.tags, languageName.toLowerCase().replace(/[^a-z0-9]/g, '')]
     });
   }
 

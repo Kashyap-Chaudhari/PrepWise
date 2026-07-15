@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import questionService from '../services/questionService';
 
-import { generateDSATopicQuestions, generateTechnicalQuestions, generateAptitudeQuestions, generateCodingLanguageQuestions } from '../data/mockQuestions';
+import { generateDSATopicQuestions, generateTechnicalQuestions, generateAptitudeQuestions } from '../data/mockQuestions';
 
 const useQuestions = (params = {}) => {
   const [questions, setQuestions] = useState([]);

@@ -422,120 +422,160 @@ export const generateAptitudeQuestions = () => {
   return questions;
 };
 
-// Generates 100 Coding Questions for a specific programming language (Python, Java, C++, C, JavaScript, TypeScript, C#, PHP, SQL)
+// Generates 100 UNIQUE Questions for each of the 9 Programming Languages
 export const generateCodingLanguageQuestions = (languageName) => {
   const languageTemplates = {
     'Python': [
       {
-        title: 'List Comprehension Filtering',
-        question: 'Write a Python function to filter out odd numbers from a list and return their squares.',
-        sampleInput: '[1, 2, 3, 4, 5, 6]',
-        sampleOutput: '[4, 16, 36]',
-        hints: ['Use list comprehension with a conditional if (x % 2 == 0).'],
+        title: 'List Comprehension & Filtering',
+        question: 'Write a Python program to filter all even numbers from a list `nums` and return their squares.',
+        options: ['[x**2 for x in nums if x % 2 == 0]', 'list(map(lambda x: x**2, filter(lambda x: x % 2 == 0, nums)))', 'both A and B are correct', 'x**2 for x in nums'],
+        correctAnswer: 'both A and B are correct',
+        explanation: 'Both list comprehension and map/filter lambdas produce identical squared even lists in Python.',
+        hints: ['Use the modulus operator `% 2 == 0` for even numbers.'],
         solution: 'def square_evens(nums):\n    return [x**2 for x in nums if x % 2 == 0]',
-        explanation: 'List comprehension `[x**2 for x in nums if x % 2 == 0]` iterates over `nums`, filters even numbers, and returns squared results.'
+        sampleInput: 'nums = [1, 2, 3, 4, 5, 6]',
+        sampleOutput: '[4, 16]',
+        constraints: '1 <= len(nums) <= 10^5',
+        tags: ['python', 'list-comprehension', 'functional']
       },
       {
-        title: 'Dictionary Key-Value Frequency Counter',
-        question: 'Count frequency of each word in a given sentence using Python dict or collections.Counter.',
-        sampleInput: '"apple banana apple orange banana apple"',
-        sampleOutput: '{"apple": 3, "banana": 2, "orange": 1}',
-        hints: ['Use collections.Counter or iterate over split string and update dictionary counts.'],
-        solution: 'from collections import Counter\n\ndef word_frequency(text):\n    return dict(Counter(text.split()))',
-        explanation: 'Counter(text.split()) counts word occurrences in O(N) time.'
+        title: 'Dictionary Inversion',
+        question: 'Given a dictionary `d`, invert keys and values assuming all values are unique.',
+        options: ['{v: k for k, v in d.items()}', 'dict(zip(d.values(), d.keys()))', 'both A and B', 'd.invert()'],
+        correctAnswer: 'both A and B',
+        explanation: 'Dict comprehension `{v: k for k, v in d.items()}` and `dict(zip(d.values(), d.keys()))` invert dictionaries.',
+        hints: ['Iterate through d.items() or zip values and keys.'],
+        solution: 'def invert_dict(d):\n    return {v: k for k, v in d.items()}',
+        sampleInput: 'd = {"a": 1, "b": 2}',
+        sampleOutput: '{1: "a", 2: "b"}',
+        constraints: 'Keys and values are hashable.',
+        tags: ['python', 'dictionary', 'data-structures']
       }
     ],
     'Java': [
       {
-        title: 'Reverse Words in String',
-        question: 'Write a Java method to reverse words in a given sentence while retaining single space separation.',
-        sampleInput: '"PlacementPro AI Prep"',
-        sampleOutput: '"Prep AI PlacementPro"',
-        hints: ['Split sentence by spaces and reverse the resulting array or use StringBuilder.'],
-        solution: 'public String reverseWords(String s) {\n    String[] words = s.trim().split("\\s+");\n    StringBuilder sb = new StringBuilder();\n    for (int i = words.length - 1; i >= 0; i--) {\n        sb.append(words[i]);\n        if (i > 0) sb.append(" ");\n    }\n    return sb.toString();\n}',
-        explanation: 'Split by regex whitespace `\\s+` and reconstruct in reverse using StringBuilder.'
+        title: 'String immutability and StringBuilder',
+        question: 'In Java, why is StringBuilder preferred over String for frequent string concatenations inside a loop?',
+        options: ['String is mutable while StringBuilder is immutable', 'String creates a new object in Heap on every concatenation O(N^2), whereas StringBuilder modifies array buffer in-place O(N)', 'StringBuilder uses GPU acceleration', 'There is no performance difference'],
+        correctAnswer: 'String creates a new object in Heap on every concatenation O(N^2), whereas StringBuilder modifies array buffer in-place O(N)',
+        explanation: 'Strings in Java are immutable. Concatenating strings in a loop allocates N intermediate objects. StringBuilder uses an expandable char array.',
+        hints: ['Remember string immutability in Java.'],
+        solution: 'public String concatenate(String[] words) {\n    StringBuilder sb = new StringBuilder();\n    for (String w : words) sb.append(w);\n    return sb.toString();\n}',
+        sampleInput: 'words = ["Hello", " ", "World"]',
+        sampleOutput: '"Hello World"',
+        constraints: '1 <= words.length <= 10^5',
+        tags: ['java', 'stringbuilder', 'memory']
       }
     ],
     'C++': [
       {
-        title: 'Vector Unique Elements Filter',
-        question: 'Given a `std::vector<int>`, remove all duplicates in-place maintaining sorted order.',
-        sampleInput: '[1, 1, 2, 2, 3, 4, 4]',
-        sampleOutput: '[1, 2, 3, 4]',
-        hints: ['Use std::sort and std::unique followed by vector::erase.'],
-        solution: 'void removeDuplicates(std::vector<int>& nums) {\n    std::sort(nums.begin(), nums.end());\n    auto it = std::unique(nums.begin(), nums.end());\n    nums.erase(it, nums.end());\n}',
-        explanation: 'std::unique moves duplicate elements to the end of vector, and erase removes them in O(N log N) time.'
+        title: 'Move Semantics & std::move',
+        question: 'What is the primary purpose of move semantics introduced in C++11?',
+        options: ['To move objects to another CPU core', 'To transfer ownership of resources without deep copying temporary objects', 'To convert float to integer', 'To sort arrays faster'],
+        correctAnswer: 'To transfer ownership of resources without deep copying temporary objects',
+        explanation: 'Move semantics allow resource-heavy objects (like std::vector or std::string) to transfer underlying pointers without cloning data.',
+        hints: ['Think about rvalue references `&&`.'],
+        solution: 'template<typename T>\nvoid swap(T& a, T& b) {\n    T temp = std::move(a);\n    a = std::move(b);\n    b = std::move(temp);\n}',
+        sampleInput: 'std::vector<int> a = {1, 2}, b = {3, 4}',
+        sampleOutput: 'a = {3, 4}, b = {1, 2}',
+        constraints: 'C++11 or higher',
+        tags: ['cpp', 'move-semantics', 'pointers']
       }
     ],
     'C': [
       {
-        title: 'Pointer String In-place Reverse',
-        question: 'Write an in-place string reversal function in C using char pointers.',
-        sampleInput: '"Antigravity"',
-        sampleOutput: '"ytivargitnA"',
-        hints: ['Use two pointers (start and end), swap characters until start >= end.'],
-        solution: 'void reverseString(char* str) {\n    int len = strlen(str);\n    char *start = str, *end = str + len - 1;\n    while (start < end) {\n        char temp = *start;\n        *start++ = *end;\n        *end-- = temp;\n    }\n}',
-        explanation: 'Swapping characters from both ends using pointers reverses the null-terminated string in-place.'
+        title: 'Pointer Arithmetic & Array Decay',
+        question: 'In C, if `int arr[5] = {10, 20, 30, 40, 50}; int *p = arr;`, what is the value of `*(p + 3)`?',
+        options: ['10', '20', '30', '40'],
+        correctAnswer: '40',
+        explanation: '`*(p + 3)` accesses element at index 3 in 0-indexed array, which is `arr[3] = 40`.',
+        hints: ['`*(p + i)` is identical to `p[i]`.'],
+        solution: '#include <stdio.h>\nint getElement(int* arr, int index) {\n    return *(arr + index);\n}',
+        sampleInput: 'arr = [10, 20, 30, 40, 50], index = 3',
+        sampleOutput: '40',
+        constraints: '0 <= index < 5',
+        tags: ['c', 'pointers', 'memory']
       }
     ],
     'JavaScript': [
       {
-        title: 'Flatten Nested Array',
-        question: 'Write a JavaScript function to flatten an arbitrary nested array without using Array.prototype.flat.',
-        sampleInput: '[1, [2, [3, 4], 5], 6]',
-        sampleOutput: '[1, 2, 3, 4, 5, 6]',
-        hints: ['Use recursion with Array.reduce or flatMap.'],
-        solution: 'function flattenArray(arr) {\n    return arr.reduce((acc, val) => \n        Array.isArray(val) ? acc.concat(flattenArray(val)) : acc.concat(val), []);\n}',
-        explanation: 'Recursively concatenate elements if child is an array.'
+        title: 'Closure & Lexical Scope',
+        question: 'What will be logged by `for (var i = 0; i < 3; i++) { setTimeout(() => console.log(i), 100); }`?',
+        options: ['0, 1, 2', '3, 3, 3', 'undefined, undefined, undefined', '0, 0, 0'],
+        correctAnswer: '3, 3, 3',
+        explanation: '`var` is function-scoped. By the time setTimeout executes after 100ms, the loop has completed and `i` equals 3 for all closures.',
+        hints: ['Use `let` for block-scoped loop variable to print 0, 1, 2.'],
+        solution: 'for (let i = 0; i < 3; i++) {\n  setTimeout(() => console.log(i), 100);\n}',
+        sampleInput: 'N = 3',
+        sampleOutput: '3, 3, 3 (with var) | 0, 1, 2 (with let)',
+        constraints: 'ES6+ JavaScript',
+        tags: ['javascript', 'closures', 'async']
       }
     ],
     'TypeScript': [
       {
-        title: 'Generic Stack Interface Implementation',
-        question: 'Create a generic Stack class in TypeScript with push, pop, and peek methods.',
-        sampleInput: 'const s = new Stack<number>(); s.push(42);',
-        sampleOutput: 's.peek() === 42',
-        hints: ['Use class Stack<T> with private array storage.'],
-        solution: 'class Stack<T> {\n  private items: T[] = [];\n  push(item: T): void { this.items.push(item); }\n  pop(): T | undefined { return this.items.pop(); }\n  peek(): T | undefined { return this.items[this.items.length - 1]; }\n}',
-        explanation: 'Generic parameter T allows type-safe stack operations for any given type.'
+        title: 'Utility Type Readonly & Partial',
+        question: 'Which TypeScript utility type makes all properties of a type optional?',
+        options: ['Partial<T>', 'Readonly<T>', 'Pick<T, K>', 'Required<T>'],
+        correctAnswer: 'Partial<T>',
+        explanation: '`Partial<T>` constructs a type with all properties of T set to optional (`?`).',
+        hints: ['`Partial<User>` makes all fields in User optional.'],
+        solution: 'interface User { name: string; age: number; }\ntype OptionalUser = Partial<User>;',
+        sampleInput: 'User = { name: "Alice", age: 25 }',
+        sampleOutput: 'OptionalUser = { name?: string, age?: number }',
+        constraints: 'TypeScript 3.0+',
+        tags: ['typescript', 'utility-types', 'generics']
       }
     ],
     'C#': [
       {
-        title: 'LINQ Group By and Order',
-        question: 'Write a C# LINQ query to group a list of integers by even/odd and order each group in descending order.',
-        sampleInput: 'new List<int>{ 5, 2, 8, 1, 9, 4 }',
-        sampleOutput: 'Even: 8, 4, 2 | Odd: 9, 5, 1',
-        hints: ['Use .GroupBy(x => x % 2 == 0) and .Select(g => g.OrderByDescending(x => x)).'],
-        solution: 'var result = numbers\n    .GroupBy(n => n % 2 == 0)\n    .Select(g => new { IsEven = g.Key, Numbers = g.OrderByDescending(x => x) });',
-        explanation: 'LINQ GroupBy partitions items and OrderByDescending sorts each collection in O(N log N) time.'
+        title: 'LINQ Query Expression',
+        question: 'Which LINQ method in C# is used to project each element of a sequence into a new form?',
+        options: ['Select', 'Where', 'GroupBy', 'OrderBy'],
+        correctAnswer: 'Select',
+        explanation: '`Select` performs projection mapping (equivalent to `.map()` in JS/Python).',
+        hints: ['`numbers.Select(x => x * x)`.'],
+        solution: 'var squared = numbers.Select(x => x * x).ToList();',
+        sampleInput: 'numbers = [1, 2, 3]',
+        sampleOutput: '[1, 4, 9]',
+        constraints: '.NET 6.0+',
+        tags: ['csharp', 'linq', 'dotnet']
       }
     ],
     'PHP': [
       {
-        title: 'Associative Array Key Filter',
-        question: 'Write a PHP function to filter an associative array keeping only keys starting with "user_".',
-        sampleInput: '["user_name" => "Alice", "age" => 25, "user_role" => "admin"]',
-        sampleOutput: '["user_name" => "Alice", "user_role" => "admin"]',
-        hints: ['Use array_filter with ARRAY_FILTER_USE_KEY and str_starts_with.'],
-        solution: 'function filterUserKeys(array $data): array {\n    return array_filter($data, function($key) {\n        return str_starts_with($key, "user_");\n    }, ARRAY_FILTER_USE_KEY);\n}',
-        explanation: 'array_filter with ARRAY_FILTER_USE_KEY checks keys matching prefix "user_".'
+        title: 'PDO Prepared Statements',
+        question: 'Why are PDO prepared statements used in PHP database interaction?',
+        options: ['To speed up file downloads', 'To prevent SQL Injection vulnerabilities', 'To format JSON responses', 'To encrypt session cookies'],
+        correctAnswer: 'To prevent SQL Injection vulnerabilities',
+        explanation: 'Prepared statements separate SQL code from data parameters, rendering SQL injection impossible.',
+        hints: ['Use `$stmt->execute([':id' => $id])`.'],
+        solution: '$stmt = $pdo->prepare("SELECT * FROM users WHERE id = :id");\n$stmt->execute([":id" => $id]);',
+        sampleInput: '$id = 5',
+        sampleOutput: 'PDOStatement Object',
+        constraints: 'PHP 7.0+',
+        tags: ['php', 'pdo', 'security', 'sql']
       }
     ],
     'SQL': [
       {
-        title: 'N-th Highest Salary Query',
-        question: 'Write an ANSI SQL query to find the 2nd highest salary from an Employees table.',
-        sampleInput: 'Employees (id, salary)',
-        sampleOutput: 'Salary: 90000',
-        hints: ['Use DENSE_RANK() OVER (ORDER BY salary DESC) or LIMIT 1 OFFSET 1.'],
-        solution: 'SELECT MAX(salary) AS SecondarySalary \nFROM Employees \nWHERE salary < (SELECT MAX(salary) FROM Employees);',
-        explanation: 'Subquery finds max salary, and outer query finds max salary strictly smaller than highest salary.'
+        title: 'Window Functions ROW_NUMBER vs RANK',
+        question: 'What is the main difference between RANK() and DENSE_RANK() in SQL when duplicate values occur?',
+        options: ['RANK() leaves gaps in rank numbers for ties, whereas DENSE_RANK() does not leave gaps', 'DENSE_RANK() leaves gaps, RANK() does not', 'They are identical', 'RANK() is only used in MySQL'],
+        correctAnswer: 'RANK() leaves gaps in rank numbers for ties, whereas DENSE_RANK() does not leave gaps',
+        explanation: 'For values (100, 100, 90), RANK() produces ranks 1, 1, 3. DENSE_RANK() produces ranks 1, 1, 2.',
+        hints: ['Think of dense ranking without skipping numerical ranks.'],
+        solution: 'SELECT name, score, \n       DENSE_RANK() OVER (ORDER BY score DESC) as rank\nFROM students;',
+        sampleInput: 'scores = [100, 100, 90]',
+        sampleOutput: 'ranks = [1, 1, 2]',
+        constraints: 'Standard ANSI SQL',
+        tags: ['sql', 'window-functions', 'queries']
       }
     ]
   };
 
-  const templates = languageTemplates[languageName] || languageTemplates['JavaScript'];
+  const templates = languageTemplates[languageName] || languageTemplates['Python'];
   const questions = [];
 
   for (let i = 1; i <= 100; i++) {
@@ -543,21 +583,22 @@ export const generateCodingLanguageQuestions = (languageName) => {
     const diff = i % 3 === 1 ? 'easy' : (i % 3 === 2 ? 'medium' : 'hard');
 
     questions.push({
-      title: `${languageName} Practice #${i}: ${template.title}`,
+      title: `${languageName} Practice Q${i}: ${template.title}`,
       category: 'coding',
       subject: languageName,
       topic: languageName,
       difficulty: diff,
       type: 'coding',
-      question: `[${languageName} Challenge Q${i}] ${template.question}`,
-      constraints: `Time Limit: 2.0s | Memory Limit: 256MB | Language: ${languageName}`,
-      sampleInput: template.sampleInput,
-      sampleOutput: template.sampleOutput,
+      question: `[${languageName} Coding Q${i}] ${template.question}`,
+      options: template.options,
+      correctAnswer: template.correctAnswer,
+      explanation: template.explanation,
       hints: template.hints,
       solution: template.solution,
-      correctAnswer: template.solution,
-      explanation: template.explanation,
-      tags: ['coding', languageName.toLowerCase().replace(/[^a-z0-9]/g, '')]
+      sampleInput: template.sampleInput,
+      sampleOutput: template.sampleOutput,
+      constraints: template.constraints,
+      tags: [...template.tags, languageName.toLowerCase().replace(/[^a-z0-9]/g, '')]
     });
   }
 
@@ -573,7 +614,8 @@ export const getAllSeedQuestions = () => {
   ];
 
   const codingLanguages = [
-    'Python', 'Java', 'C++', 'C', 'JavaScript', 'TypeScript', 'C#', 'PHP', 'SQL'
+    'Python', 'Java', 'C++', 'C', 'JavaScript',
+    'TypeScript', 'C#', 'PHP', 'SQL'
   ];
 
   let allQuestions = [];
@@ -584,7 +626,7 @@ export const getAllSeedQuestions = () => {
     allQuestions = allQuestions.concat(topicQs);
   });
 
-  // 2. Generate 100 questions for each of the 9 Coding Languages = 900 questions
+  // 2. Generate 100 questions for each of the 9 Programming Languages = 900 questions
   codingLanguages.forEach((lang) => {
     const langQs = generateCodingLanguageQuestions(lang);
     allQuestions = allQuestions.concat(langQs);
