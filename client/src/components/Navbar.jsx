@@ -23,7 +23,38 @@ const Navbar = () => {
   useEffect(() => {
     setIsOpen(false);
     setDropdownOpen(false);
+
+    if (location.hash) {
+      const id = location.hash.replace('#', '');
+      const element = document.getElementById(id);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
   }, [location]);
+
+  const handleNavClick = (e, link) => {
+    if (link.path.includes('#')) {
+      e.preventDefault();
+      const hash = link.path.split('#')[1];
+      if (location.pathname === '/') {
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      } else {
+        navigate(`/#${hash}`);
+      }
+    } else if (link.path === '/') {
+      if (location.pathname === '/') {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+    setIsOpen(false);
+  };
 
   const handleLogout = () => {
     logout();
@@ -66,8 +97,9 @@ const Navbar = () => {
               <Link
                 key={link.path}
                 to={link.path}
+                onClick={(e) => handleNavClick(e, link)}
                 className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
-                  location.pathname === link.path
+                  location.pathname === link.path || (link.path.includes('#') && location.hash === link.path.substring(1))
                     ? 'text-primary-400 bg-primary-500/10'
                     : 'text-dark-400 hover:text-dark-100 hover:bg-dark-800/50 dark:text-dark-400 dark:hover:text-dark-100'
                 }`}
@@ -176,8 +208,9 @@ const Navbar = () => {
                 <Link
                   key={link.path}
                   to={link.path}
+                  onClick={(e) => handleNavClick(e, link)}
                   className={`px-4 py-3 rounded-xl text-sm font-medium transition-all ${
-                    location.pathname === link.path
+                    location.pathname === link.path || (link.path.includes('#') && location.hash === link.path.substring(1))
                       ? 'text-primary-400 bg-primary-500/10'
                       : 'text-dark-400 hover:text-dark-100 hover:bg-dark-800/50'
                   }`}
