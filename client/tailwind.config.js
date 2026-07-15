@@ -6,62 +6,57 @@ export default {
     extend: {
       colors: {
         primary: {
-          50: '#f5f3ff',
-          100: '#ede9fe',
-          200: '#ddd6fe',
-          300: '#c4b5fd',
-          400: '#a78bfa',
-          500: '#8b5cf6', // SaaS premium Violet/Indigo
-          600: '#7c3aed',
+          50: '#eef2ff',
+          100: '#e0e7ff',
+          200: '#c7d2fe',
+          300: '#a5b4fc',
+          400: '#818cf8',
+          500: '#5B5CF6', // Specified Primary
+          600: '#7C3AED', // Specified Gradient end / Primary hover
           700: '#6d28d9',
           800: '#5b21b6',
           900: '#4c1d95',
           950: '#2e1065',
         },
         secondary: {
-          50: '#ecfdf5',
-          100: '#d1fae5',
-          200: '#a7f3d0',
-          300: '#6ee7b7',
-          400: '#34d399',
-          500: '#10b981', // Emerald Success
-          600: '#059669',
-          700: '#047857',
-          800: '#065f46',
-          900: '#064e3b',
-          950: '#022c22',
+          50: '#ecfeff',
+          100: '#cffafe',
+          200: '#a5f3fc',
+          300: '#67e8f9',
+          400: '#22D3EE', // Specified Dark Secondary
+          500: '#06b6d4',
+          600: '#0891B2', // Specified Light Secondary
+          700: '#0e7490',
+          800: '#155e75',
+          900: '#164e63',
         },
         accent: {
-          50: '#fdf2f8',
-          100: '#fce7f3',
-          200: '#fbcfe8',
-          300: '#f472b6',
-          400: '#ec4899',
-          500: '#db2777', // Soft Pink/Fuchsia for warnings/highlights
-          600: '#c026d3',
-          700: '#9d174d',
-          800: '#831843',
-          900: '#500724',
-          955: '#500724',
+          50: '#f5f3ff',
+          100: '#ede9fe',
+          200: '#ddd6fe',
+          300: '#c4b5fd',
+          400: '#a78bfa',
+          500: '#8B5CF6', // Specified Accent
+          600: '#7c3aed',
+          700: '#6d28d9',
         },
         dark: {
-          50: '#fafafa', // Zinc 50
-          100: '#f4f4f5', // Zinc 100
-          200: '#e4e4e7', // Zinc 200
-          300: '#cbd5e1', 
-          400: '#a1a1aa', // Zinc 400
-          500: '#71717a', // Zinc 500
-          600: '#52525b', // Zinc 600
-          705: '#3f3f46', // Zinc 700
-          700: '#27272a', // Zinc 800
-          800: '#18181b', // Zinc 900
-          900: '#0f0f11', // Darker Zinc
-          950: '#09090b', // Zinc 950 (Perfect SaaS dark background)
+          50: '#FAFAFB', // Specified Light Bg
+          100: '#FFFFFF', // Specified Light Surface
+          200: '#E4E4E7', // Specified Light Border
+          300: '#d4d4d8', 
+          400: '#A1A1AA', // Specified Dark Muted Text
+          500: '#52525B', // Specified Light Muted Text
+          600: '#3f3f46',
+          700: '#27272a',
+          800: '#18181B', // Specified Dark Cards
+          900: '#111114', // Specified Dark Surface
+          950: '#0A0A0B', // Specified Dark Background
         },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-        display: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Geist', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        display: ['Geist', 'Inter', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
       },
       animation: {
