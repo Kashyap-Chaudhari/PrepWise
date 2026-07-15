@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import questionService from '../services/questionService';
 
-import { generateDSATopicQuestions, generateTechnicalQuestions, generateAptitudeQuestions } from '../data/mockQuestions';
+import { generateDSATopicQuestions, generateTechnicalQuestions, generateAptitudeQuestions, generateCodingLanguageQuestions } from '../data/mockQuestions';
 
 const useQuestions = (params = {}) => {
   const [questions, setQuestions] = useState([]);
@@ -38,7 +38,7 @@ const useQuestions = (params = {}) => {
   const fetchQuestions = useCallback(async (queryParams = {}) => {
     setLoading(true);
     setError(null);
-    const mergedParams = { ...params, ...queryParams };
+    const mergedParams = { limit: 1000, ...params, ...queryParams };
     try {
       const res = await questionService.getQuestions(mergedParams);
       if (res.data?.questions && res.data.questions.length > 0) {
