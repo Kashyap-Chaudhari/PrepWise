@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { FaGithub, FaLinkedin, FaTwitter, FaHeart } from 'react-icons/fa';
+import Logo from './Logo';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -10,12 +11,9 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="md:col-span-1">
-            <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center text-white font-bold text-lg">
-                P
-              </div>
-              <span className="text-xl font-bold gradient-text">PlacementPro</span>
-            </Link>
+            <div className="mb-4">
+              <Logo to="/" />
+            </div>
             <p className="text-dark-400 text-sm leading-relaxed">
               Your AI-powered companion for acing placement interviews. Practice, learn, and succeed.
             </p>
