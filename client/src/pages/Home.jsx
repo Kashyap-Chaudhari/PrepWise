@@ -233,53 +233,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ==================== TESTIMONIALS SECTION ==================== */}
-      <section id="testimonials" className="py-24">
-        <div className="section-container">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-dark-100 mb-4">
-              Loved by <span className="gradient-text">Students</span>
-            </h2>
-            <p className="text-dark-400 max-w-xl mx-auto">
-              See what our community has to say about their preparation journey.
-            </p>
-          </div>
-
-          <div className="max-w-2xl mx-auto">
-            <div className="glass-card p-8 text-center transition-all duration-500">
-              <div className="flex items-center justify-center gap-1 mb-4">
-                {[...Array(TESTIMONIALS[activeTestimonial].rating)].map((_, i) => (
-                  <HiOutlineStar key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400" />
-                ))}
-              </div>
-              <p className="text-lg text-dark-200 leading-relaxed mb-6 italic">
-                "{TESTIMONIALS[activeTestimonial].quote}"
-              </p>
-              <div>
-                <p className="text-sm font-semibold text-dark-100">
-                  {TESTIMONIALS[activeTestimonial].name}
-                </p>
-                <p className="text-xs text-dark-400">{TESTIMONIALS[activeTestimonial].college}</p>
-              </div>
-            </div>
-
-            {/* Dots */}
-            <div className="flex items-center justify-center gap-2 mt-6">
-              {TESTIMONIALS.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setActiveTestimonial(index)}
-                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${index === activeTestimonial
-                      ? 'bg-primary-500 w-8'
-                      : 'bg-dark-600 hover:bg-dark-500'
-                    }`}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ==================== FAQ SECTION ==================== */}
       <section id="faq" className="py-24">
         <div className="section-container">

@@ -344,12 +344,26 @@ html:not(.dark) .bg-dark-800\/50,
 html:not(.dark) .bg-dark-800\/60,
 html:not(.dark) .bg-dark-800\/80 {
   background-color: #F1F5F9 !important;
+  border: 1px solid #E2E8F0 !important;
 }
 
 html:not(.dark) .bg-dark-700,
 html:not(.dark) .bg-dark-700\/30,
 html:not(.dark) .bg-dark-700\/50 {
   background-color: #E2E8F0 !important;
+}
+
+/* Fix section background gradient overlays in Light Mode (Statistics & CTA) */
+html:not(.dark) #statistics,
+html:not(.dark) #cta-section {
+  background: linear-gradient(135deg, rgba(238, 242, 255, 0.6) 0%, rgba(248, 250, 252, 0.95) 50%, rgba(236, 254, 255, 0.6) 100%) !important;
+  border-top: 1px solid #E2E8F0;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+html:not(.dark) #statistics .absolute,
+html:not(.dark) #cta-section .absolute {
+  display: none !important;
 }
 
 /* Light mode borders */
