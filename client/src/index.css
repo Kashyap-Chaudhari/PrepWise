@@ -25,18 +25,18 @@
 
   /* Light Mode Tokens */
   html:not(.dark) {
-    --color-bg: #FAFAFB;
+    --color-bg: #F8FAFC;
     --color-surface: #FFFFFF;
-    --color-card: #F8F8FA;
-    --color-card-glass: #F8F8FA;
-    --color-border: #E4E4E7;
-    --color-divider: #F4F4F5;
+    --color-card: #FFFFFF;
+    --color-card-glass: rgba(255, 255, 255, 0.9);
+    --color-border: #E2E8F0;
+    --color-divider: #F1F5F9;
     --color-primary: #4F46E5;
     --color-primary-mid: #6366F1;
     --color-secondary: #0891B2;
     --color-accent: #D97706;
-    --color-text: #18181B;
-    --color-muted: #52525B;
+    --color-text: #0F172A;
+    --color-muted: #64748B;
   }
 
   * {
@@ -89,9 +89,14 @@
 
   html:not(.dark) body::before {
     background: 
-      radial-gradient(circle at 12% 15%, rgba(79, 70, 229, 0.06) 0%, transparent 45%),
+      radial-gradient(circle at 12% 15%, rgba(79, 70, 229, 0.07) 0%, transparent 45%),
       radial-gradient(circle at 88% 18%, rgba(8, 145, 178, 0.05) 0%, transparent 40%),
       radial-gradient(circle at 82% 82%, rgba(217, 119, 6, 0.04) 0%, transparent 50%);
+    opacity: 1;
+  }
+
+  html:not(.dark) body::after {
+    opacity: 0.015;
   }
 
   ::selection {
@@ -123,7 +128,7 @@
    Aurora OS Component Layer
    ======================================== */
 @layer components {
-  /* Floating Glass Navbar (Rounded 999px container style) */
+  /* Floating Glass Navbar */
   .floating-glass-nav, .glass-nav {
     background: rgba(17, 17, 20, 0.65);
     backdrop-filter: blur(24px);
@@ -133,13 +138,7 @@
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  html:not(.dark) .floating-glass-nav, html:not(.dark) .glass-nav {
-    background: rgba(255, 255, 255, 0.85);
-    border: 1px solid var(--color-border);
-    box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.06), inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
-  }
-
-  /* Aurora OS Glassmorphism Card (24px radius, 20px blur) */
+  /* Glassmorphism Card (24px radius, 20px blur) */
   .glass-card, .aurora-card {
     background-color: var(--color-card-glass);
     backdrop-filter: blur(20px);
@@ -156,18 +155,7 @@
     box-shadow: 0 16px 40px -10px rgba(91, 92, 246, 0.2), inset 0 1px 1px 0 rgba(255, 255, 255, 0.1);
   }
 
-  html:not(.dark) .glass-card, html:not(.dark) .aurora-card {
-    background-color: var(--color-card);
-    border: 1px solid var(--color-border);
-    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04);
-  }
-
-  html:not(.dark) .glass-card:hover, html:not(.dark) .aurora-card:hover {
-    border-color: rgba(79, 70, 229, 0.22);
-    box-shadow: 0 14px 32px -4px rgba(0, 0, 0, 0.08);
-  }
-
-  /* Primary Button (Gradient #5B5CF6 -> #7C3AED -> #22D3EE, height 52px, radius 16px) */
+  /* Primary Button */
   .btn-gradient, .btn-apple-primary {
     position: relative;
     display: inline-flex;
@@ -195,7 +183,7 @@
     transform: translateY(0);
   }
 
-  /* Secondary Button (Glass Effect, Transparent, Thin border) */
+  /* Secondary Button */
   .btn-outline, .btn-apple-secondary {
     display: inline-flex;
     align-items: center;
@@ -220,11 +208,6 @@
     transform: translateY(-2px);
   }
 
-  html:not(.dark) .btn-outline:hover, html:not(.dark) .btn-apple-secondary:hover {
-    background: rgba(0, 0, 0, 0.03);
-    border-color: #D4D4D8;
-  }
-
   /* Premium Glass Inputs */
   .input-field {
     width: 100%;
@@ -242,12 +225,6 @@
     box-shadow: 0 0 0 4px rgba(91, 92, 246, 0.18);
   }
 
-  html:not(.dark) .input-field {
-    background: #FFFFFF;
-    border: 1px solid var(--color-border);
-    color: var(--color-text);
-  }
-
   /* Gradient Text */
   .gradient-text, .stripe-text {
     background: linear-gradient(135deg, #FFFFFF 0%, #FAFAFA 40%, var(--color-primary) 70%, var(--color-secondary) 100%);
@@ -256,14 +233,7 @@
     -webkit-text-fill-color: transparent;
   }
 
-  html:not(.dark) .gradient-text, html:not(.dark) .stripe-text {
-    background: linear-gradient(135deg, #18181B 0%, #3F3F46 40%, var(--color-primary) 80%, var(--color-secondary) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  /* Aurora OS Badges */
+  /* Badges */
   .badge {
     @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium;
   }
@@ -298,14 +268,6 @@
 
   .sidebar-link.active {
     @apply bg-primary-500/10 text-primary-400 border-r-2 border-primary-500;
-  }
-
-  html:not(.dark) .sidebar-link {
-    @apply text-gray-600 hover:bg-gray-100 hover:text-gray-900;
-  }
-
-  html:not(.dark) .sidebar-link.active {
-    @apply bg-indigo-50 text-indigo-600 border-indigo-600;
   }
 
   /* Tables styling */
@@ -344,21 +306,187 @@
     animation: shimmer 2s linear infinite;
     border-radius: 12px;
   }
-
-  html:not(.dark) .skeleton {
-    background: linear-gradient(
-      90deg,
-      #F4F4F5 25%,
-      #E4E4E7 50%,
-      #F4F4F5 75%
-    );
-    background-size: 200% 100%;
-  }
 }
 
 /* ========================================
-   Utility Layer
+   Light Mode Complete Design System
    ======================================== */
+html:not(.dark) body {
+  background-color: #F8FAFC !important;
+  color: #0F172A !important;
+}
+
+/* Light mode text utilities */
+html:not(.dark) .text-dark-100,
+html:not(.dark) .text-dark-200,
+html:not(.dark) .text-dark-300 {
+  color: #0F172A !important;
+}
+
+html:not(.dark) .text-dark-400 {
+  color: #64748B !important;
+}
+
+html:not(.dark) .text-dark-500 {
+  color: #94A3B8 !important;
+}
+
+/* Light mode backgrounds & surfaces */
+html:not(.dark) .bg-dark-950,
+html:not(.dark) .bg-dark-900,
+html:not(.dark) .bg-dark-900\/50,
+html:not(.dark) .bg-dark-900\/80 {
+  background-color: #F8FAFC !important;
+}
+
+html:not(.dark) .bg-dark-800,
+html:not(.dark) .bg-dark-800\/50,
+html:not(.dark) .bg-dark-800\/60,
+html:not(.dark) .bg-dark-800\/80 {
+  background-color: #F1F5F9 !important;
+}
+
+html:not(.dark) .bg-dark-700,
+html:not(.dark) .bg-dark-700\/30,
+html:not(.dark) .bg-dark-700\/50 {
+  background-color: #E2E8F0 !important;
+}
+
+/* Light mode borders */
+html:not(.dark) .border-dark-700,
+html:not(.dark) .border-dark-700\/30,
+html:not(.dark) .border-dark-700\/50,
+html:not(.dark) .border-dark-700\/60,
+html:not(.dark) .border-dark-600,
+html:not(.dark) .border-dark-600\/50 {
+  border-color: #E2E8F0 !important;
+}
+
+/* Light mode cards */
+html:not(.dark) .glass-card,
+html:not(.dark) .aurora-card {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.02) !important;
+}
+
+html:not(.dark) .glass-card:hover,
+html:not(.dark) .aurora-card:hover {
+  border-color: rgba(79, 70, 229, 0.3) !important;
+  box-shadow: 0 12px 28px -4px rgba(0, 0, 0, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.04) !important;
+  transform: translateY(-2px);
+}
+
+/* Light mode navbar */
+html:not(.dark) .glass-nav,
+html:not(.dark) .floating-glass-nav {
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(20px) !important;
+  border-color: #E2E8F0 !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Light mode buttons */
+html:not(.dark) .btn-gradient,
+html:not(.dark) .btn-apple-primary {
+  background: linear-gradient(135deg, #4F46E5 0%, #6366F1 50%, #0EA5E9 100%) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 4px 16px -2px rgba(79, 70, 229, 0.35) !important;
+}
+
+html:not(.dark) .btn-gradient:hover,
+html:not(.dark) .btn-apple-primary:hover {
+  box-shadow: 0 8px 24px -2px rgba(79, 70, 229, 0.45) !important;
+}
+
+html:not(.dark) .btn-outline,
+html:not(.dark) .btn-apple-secondary {
+  background: #FFFFFF !important;
+  color: #0F172A !important;
+  border: 1px solid #E2E8F0 !important;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+}
+
+html:not(.dark) .btn-outline:hover,
+html:not(.dark) .btn-apple-secondary:hover {
+  background: #F8FAFC !important;
+  border-color: #CBD5E1 !important;
+  color: #0F172A !important;
+}
+
+/* Light mode input fields */
+html:not(.dark) .input-field {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  color: #0F172A !important;
+}
+
+html:not(.dark) .input-field::placeholder {
+  color: #94A3B8 !important;
+}
+
+html:not(.dark) .input-field:focus {
+  border-color: #6366F1 !important;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12) !important;
+}
+
+/* Light mode Gradient Headings */
+html:not(.dark) .gradient-text,
+html:not(.dark) .stripe-text {
+  background: linear-gradient(135deg, #0F172A 0%, #334155 45%, #4F46E5 80%, #0891B2 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* Light mode tables */
+html:not(.dark) th {
+  background: rgba(248, 250, 252, 0.9) !important;
+  color: #64748B !important;
+  border-bottom: 1px solid #E2E8F0 !important;
+}
+
+html:not(.dark) tr:hover td {
+  background-color: #F8FAFC !important;
+}
+
+/* Light mode badges */
+html:not(.dark) .badge-easy {
+  background-color: #ECFDF5 !important;
+  color: #059669 !important;
+  border-color: #A7F3D0 !important;
+}
+
+html:not(.dark) .badge-medium {
+  background-color: #FFFBEB !important;
+  color: #D97706 !important;
+  border-color: #FDE68A !important;
+}
+
+html:not(.dark) .badge-hard {
+  background-color: #FEF2F2 !important;
+  color: #DC2626 !important;
+  border-color: #FECACA !important;
+}
+
+/* Light mode sidebar link overrides */
+html:not(.dark) .sidebar-link {
+  color: #64748B !important;
+}
+
+html:not(.dark) .sidebar-link:hover {
+  background-color: #F1F5F9 !important;
+  color: #0F172A !important;
+}
+
+html:not(.dark) .sidebar-link.active {
+  background-color: #EEF2FF !important;
+  color: #4F46E5 !important;
+  border-right-color: #4F46E5 !important;
+}
+
+/* Utility Layer */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
