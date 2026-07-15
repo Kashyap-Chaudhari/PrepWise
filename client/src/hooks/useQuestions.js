@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import questionService from '../services/questionService';
 
-import { generateDSATopicQuestions, generateTechnicalQuestions, generateAptitudeQuestions } from '../data/mockQuestions';
+import { generateDSATopicQuestions, generateTechnicalQuestions, generateAptitudeQuestions, generateCodingLanguageQuestions } from '../data/mockQuestions';
 
 const useQuestions = (params = {}) => {
   const [questions, setQuestions] = useState([]);
@@ -14,6 +14,12 @@ const useQuestions = (params = {}) => {
   });
 
   const getFallbackDataset = (mergedParams) => {
+    if (mergedParams.category === 'coding' && (mergedParams.subject || mergedParams.topic)) {
+      return generateCodingLanguageQuestions(mergedParams.subject || mergedParams.topic);
+    }
+    if (mergedParams.category === 'coding') {
+      return generateCodingLanguageQuestions('Python');
+    }
     if (mergedParams.category === 'dsa' && mergedParams.topic) {
       return generateDSATopicQuestions(mergedParams.topic);
     }

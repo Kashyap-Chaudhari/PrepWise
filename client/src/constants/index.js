@@ -101,6 +101,18 @@ export const DSA_TOPICS = [
   { name: 'Searching', icon: '🔍', color: 'from-slate-500 to-gray-600', description: 'Binary search and variations' },
 ];
 
+export const CODING_LANGUAGES = [
+  { name: 'Python', icon: '🐍', color: 'from-yellow-500 to-green-500', description: 'Lists, Dictionaries, Lambdas, OOP, Algorithms' },
+  { name: 'Java', icon: '☕', color: 'from-red-500 to-orange-500', description: 'OOP, Collections, Threads, Stream API, Generics' },
+  { name: 'C++', icon: '⚡', color: 'from-blue-500 to-indigo-600', description: 'STL, Pointers, Templates, Memory, References' },
+  { name: 'C', icon: '🔵', color: 'from-blue-600 to-blue-800', description: 'Pointers, Structs, Dynamic Memory, Macros' },
+  { name: 'JavaScript', icon: '🟨', color: 'from-yellow-400 to-amber-500', description: 'ES6+, Promises, Closures, Async/Await, Array Methods' },
+  { name: 'TypeScript', icon: '🔷', color: 'from-blue-500 to-cyan-600', description: 'Interfaces, Generics, Tuples, Enums, Type Guards' },
+  { name: 'C#', icon: '💎', color: 'from-purple-600 to-violet-700', description: 'LINQ, Delegates, Properties, Async Task, Memory' },
+  { name: 'PHP', icon: '🐘', color: 'from-indigo-400 to-purple-500', description: 'Arrays, Classes, Exceptions, String Manipulation' },
+  { name: 'SQL', icon: '🧠', color: 'from-amber-500 to-orange-600', description: 'JOINs, Aggregation, Subqueries, Indexes, Grouping' },
+];
+
 export const DIFFICULTY_LEVELS = [
   { value: 'easy', label: 'Easy', color: 'text-emerald-400', bg: 'bg-emerald-500/15' },
   { value: 'medium', label: 'Medium', color: 'text-amber-400', bg: 'bg-amber-500/15' },
