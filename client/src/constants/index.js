@@ -8,6 +8,10 @@ import {
   HiOutlineDesktopComputer,
   HiOutlineLightningBolt,
   HiOutlineBookOpen,
+  HiOutlineSparkles,
+  HiOutlineTerminal,
+  HiOutlineMicrophone,
+  HiOutlineAdjustments,
 } from 'react-icons/hi';
 import {
   FaJava,
@@ -54,64 +58,64 @@ export const APTITUDE_TOPICS = [
     subject: 'Quantitative Aptitude',
     description: 'Numbers, algebra, geometry, and arithmetic reasoning',
     icon: '📊',
-    color: 'from-blue-500 to-cyan-500',
+    color: 'from-indigo-500 to-cyan-500',
   },
   {
     name: 'Logical Reasoning',
     subject: 'Logical Reasoning',
     description: 'Patterns, puzzles, deductions, and analytical thinking',
     icon: '🧩',
-    color: 'from-purple-500 to-pink-500',
+    color: 'from-indigo-600 to-indigo-400',
   },
   {
     name: 'Verbal Ability',
     subject: 'Verbal Ability',
     description: 'Vocabulary, grammar, comprehension, and communication',
     icon: '📝',
-    color: 'from-amber-500 to-orange-500',
+    color: 'from-cyan-600 to-indigo-500',
   },
 ];
 
 export const TECHNICAL_SUBJECTS = [
   { name: 'C', subject: 'C', icon: SiC, color: 'from-blue-600 to-blue-800' },
   { name: 'C++', subject: 'C++', icon: SiCplusplus, color: 'from-blue-500 to-indigo-600' },
-  { name: 'Java', subject: 'Java', icon: FaJava, color: 'from-red-500 to-orange-500' },
-  { name: 'Python', subject: 'Python', icon: FaPython, color: 'from-yellow-500 to-green-500' },
-  { name: 'JavaScript', subject: 'JavaScript', icon: SiJavascript, color: 'from-yellow-400 to-yellow-600' },
-  { name: 'DBMS', subject: 'DBMS', icon: FaDatabase, color: 'from-emerald-500 to-teal-600' },
-  { name: 'Operating System', subject: 'Operating System', icon: FaCogs, color: 'from-gray-500 to-slate-600' },
-  { name: 'Computer Networks', subject: 'Computer Networks', icon: FaNetworkWired, color: 'from-cyan-500 to-blue-500' },
-  { name: 'SQL', subject: 'SQL', icon: FaDatabase, color: 'from-orange-500 to-red-500' },
-  { name: 'OOP', subject: 'OOP', icon: FaCode, color: 'from-violet-500 to-purple-600' },
-  { name: 'Software Engineering', subject: 'Software Engineering', icon: FaCogs, color: 'from-pink-500 to-rose-600' },
-  { name: 'Machine Learning', subject: 'Machine Learning Basics', icon: FaRobot, color: 'from-green-500 to-emerald-600' },
+  { name: 'Java', subject: 'Java', icon: FaJava, color: 'from-indigo-500 to-indigo-700' },
+  { name: 'Python', subject: 'Python', icon: FaPython, color: 'from-cyan-500 to-blue-600' },
+  { name: 'JavaScript', subject: 'JavaScript', icon: SiJavascript, color: 'from-amber-400 to-amber-600' },
+  { name: 'DBMS', subject: 'DBMS', icon: FaDatabase, color: 'from-indigo-600 to-cyan-600' },
+  { name: 'Operating System', subject: 'Operating System', icon: FaCogs, color: 'from-slate-600 to-slate-800' },
+  { name: 'Computer Networks', subject: 'Computer Networks', icon: FaNetworkWired, color: 'from-cyan-500 to-indigo-600' },
+  { name: 'SQL', subject: 'SQL', icon: FaDatabase, color: 'from-indigo-500 to-indigo-800' },
+  { name: 'OOP', subject: 'OOP', icon: FaCode, color: 'from-indigo-400 to-indigo-600' },
+  { name: 'Software Engineering', subject: 'Software Engineering', icon: FaCogs, color: 'from-slate-500 to-indigo-600' },
+  { name: 'Machine Learning', subject: 'Machine Learning Basics', icon: FaRobot, color: 'from-cyan-500 to-indigo-500' },
 ];
 
 export const DSA_TOPICS = [
-  { name: 'Arrays', icon: '📋', color: 'from-blue-500 to-cyan-500', description: 'Array manipulation and searching' },
-  { name: 'Strings', icon: '🔤', color: 'from-green-500 to-emerald-500', description: 'String operations and patterns' },
-  { name: 'Linked List', icon: '🔗', color: 'from-purple-500 to-violet-500', description: 'Singly and doubly linked lists' },
-  { name: 'Stack', icon: '📚', color: 'from-amber-500 to-orange-500', description: 'LIFO operations and applications' },
-  { name: 'Queue', icon: '🎫', color: 'from-red-500 to-pink-500', description: 'FIFO operations and variants' },
-  { name: 'Trees', icon: '🌳', color: 'from-emerald-500 to-green-600', description: 'Binary trees, BST, traversals' },
-  { name: 'Graphs', icon: '🕸️', color: 'from-indigo-500 to-blue-600', description: 'BFS, DFS, shortest paths' },
-  { name: 'Recursion', icon: '🔄', color: 'from-teal-500 to-cyan-600', description: 'Recursive problem solving' },
-  { name: 'Dynamic Programming', icon: '💎', color: 'from-yellow-500 to-amber-600', description: 'Optimization and memoization' },
-  { name: 'Sorting', icon: '📊', color: 'from-rose-500 to-red-600', description: 'Sorting algorithms and analysis' },
-  { name: 'Searching', icon: '🔍', color: 'from-slate-500 to-gray-600', description: 'Binary search and variations' },
+  { name: 'Arrays', icon: '📋', color: 'from-indigo-500 to-cyan-500', description: 'Array manipulation and searching' },
+  { name: 'Strings', icon: '🔤', color: 'from-indigo-600 to-indigo-400', description: 'String operations and patterns' },
+  { name: 'Linked List', icon: '🔗', color: 'from-indigo-500 to-cyan-400', description: 'Singly and doubly linked lists' },
+  { name: 'Stack', icon: '📚', color: 'from-cyan-500 to-indigo-500', description: 'LIFO operations and applications' },
+  { name: 'Queue', icon: '🎫', color: 'from-indigo-600 to-cyan-600', description: 'FIFO operations and variants' },
+  { name: 'Trees', icon: '🌳', color: 'from-indigo-500 to-slate-400', description: 'Binary trees, BST, traversals' },
+  { name: 'Graphs', icon: '🕸️', color: 'from-indigo-500 to-cyan-500', description: 'BFS, DFS, shortest paths' },
+  { name: 'Recursion', icon: '🔄', color: 'from-cyan-500 to-indigo-600', description: 'Recursive problem solving' },
+  { name: 'Dynamic Programming', icon: '💎', color: 'from-indigo-400 to-cyan-300', description: 'Optimization and memoization' },
+  { name: 'Sorting', icon: '📊', color: 'from-indigo-600 to-indigo-800', description: 'Sorting algorithms and analysis' },
+  { name: 'Searching', icon: '🔍', color: 'from-slate-500 to-indigo-600', description: 'Binary search and variations' },
 ];
 
 export const DIFFICULTY_LEVELS = [
-  { value: 'easy', label: 'Easy', color: 'text-emerald-400', bg: 'bg-emerald-500/15' },
-  { value: 'medium', label: 'Medium', color: 'text-amber-400', bg: 'bg-amber-500/15' },
-  { value: 'hard', label: 'Hard', color: 'text-red-400', bg: 'bg-red-500/15' },
+  { value: 'easy', label: 'Easy', color: 'text-emerald-400', bg: 'bg-emerald-500/10 border-emerald-500/20' },
+  { value: 'medium', label: 'Medium', color: 'text-amber-400', bg: 'bg-amber-500/10 border-amber-500/20' },
+  { value: 'hard', label: 'Hard', color: 'text-rose-400', bg: 'bg-rose-500/10 border-rose-500/20' },
 ];
 
 export const INTERVIEW_TYPES = [
-  { value: 'hr', label: 'HR Round', icon: '👤', description: 'Personal and situational questions', color: 'from-blue-500 to-indigo-500' },
-  { value: 'technical', label: 'Technical Round', icon: '💻', description: 'Technical concepts and problem solving', color: 'from-green-500 to-emerald-500' },
-  { value: 'behavioral', label: 'Behavioral Round', icon: '🎯', description: 'Past experiences and competencies', color: 'from-purple-500 to-violet-500' },
-  { value: 'mixed', label: 'Mixed Round', icon: '🎲', description: 'Combination of all question types', color: 'from-amber-500 to-orange-500' },
+  { value: 'hr', label: 'HR Round', icon: '👤', description: 'Personal and situational questions', color: 'from-indigo-500 to-indigo-700' },
+  { value: 'technical', label: 'Technical Round', icon: '💻', description: 'Technical concepts and problem solving', color: 'from-cyan-500 to-indigo-600' },
+  { value: 'behavioral', label: 'Behavioral Round', icon: '🎯', description: 'Past experiences and competencies', color: 'from-indigo-600 to-indigo-800' },
+  { value: 'mixed', label: 'Mixed Round', icon: '🎲', description: 'Combination of all question types', color: 'from-indigo-500 to-cyan-500' },
 ];
 
 export const BADGE_DEFINITIONS = {
@@ -125,42 +129,42 @@ export const BADGE_DEFINITIONS = {
 };
 
 export const STATS_COUNTERS = [
-  { label: 'Questions', value: 500, suffix: '+' },
-  { label: 'Topics', value: 30, suffix: '+' },
-  { label: 'Students', value: 10000, suffix: '+' },
-  { label: 'Success Rate', value: 95, suffix: '%' },
+  { label: 'Questions Available', value: 500, suffix: '+' },
+  { label: 'Interview Subjects', value: 30, suffix: '+' },
+  { label: 'Active Students', value: 10000, suffix: '+' },
+  { label: 'Placement Rate', value: 95, suffix: '%' },
 ];
 
 export const FEATURES = [
   {
     title: 'Aptitude Training',
     description: 'Master quantitative aptitude, logical reasoning, and verbal ability with curated questions.',
-    icon: '🎯',
+    icon: HiOutlineAcademicCap,
   },
   {
     title: 'Technical Practice',
     description: 'Practice questions across 12+ technical subjects from C to Machine Learning.',
-    icon: '💻',
+    icon: HiOutlineTerminal,
   },
   {
     title: 'DSA Mastery',
     description: 'Sharpen your data structures and algorithms skills with topic-wise problems.',
-    icon: '🧠',
+    icon: HiOutlineCode,
   },
   {
     title: 'Mock Interviews',
     description: 'Simulate real interview experience with timed HR, technical, and behavioral rounds.',
-    icon: '🎤',
+    icon: HiOutlineMicrophone,
   },
   {
     title: 'Progress Analytics',
     description: 'Track your performance with detailed charts, accuracy metrics, and improvement insights.',
-    icon: '📊',
+    icon: HiOutlineChartBar,
   },
   {
-    title: 'Smart Learning',
+    title: 'Smart AI Learning',
     description: 'AI-powered recommendations, daily challenges, and adaptive difficulty to accelerate learning.',
-    icon: '🚀',
+    icon: HiOutlineSparkles,
   },
 ];
 
