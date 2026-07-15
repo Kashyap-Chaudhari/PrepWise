@@ -2,9 +2,9 @@ const Card = ({ children, className = '', hover = true, gradient = '', onClick, 
   return (
     <div
       onClick={onClick}
-      className={`glass-card p-6 ${hover ? 'cursor-pointer' : ''} ${
+      className={`aurora-card p-6 ${hover ? 'cursor-pointer hover:scale-[1.01]' : ''} ${
         gradient ? `bg-gradient-to-br ${gradient} border-0` : ''
-      } ${onClick ? 'cursor-pointer' : ''} ${className}`}
+      } ${className}`}
       {...props}
     >
       {children}
