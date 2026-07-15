@@ -550,7 +550,7 @@ export const generateCodingLanguageQuestions = (languageName) => {
         options: ['To speed up file downloads', 'To prevent SQL Injection vulnerabilities', 'To format JSON responses', 'To encrypt session cookies'],
         correctAnswer: 'To prevent SQL Injection vulnerabilities',
         explanation: 'Prepared statements separate SQL code from data parameters, rendering SQL injection impossible.',
-        hints: ['Use `$stmt->execute([':id' => $id])`.'],
+        hints: ["Use `$stmt->execute([':id' => $id])`."],
         solution: '$stmt = $pdo->prepare("SELECT * FROM users WHERE id = :id");\n$stmt->execute([":id" => $id]);',
         sampleInput: '$id = 5',
         sampleOutput: 'PDOStatement Object',
