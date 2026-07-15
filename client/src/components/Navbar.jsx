@@ -4,7 +4,6 @@ import { HiOutlineMenu, HiOutlineX, HiOutlineMoon, HiOutlineSun, HiOutlineLogout
 import useAuth from '../hooks/useAuth';
 import useTheme from '../hooks/useTheme';
 import { generateAvatar } from '../utils/helpers';
-import Logo from './Logo';
 
 const Navbar = () => {
   const { user, isAuthenticated, logout } = useAuth();
@@ -54,7 +53,12 @@ const Navbar = () => {
       <div className="section-container">
         <div className="flex items-center justify-between h-16 md:h-18">
           {/* Logo */}
-          <Logo to={isAuthenticated ? '/dashboard' : '/'} />
+          <Link to={isAuthenticated ? '/dashboard' : '/'} className="flex items-center gap-2 group">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center text-white font-bold text-lg shadow-glow group-hover:shadow-glow-lg transition-shadow duration-300">
+              P
+            </div>
+            <span className="text-xl font-bold gradient-text hidden sm:block">PlacementPro</span>
+          </Link>
 
           {/* Desktop Nav Links */}
           <div className="hidden md:flex items-center gap-1">

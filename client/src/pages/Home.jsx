@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { HiOutlineArrowRight, HiOutlineChevronDown, HiOutlineChevronUp } from 'react-icons/hi';
-import { FEATURES, STATS_COUNTERS, FAQ_DATA } from '../constants';
+import { HiOutlineArrowRight, HiOutlineChevronDown, HiOutlineChevronUp, HiOutlineStar } from 'react-icons/hi';
+import { FEATURES, STATS_COUNTERS, TESTIMONIALS, FAQ_DATA } from '../constants';
 import useAuth from '../hooks/useAuth';
 
 // Animated counter component
@@ -68,6 +68,15 @@ const FAQItem = ({ question, answer }) => {
 
 const Home = () => {
   const { isAuthenticated } = useAuth();
+  const [activeTestimonial, setActiveTestimonial] = useState(0);
+
+  // Auto-rotate testimonials
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveTestimonial((prev) => (prev + 1) % TESTIMONIALS.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <div className="overflow-hidden">
@@ -106,7 +115,7 @@ const Home = () => {
 
             {/* Subtitle */}
             <p className="text-lg md:text-xl text-dark-400 max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-in-up animate-delay-200">
-              Master aptitude, technical, DSA, and coding with our intelligent preparation platform. 
+              Master aptitude, technical, DSA, and coding with our intelligent preparation platform.
               Practice with real interview questions and track your progress.
             </p>
 
@@ -224,7 +233,52 @@ const Home = () => {
         </div>
       </section>
 
+      {/* ==================== TESTIMONIALS SECTION ==================== */}
+      <section id="testimonials" className="py-24">
+        <div className="section-container">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-dark-100 mb-4">
+              Loved by <span className="gradient-text">Students</span>
+            </h2>
+            <p className="text-dark-400 max-w-xl mx-auto">
+              See what our community has to say about their preparation journey.
+            </p>
+          </div>
 
+          <div className="max-w-2xl mx-auto">
+            <div className="glass-card p-8 text-center transition-all duration-500">
+              <div className="flex items-center justify-center gap-1 mb-4">
+                {[...Array(TESTIMONIALS[activeTestimonial].rating)].map((_, i) => (
+                  <HiOutlineStar key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                ))}
+              </div>
+              <p className="text-lg text-dark-200 leading-relaxed mb-6 italic">
+                "{TESTIMONIALS[activeTestimonial].quote}"
+              </p>
+              <div>
+                <p className="text-sm font-semibold text-dark-100">
+                  {TESTIMONIALS[activeTestimonial].name}
+                </p>
+                <p className="text-xs text-dark-400">{TESTIMONIALS[activeTestimonial].college}</p>
+              </div>
+            </div>
+
+            {/* Dots */}
+            <div className="flex items-center justify-center gap-2 mt-6">
+              {TESTIMONIALS.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setActiveTestimonial(index)}
+                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${index === activeTestimonial
+                      ? 'bg-primary-500 w-8'
+                      : 'bg-dark-600 hover:bg-dark-500'
+                    }`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* ==================== FAQ SECTION ==================== */}
       <section id="faq" className="py-24">
