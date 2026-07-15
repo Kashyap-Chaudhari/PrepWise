@@ -283,6 +283,111 @@ export const generateCodingLanguageQuestions = (languageName) => {
         constraints: '1 <= words.length <= 10^5',
         tags: ['java', 'stringbuilder', 'memory']
       }
+    ],
+    'C++': [
+      {
+        title: 'Move Semantics & std::move',
+        question: 'What is the primary purpose of move semantics introduced in C++11?',
+        options: ['To move objects to another CPU core', 'To transfer ownership of resources without deep copying temporary objects', 'To convert float to integer', 'To sort arrays faster'],
+        correctAnswer: 'To transfer ownership of resources without deep copying temporary objects',
+        explanation: 'Move semantics allow resource-heavy objects (like std::vector or std::string) to transfer underlying pointers without cloning data.',
+        hints: ['Think about rvalue references `&&`.'],
+        solution: 'template<typename T>\nvoid swap(T& a, T& b) {\n    T temp = std::move(a);\n    a = std::move(b);\n    b = std::move(temp);\n}',
+        sampleInput: 'std::vector<int> a = {1, 2}, b = {3, 4}',
+        sampleOutput: 'a = {3, 4}, b = {1, 2}',
+        constraints: 'C++11 or higher',
+        tags: ['cpp', 'move-semantics', 'pointers']
+      }
+    ],
+    'C': [
+      {
+        title: 'Pointer Arithmetic & Array Decay',
+        question: 'In C, if `int arr[5] = {10, 20, 30, 40, 50}; int *p = arr;`, what is the value of `*(p + 3)`?',
+        options: ['10', '20', '30', '40'],
+        correctAnswer: '40',
+        explanation: '`*(p + 3)` accesses element at index 3 in 0-indexed array, which is `arr[3] = 40`.',
+        hints: ['`*(p + i)` is identical to `p[i]`.'],
+        solution: '#include <stdio.h>\nint getElement(int* arr, int index) {\n    return *(arr + index);\n}',
+        sampleInput: 'arr = [10, 20, 30, 40, 50], index = 3',
+        sampleOutput: '40',
+        constraints: '0 <= index < 5',
+        tags: ['c', 'pointers', 'memory']
+      }
+    ],
+    'JavaScript': [
+      {
+        title: 'Closure & Lexical Scope',
+        question: 'What will be logged by `for (var i = 0; i < 3; i++) { setTimeout(() => console.log(i), 100); }`?',
+        options: ['0, 1, 2', '3, 3, 3', 'undefined, undefined, undefined', '0, 0, 0'],
+        correctAnswer: '3, 3, 3',
+        explanation: '`var` is function-scoped. By the time setTimeout executes after 100ms, the loop has completed and `i` equals 3 for all closures.',
+        hints: ['Use `let` for block-scoped loop variable to print 0, 1, 2.'],
+        solution: 'for (let i = 0; i < 3; i++) {\n  setTimeout(() => console.log(i), 100);\n}',
+        sampleInput: 'N = 3',
+        sampleOutput: '3, 3, 3 (with var) | 0, 1, 2 (with let)',
+        constraints: 'ES6+ JavaScript',
+        tags: ['javascript', 'closures', 'async']
+      }
+    ],
+    'TypeScript': [
+      {
+        title: 'Utility Type Readonly & Partial',
+        question: 'Which TypeScript utility type makes all properties of a type optional?',
+        options: ['Partial<T>', 'Readonly<T>', 'Pick<T, K>', 'Required<T>'],
+        correctAnswer: 'Partial<T>',
+        explanation: '`Partial<T>` constructs a type with all properties of T set to optional (`?`).',
+        hints: ['`Partial<User>` makes all fields in User optional.'],
+        solution: 'interface User { name: string; age: number; }\ntype OptionalUser = Partial<User>;',
+        sampleInput: 'User = { name: "Alice", age: 25 }',
+        sampleOutput: 'OptionalUser = { name?: string, age?: number }',
+        constraints: 'TypeScript 3.0+',
+        tags: ['typescript', 'utility-types', 'generics']
+      }
+    ],
+    'C#': [
+      {
+        title: 'LINQ Query Expression',
+        question: 'Which LINQ method in C# is used to project each element of a sequence into a new form?',
+        options: ['Select', 'Where', 'GroupBy', 'OrderBy'],
+        correctAnswer: 'Select',
+        explanation: '`Select` performs projection mapping (equivalent to `.map()` in JS/Python).',
+        hints: ['`numbers.Select(x => x * x)`.'],
+        solution: 'var squared = numbers.Select(x => x * x).ToList();',
+        sampleInput: 'numbers = [1, 2, 3]',
+        sampleOutput: '[1, 4, 9]',
+        constraints: '.NET 6.0+',
+        tags: ['csharp', 'linq', 'dotnet']
+      }
+    ],
+    'PHP': [
+      {
+        title: 'PDO Prepared Statements',
+        question: 'Why are PDO prepared statements used in PHP database interaction?',
+        options: ['To speed up file downloads', 'To prevent SQL Injection vulnerabilities', 'To format JSON responses', 'To encrypt session cookies'],
+        correctAnswer: 'To prevent SQL Injection vulnerabilities',
+        explanation: 'Prepared statements separate SQL code from data parameters, rendering SQL injection impossible.',
+        hints: ['Use `$stmt->execute([\':id\' => $id])`.'],
+        solution: '$stmt = $pdo->prepare("SELECT * FROM users WHERE id = :id");\n$stmt->execute([":id" => $id]);',
+        sampleInput: '$id = 5',
+        sampleOutput: 'PDOStatement Object',
+        constraints: 'PHP 7.0+',
+        tags: ['php', 'pdo', 'security', 'sql']
+      }
+    ],
+    'SQL': [
+      {
+        title: 'Window Functions ROW_NUMBER vs RANK',
+        question: 'What is the main difference between RANK() and DENSE_RANK() in SQL when duplicate values occur?',
+        options: ['RANK() leaves gaps in rank numbers for ties, whereas DENSE_RANK() does not leave gaps', 'DENSE_RANK() leaves gaps, RANK() does not', 'They are identical', 'RANK() is only used in MySQL'],
+        correctAnswer: 'RANK() leaves gaps in rank numbers for ties, whereas DENSE_RANK() does not leave gaps',
+        explanation: 'For values (100, 100, 90), RANK() produces ranks 1, 1, 3. DENSE_RANK() produces ranks 1, 1, 2.',
+        hints: ['Think of dense ranking without skipping numerical ranks.'],
+        solution: 'SELECT name, score, \n       DENSE_RANK() OVER (ORDER BY score DESC) as rank\nFROM students;',
+        sampleInput: 'scores = [100, 100, 90]',
+        sampleOutput: 'ranks = [1, 1, 2]',
+        constraints: 'Standard ANSI SQL',
+        tags: ['sql', 'window-functions', 'queries']
+      }
     ]
   };
 

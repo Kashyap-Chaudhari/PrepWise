@@ -2,25 +2,28 @@ import Question from '../models/Question.js';
 import User from '../models/User.js';
 import ErrorResponse from '../utils/errorResponse.js';
 
+const escapeRegex = (string) => (string ? string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') : '');
+
 // @desc    Get all questions with filtering, search, pagination
 // @route   GET /api/questions
 // @access  Public
 export const getQuestions = async (req, res, next) => {
   try {
-    const { category, subject, topic, difficulty, type, search, page = 1, limit = 20 } = req.query;
+    const { category, subject, topic, difficulty, type, search, page = 1, limit = 100 } = req.query;
 
     const query = {};
 
     if (category) query.category = category;
-    if (subject) query.subject = { $regex: subject, $options: 'i' };
-    if (topic) query.topic = { $regex: topic, $options: 'i' };
+    if (subject) query.subject = { $regex: escapeRegex(subject), $options: 'i' };
+    if (topic) query.topic = { $regex: escapeRegex(topic), $options: 'i' };
     if (difficulty) query.difficulty = difficulty;
     if (type) query.type = type;
     if (search) {
+      const cleanSearch = escapeRegex(search);
       query.$or = [
-        { title: { $regex: search, $options: 'i' } },
-        { question: { $regex: search, $options: 'i' } },
-        { tags: { $in: [new RegExp(search, 'i')] } },
+        { title: { $regex: cleanSearch, $options: 'i' } },
+        { question: { $regex: cleanSearch, $options: 'i' } },
+        { tags: { $in: [new RegExp(cleanSearch, 'i')] } },
       ];
     }
 
@@ -49,9 +52,9 @@ export const getQuestions = async (req, res, next) => {
 export const getQuestionsBySubject = async (req, res, next) => {
   try {
     const { subject } = req.params;
-    const { difficulty, page = 1, limit = 20 } = req.query;
+    const { difficulty, page = 1, limit = 100 } = req.query;
 
-    const query = { subject: { $regex: subject, $options: 'i' } };
+    const query = { subject: { $regex: escapeRegex(subject), $options: 'i' } };
     if (difficulty) query.difficulty = difficulty;
 
     const total = await Question.countDocuments(query);
