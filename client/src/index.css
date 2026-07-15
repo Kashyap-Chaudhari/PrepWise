@@ -164,18 +164,21 @@
   .stripe-text {
     background: linear-gradient(135deg, #FFFFFF 0%, #FAFAFA 40%, #5B5CF6 75%, #22D3EE 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
   html:not(.dark) .stripe-text {
     background: linear-gradient(135deg, #09090B 0%, #3F3F46 40%, #5B5CF6 80%, #0891B2 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
   .cyan-accent-text {
     background: linear-gradient(135deg, #22D3EE 0%, #5B5CF6 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
