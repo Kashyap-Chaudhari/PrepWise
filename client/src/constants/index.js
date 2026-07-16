@@ -127,7 +127,7 @@ export const INTERVIEW_TYPES = [
 ];
 
 export const BADGE_DEFINITIONS = {
-  newcomer: { name: 'Newcomer', icon: '🌟', description: 'Welcome to PlacementPro!' },
+  newcomer: { name: 'Newcomer', icon: '🌟', description: 'Welcome to PrepWise!' },
   'solver-10': { name: 'Problem Solver', icon: '🧮', description: 'Solved 10 questions' },
   'solver-50': { name: 'Expert Solver', icon: '🏅', description: 'Solved 50 questions' },
   'solver-100': { name: 'Master Solver', icon: '🏆', description: 'Solved 100 questions' },
@@ -180,7 +180,7 @@ export const TESTIMONIALS = [
   {
     name: 'Priya Sharma',
     college: 'IIT Bombay',
-    quote: 'PlacementPro helped me crack my dream company! The mock interviews and analytics were game-changers.',
+    quote: 'PrepWise helped me crack my dream company! The mock interviews and analytics were game-changers.',
     rating: 5,
   },
   {
@@ -199,8 +199,8 @@ export const TESTIMONIALS = [
 
 export const FAQ_DATA = [
   {
-    question: 'Is PlacementPro free to use?',
-    answer: 'Yes! PlacementPro is completely free for all students. We believe quality education should be accessible to everyone.',
+    question: 'Is PrepWise free to use?',
+    answer: 'Yes! PrepWise is completely free for all students. We believe quality education should be accessible to everyone.',
   },
   {
     question: 'How many questions are available?',

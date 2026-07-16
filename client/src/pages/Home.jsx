@@ -261,7 +261,7 @@ const Home = () => {
             Ready to <span className="gradient-text">Start Preparing</span>?
           </h2>
           <p className="text-dark-400 max-w-xl mx-auto mb-8">
-            Join thousands of students who are already acing their placement interviews with PlacementPro.
+            Join thousands of students who are already acing their placement interviews with PrepWise.
           </p>
           <Link
             to={isAuthenticated ? '/dashboard' : '/register'}

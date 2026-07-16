@@ -1150,42 +1150,42 @@ const seedDB = async () => {
     console.log(`✅ Inserted ${insertedQuestions.length} total questions into MongoDB`);
 
     // Create a demo admin user
-    const existingAdmin = await User.findOne({ email: 'admin@placementpro.com' });
+    const existingAdmin = await User.findOne({ email: 'admin@prepwise.com' });
     if (!existingAdmin) {
       await User.create({
         name: 'Admin User',
-        email: 'admin@placementpro.com',
+        email: 'admin@prepwise.com',
         password: 'admin123456',
         role: 'admin',
-        college: 'PlacementPro University',
+        college: 'PrepWise University',
         branch: 'Computer Science',
         graduationYear: 2025,
         badges: ['newcomer', 'admin'],
-        achievements: ['Registered on PlacementPro', 'Admin privileges granted'],
+        achievements: ['Registered on PrepWise', 'Admin privileges granted'],
       });
-      console.log('✅ Created admin user (admin@placementpro.com / admin123456)');
+      console.log('✅ Created admin user (admin@prepwise.com / admin123456)');
     }
 
     // Create a demo regular user
-    const existingUser = await User.findOne({ email: 'demo@placementpro.com' });
+    const existingUser = await User.findOne({ email: 'demo@prepwise.com' });
     if (!existingUser) {
       await User.create({
         name: 'Demo Student',
-        email: 'demo@placementpro.com',
+        email: 'demo@prepwise.com',
         password: 'demo123456',
         college: 'IIT Delhi',
         branch: 'Computer Science',
         graduationYear: 2025,
         badges: ['newcomer'],
-        achievements: ['Registered on PlacementPro'],
+        achievements: ['Registered on PrepWise'],
       });
-      console.log('✅ Created demo user (demo@placementpro.com / demo123456)');
+      console.log('✅ Created demo user (demo@prepwise.com / demo123456)');
     }
 
     console.log('\n🎉 Database seeded successfully!');
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-    console.log('Admin: admin@placementpro.com / admin123456');
-    console.log('Demo:  demo@placementpro.com / demo123456');
+    console.log('Admin: admin@prepwise.com / admin123456');
+    console.log('Demo:  demo@prepwise.com / demo123456');
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
 
     process.exit(0);

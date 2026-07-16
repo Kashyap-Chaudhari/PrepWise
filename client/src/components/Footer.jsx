@@ -14,7 +14,7 @@ const Footer = () => {
               <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center text-white font-bold text-lg">
                 P
               </div>
-              <span className="text-xl font-bold gradient-text">PlacementPro</span>
+              <span className="text-xl font-bold gradient-text">PrepWise</span>
             </Link>
             <p className="text-dark-400 text-sm leading-relaxed">
               Your AI-powered companion for acing placement interviews. Practice, learn, and succeed.
@@ -59,7 +59,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="mt-10 pt-6 border-t border-dark-700/30 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-dark-500">
-            © {currentYear} PlacementPro. All rights reserved.
+            © {currentYear} PrepWise. All rights reserved.
           </p>
           <p className="text-xs text-dark-500 flex items-center gap-1">
             Made with <FaHeart className="w-3 h-3 text-red-500" /> for students

@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem('pp_token', newToken);
       setToken(newToken);
       setUser(newUser);
-      toast.success('Registration successful! Welcome to PlacementPro!');
+      toast.success('Registration successful! Welcome to PrepWise!');
       return { success: true };
     } catch (error) {
       const message = error.response?.data?.error || 'Registration failed';

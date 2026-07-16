@@ -1,7 +1,7 @@
 {
-  "name": "placementpro-server",
+  "name": "prepwise-server",
   "version": "1.0.0",
-  "description": "PlacementPro AI Interview Preparation Portal - Backend API",
+  "description": "PrepWise AI Interview Preparation Portal - Backend API",
   "main": "server.js",
   "type": "module",
   "scripts": {
@@ -10,7 +10,7 @@
     "seed": "node seed.js"
   },
   "keywords": ["placement", "interview", "preparation", "api"],
-  "author": "PlacementPro",
+  "author": "PrepWise",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",

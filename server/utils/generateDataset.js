@@ -1,4 +1,4 @@
-// Comprehensive Question Dataset Generator for PlacementPro
+// Comprehensive Question Dataset Generator for PrepWise
 // Generates 100 questions for each of the 11 DSA topics, 30 Technical questions, and 30 Aptitude questions.
 
 export const generateDSATopicQuestions = (topicName) => {

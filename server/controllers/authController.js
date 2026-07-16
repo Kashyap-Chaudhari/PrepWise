@@ -25,7 +25,7 @@ export const register = async (req, res, next) => {
 
     // Assign first badge
     user.badges.push('newcomer');
-    user.achievements.push('Registered on PlacementPro');
+    user.achievements.push('Registered on PrepWise');
     await user.save();
 
     sendToken(user, 201, res);

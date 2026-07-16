@@ -1,6 +1,6 @@
-# PlacementPro – AI Interview Preparation Portal
+# PrepWise – AI Interview Preparation Portal
 
-PlacementPro is a complete, production-ready, full-stack MERN application designed as an interview preparation portal. It features aptitude quizzes, technical subject challenges, data structures and algorithms practice guides, fully responsive custom coding environments, and mock interview simulators with progress dashboards.
+PrepWise is a complete, production-ready, full-stack MERN application designed as an interview preparation portal. It features aptitude quizzes, technical subject challenges, data structures and algorithms practice guides, fully responsive custom coding environments, and mock interview simulators with progress dashboards.
 
 ---
 
@@ -121,10 +121,10 @@ PlacementPro is a complete, production-ready, full-stack MERN application design
 Once you run the database seed script, you can log in using these preset credentials:
 
 - **Demo Student Account:**
-  - Email: `demo@placementpro.com`
+  - Email: `demo@prepwise.com`
   - Password: `demo123456`
 - **Admin Account:**
-  - Email: `admin@placementpro.com`
+  - Email: `admin@prepwise.com`
   - Password: `admin123456`
 
 ---

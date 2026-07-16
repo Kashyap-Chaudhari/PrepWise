@@ -87,7 +87,7 @@ if (process.env.NODE_ENV === 'development') {
 app.get('/api/health', (req, res) => {
   res.status(200).json({
     success: true,
-    message: 'PlacementPro API is running',
+    message: 'PrepWise API is running',
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV || 'development',
   });
@@ -113,7 +113,7 @@ app.use('*', (req, res) => {
 const PORT = process.env.PORT || 5000;
 
 const server = app.listen(PORT, () => {
-  console.log(`🚀 PlacementPro server running on port ${PORT} in ${process.env.NODE_ENV || 'development'} mode`);
+  console.log(`🚀 PrepWise server running on port ${PORT} in ${process.env.NODE_ENV || 'development'} mode`);
 });
 
 // Handle unhandled promise rejections
