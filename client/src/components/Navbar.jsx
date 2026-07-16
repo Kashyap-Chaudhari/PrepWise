@@ -4,6 +4,7 @@ import { HiOutlineMenu, HiOutlineX, HiOutlineMoon, HiOutlineSun, HiOutlineLogout
 import useAuth from '../hooks/useAuth';
 import useTheme from '../hooks/useTheme';
 import { generateAvatar } from '../utils/helpers';
+import { SIDEBAR_LINKS } from '../constants';
 
 const Navbar = () => {
   const { user, isAuthenticated, logout } = useAuth();
@@ -62,12 +63,7 @@ const Navbar = () => {
   };
 
   const navLinks = isAuthenticated
-    ? [
-        { name: 'Dashboard', path: '/dashboard' },
-        { name: 'Aptitude', path: '/aptitude' },
-        { name: 'Technical', path: '/technical' },
-        { name: 'DSA', path: '/dsa' },
-      ]
+    ? SIDEBAR_LINKS
     : [
         { name: 'Home', path: '/' },
         { name: 'Features', path: '/#features' },
@@ -82,9 +78,9 @@ const Navbar = () => {
       }`}
     >
       <div className="section-container">
-        <div className="flex items-center justify-between h-16 md:h-18">
+        <div className="flex items-center justify-between h-16 md:h-18 gap-2">
           {/* Logo */}
-          <Link to={isAuthenticated ? '/dashboard' : '/'} className="flex items-center gap-2 group">
+          <Link to={isAuthenticated ? '/dashboard' : '/'} className="flex items-center gap-2 group flex-shrink-0">
             <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center text-white font-bold text-lg shadow-glow group-hover:shadow-glow-lg transition-shadow duration-300">
               P
             </div>
@@ -92,25 +88,29 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Nav Links */}
-          <div className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                onClick={(e) => handleNavClick(e, link)}
-                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
-                  location.pathname === link.path || (link.path.includes('#') && location.hash === link.path.substring(1))
-                    ? 'text-primary-400 bg-primary-500/10'
-                    : 'text-dark-400 hover:text-dark-100 hover:bg-dark-800/50 dark:text-dark-400 dark:hover:text-dark-100'
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
+          <div className="hidden md:flex items-center gap-1 overflow-x-auto no-scrollbar">
+            {navLinks.map((link) => {
+              const Icon = link.icon;
+              return (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  onClick={(e) => handleNavClick(e, link)}
+                  className={`px-3 py-1.5 rounded-xl text-xs xl:text-sm font-medium transition-all duration-200 flex items-center gap-1.5 whitespace-nowrap ${
+                    location.pathname === link.path || (link.path.includes('#') && location.hash === link.path.substring(1))
+                      ? 'text-primary-400 bg-primary-500/10'
+                      : 'text-dark-400 hover:text-dark-100 hover:bg-dark-800/50 dark:text-dark-400 dark:hover:text-dark-100'
+                  }`}
+                >
+                  {Icon && <Icon className="w-4 h-4" />}
+                  {link.name}
+                </Link>
+              );
+            })}
           </div>
 
           {/* Right Side */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 flex-shrink-0">
             {/* Theme Toggle */}
             <button
               id="theme-toggle-btn"
@@ -202,22 +202,26 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="md:hidden glass-card rounded-xl mt-2 p-4 animate-fade-in-down">
+          <div className="md:hidden glass-card rounded-xl mt-2 p-4 animate-fade-in-down max-h-[calc(100vh-5rem)] overflow-y-auto">
             <div className="flex flex-col gap-1">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  onClick={(e) => handleNavClick(e, link)}
-                  className={`px-4 py-3 rounded-xl text-sm font-medium transition-all ${
-                    location.pathname === link.path || (link.path.includes('#') && location.hash === link.path.substring(1))
-                      ? 'text-primary-400 bg-primary-500/10'
-                      : 'text-dark-400 hover:text-dark-100 hover:bg-dark-800/50'
-                  }`}
-                >
-                  {link.name}
-                </Link>
-              ))}
+              {navLinks.map((link) => {
+                const Icon = link.icon;
+                return (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    onClick={(e) => handleNavClick(e, link)}
+                    className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                      location.pathname === link.path || (link.path.includes('#') && location.hash === link.path.substring(1))
+                        ? 'text-primary-400 bg-primary-500/10'
+                        : 'text-dark-400 hover:text-dark-100 hover:bg-dark-800/50'
+                    }`}
+                  >
+                    {Icon && <Icon className="w-5 h-5 flex-shrink-0" />}
+                    {link.name}
+                  </Link>
+                );
+              })}
               {!isAuthenticated && (
                 <>
                   <hr className="my-2 border-dark-700/30" />
