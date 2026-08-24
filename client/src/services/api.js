@@ -13,7 +13,7 @@ const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('pp_token');
-    if (token) {
+    if (token && !token.startsWith('demo-token-') && !token.startsWith('local-token-')) {
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
@@ -21,14 +21,21 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Response interceptor: handle 401 (unauthorized)
+// Response interceptor: handle 401 (unauthorized) gracefully
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
-      localStorage.removeItem('pp_token');
-      if (window.location.pathname !== '/login' && window.location.pathname !== '/') {
-        window.location.href = '/login';
+    const token = localStorage.getItem('pp_token');
+    const isLocalOrDemo = token?.startsWith('demo-token-') || token?.startsWith('local-token-');
+
+    // Only redirect if a genuine server auth verification failed (not demo or background data fetch)
+    if (error.response?.status === 401 && !isLocalOrDemo) {
+      if (error.config?.url?.includes('/auth/profile')) {
+        localStorage.removeItem('pp_token');
+        localStorage.removeItem('pp_user');
+        if (window.location.pathname !== '/login' && window.location.pathname !== '/') {
+          window.location.href = '/login';
+        }
       }
     }
     return Promise.reject(error);
