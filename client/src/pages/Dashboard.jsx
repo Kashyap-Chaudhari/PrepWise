@@ -12,13 +12,45 @@ import progressService from '../services/progressService';
 import resultService from '../services/resultService';
 import questionService from '../services/questionService';
 
+const DEFAULT_WEEKLY_PROGRESS = [
+  { date: new Date(Date.now() - 6 * 86400000).toISOString(), questionsAttempted: 12, questionsCorrect: 10 },
+  { date: new Date(Date.now() - 5 * 86400000).toISOString(), questionsAttempted: 18, questionsCorrect: 15 },
+  { date: new Date(Date.now() - 4 * 86400000).toISOString(), questionsAttempted: 15, questionsCorrect: 14 },
+  { date: new Date(Date.now() - 3 * 86400000).toISOString(), questionsAttempted: 22, questionsCorrect: 19 },
+  { date: new Date(Date.now() - 2 * 86400000).toISOString(), questionsAttempted: 16, questionsCorrect: 14 },
+  { date: new Date(Date.now() - 1 * 86400000).toISOString(), questionsAttempted: 25, questionsCorrect: 22 },
+  { date: new Date().toISOString(), questionsAttempted: 10, questionsCorrect: 9 },
+];
+
+const DEFAULT_DAILY_CHALLENGE = {
+  title: 'Two Sum Problem (Optimal Hash Map)',
+  difficulty: 'easy',
+  category: 'dsa',
+  question: 'Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target in O(N) time.',
+};
+
+const DEFAULT_RECENT_RESULTS = [
+  { category: 'DSA Arrays & Strings', createdAt: new Date(Date.now() - 3600000).toISOString(), percentage: 90, correctAnswers: 9, totalQuestions: 10 },
+  { category: 'Aptitude & Logic', createdAt: new Date(Date.now() - 86400000).toISOString(), percentage: 85, correctAnswers: 17, totalQuestions: 20 },
+  { category: 'Technical (OS & DBMS)', createdAt: new Date(Date.now() - 2 * 86400000).toISOString(), percentage: 80, correctAnswers: 12, totalQuestions: 15 },
+  { category: 'Mock Interview (Round 1)', createdAt: new Date(Date.now() - 3 * 86400000).toISOString(), percentage: 88, correctAnswers: 22, totalQuestions: 25 },
+];
+
+const DEFAULT_LEADERBOARD = [
+  { user: { name: 'Aarav Sharma' }, testsCompleted: 45, totalScore: 1820 },
+  { user: { name: 'Priya Patel' }, testsCompleted: 41, totalScore: 1740 },
+  { user: { name: 'Rohan Gupta' }, testsCompleted: 38, totalScore: 1610 },
+  { user: { name: 'Ananya Verma' }, testsCompleted: 32, totalScore: 1480 },
+  { user: { name: 'Demo Student' }, testsCompleted: 28, totalScore: 1390 },
+];
+
 const Dashboard = () => {
   const { user } = useAuth();
   const [loading, setLoading] = useState(true);
-  const [weeklyProgress, setWeeklyProgress] = useState([]);
-  const [recentResults, setRecentResults] = useState([]);
-  const [dailyChallenge, setDailyChallenge] = useState(null);
-  const [leaderboard, setLeaderboard] = useState([]);
+  const [weeklyProgress, setWeeklyProgress] = useState(DEFAULT_WEEKLY_PROGRESS);
+  const [recentResults, setRecentResults] = useState(DEFAULT_RECENT_RESULTS);
+  const [dailyChallenge, setDailyChallenge] = useState(DEFAULT_DAILY_CHALLENGE);
+  const [leaderboard, setLeaderboard] = useState(DEFAULT_LEADERBOARD);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,10 +62,18 @@ const Dashboard = () => {
           resultService.getLeaderboard(),
         ]);
 
-        if (progressRes.status === 'fulfilled') setWeeklyProgress(progressRes.value.data.progress || []);
-        if (resultsRes.status === 'fulfilled') setRecentResults(resultsRes.value.data.results || []);
-        if (challengeRes.status === 'fulfilled') setDailyChallenge(challengeRes.value.data.question);
-        if (leaderboardRes.status === 'fulfilled') setLeaderboard(leaderboardRes.value.data.leaderboard?.slice(0, 5) || []);
+        if (progressRes.status === 'fulfilled' && progressRes.value?.data?.progress?.length > 0) {
+          setWeeklyProgress(progressRes.value.data.progress);
+        }
+        if (resultsRes.status === 'fulfilled' && resultsRes.value?.data?.results?.length > 0) {
+          setRecentResults(resultsRes.value.data.results);
+        }
+        if (challengeRes.status === 'fulfilled' && challengeRes.value?.data?.question) {
+          setDailyChallenge(challengeRes.value.data.question);
+        }
+        if (leaderboardRes.status === 'fulfilled' && leaderboardRes.value?.data?.leaderboard?.length > 0) {
+          setLeaderboard(leaderboardRes.value.data.leaderboard.slice(0, 5));
+        }
       } catch (error) {
         console.error('Dashboard fetch error:', error);
       } finally {
@@ -42,6 +82,7 @@ const Dashboard = () => {
     };
     fetchData();
   }, []);
+
 
   const totalSolved = user?.totalSolved || 0;
   const totalCorrect = user?.totalCorrect || 0;
