@@ -1,0 +1,355 @@
+================================================================================
+                               PROJECT REPORT
+                                     ON
+            PREPWISE: AI-POWERED PLACEMENT PREPARATION PLATFORM
+================================================================================
+
+TABLE OF CONTENTS
+--------------------------------------------------------------------------------
+1. Introduction ........................................................... 1
+    1.1 Background ........................................................ 1
+    1.2 Key Features of the System ........................................ 3
+    1.3 Proposed System ................................................... 4
+    1.4 Scope of the Project .............................................. 5
+2. Literature Review ...................................................... 6
+    2.1 Analysis of Current Platforms ..................................... 6
+    2.2 Gap Analysis ...................................................... 8
+3. System Analysis & Requirements ......................................... 9
+    3.1 Problem Statement ................................................. 9
+    3.2 Objectives ........................................................ 10
+    3.3 Expected Outcomes ................................................. 11
+    3.4 Feasibility Study ................................................. 12
+4. Technology Stack & Environment ......................................... 14
+    4.1 Frontend Technologies ............................................. 14
+    4.2 Backend Technologies .............................................. 16
+    4.3 Database .......................................................... 18
+    4.4 Development Environment ........................................... 19
+5. System Design & Architecture ........................................... 20
+    5.1 System Architecture ............................................... 20
+    5.2 Module Description ................................................ 21
+    5.3 Database Design ................................................... 23
+6. Implementation Details ................................................. 25
+    6.1 Development Methodology ........................................... 25
+    6.2 API Endpoints ..................................................... 26
+    6.3 User Interface Integration ........................................ 27
+7. Testing & Quality Assurance ............................................ 28
+    7.1 Testing Strategies ................................................ 28
+    7.2 Test Cases ........................................................ 29
+8. Advantages & Future Scope .............................................. 31
+9. Conclusion ............................................................. 33
+10. References ............................................................ 34
+================================================================================
+
+
+================================================================================
+CHAPTER 1: INTRODUCTION
+================================================================================
+
+1.1 BACKGROUND
+Campus recruitment drives and competitive technical interviews represent high-stakes
+milestones for undergraduate and graduate computer science and engineering students.
+Securing a position at premier product-based organizations (e.g., Google, Amazon,
+Microsoft), financial institutions, or technology conglomerates requires proficiency
+across a multifaceted spectrum of competencies:
+1. Quantitative Aptitude and Logical Reasoning (used for initial screening round).
+2. Core Computer Science Fundamentals (Operating Systems, Database Management
+   Systems, Computer Networks, Object-Oriented Programming).
+3. Data Structures and Algorithms (DSA) problem solving.
+4. Multi-language programming syntax, idioms, and memory management.
+5. Simulated mock interviews under realistic, timed conditions.
+
+Historically, candidates have had to navigate multiple fragmented, uncoordinated
+tools to prepare for these varied evaluation stages. This disjointed preparation
+pattern creates significant friction, cognitive overload, and an inability to
+holistically measure readiness.
+
+--------------------------------------------------------------------------------
+1.2 KEY FEATURES OF THE SYSTEM
+PrepWise addresses this fragmentation by unifying the entire placement lifecycle
+into a cohesive, web-based ecosystem featuring:
+
+1. Unified Multi-Track Curriculum:
+   - Quantitative Aptitude, Logical Reasoning, and Verbal Ability practice modules.
+   - Core Computer Science quizzes across 10 specialized technical domains.
+   - 11 comprehensive DSA topic tracks (Arrays, Strings, Trees, Graphs, DP, etc.).
+   - 9 Programming Language practice tracks (Python, Java, C++, C, JavaScript,
+     TypeScript, C#, PHP, SQL).
+
+2. Real-Time Timed Assessment Engine:
+   - Dynamic countdown timers with automated test submission on expiry.
+   - Granular scoring breakdown (accuracy rate, speed per question, wrong answer penalty).
+   - Post-test review mode with detailed theoretical justifications and optimal code snippets.
+
+3. Visual Progress Analytics & Diagnostic Dashboards:
+   - 30-day activity tracking with dynamic Chart.js visualizations.
+   - Topic-wise accuracy radar and performance indexing (highlighting strong vs. weak areas).
+
+4. Gamification & Engagement Mechanisms:
+   - Continuous daily login and practice streak tracking.
+   - Milestone achievement badge reward system.
+   - Global competitive leaderboard to foster peer motivation.
+
+5. High Availability & Resilience:
+   - Zero-dependency client-side offline fallback datasets.
+   - Instant 1-click Demo evaluator accounts.
+
+--------------------------------------------------------------------------------
+1.3 PROPOSED SYSTEM
+The proposed PrepWise system is engineered as an asynchronous, single-page web
+application (SPA) backed by a scalable RESTful micro-service API architecture.
+The frontend is constructed using modern React 18, Vite, and TailwindCSS with a sleek
+glassmorphic dark UI design. The backend leverages Node.js, Express.js, and MongoDB
+Atlas to handle high-concurrency request routing, authentication, and progress tracking.
+
+Unlike traditional platforms that specialize narrowly in either coding or static MCQs,
+PrepWise offers an integrated preparation framework that bridges theoretical core CS
+concepts, aptitude rounds, and algorithmic problem solving with continuous feedback.
+
+--------------------------------------------------------------------------------
+1.4 SCOPE OF THE PROJECT
+The scope of PrepWise encompasses:
+- Providing over 2,000+ curated placement-focused questions spanning 4 primary categories.
+- Providing self-paced learning alongside timed examination simulations.
+- Enabling academic placement cells, students, and educators to monitor empirical
+  preparation metrics and pinpoint conceptual weaknesses before actual on-campus drives.
+
+
+================================================================================
+CHAPTER 2: LITERATURE REVIEW
+================================================================================
+
+2.1 ANALYSIS OF CURRENT PLATFORMS
+
+1. LeetCode / HackerRank:
+   - Focus: Algorithmic challenges, automated code evaluation, competitive contests.
+   - Strengths: Strong compilation infrastructure, active global leaderboard.
+   - Weaknesses: Lack of integrated aptitude training, absence of core CS subject
+     quizzes (DBMS, OS, CN), and high barrier to entry for beginner college students.
+
+2. GeeksforGeeks / Sanfoundry:
+   - Focus: Exhaustive technical tutorial archives and static MCQ question lists.
+   - Strengths: Wide theoretical coverage of CS disciplines.
+   - Weaknesses: Fragmented user experience, ad-heavy interfaces, lack of structured
+     interactive timers, and absence of personalized progress graphs.
+
+3. IndiaBIX / Testbook:
+   - Focus: General aptitude, banking, and government examination practice.
+   - Strengths: Large repository of quantitative and logical questions.
+   - Weaknesses: Outdated web interface, no algorithmic coding support, and zero
+     integration with modern technical interview workflows.
+
+--------------------------------------------------------------------------------
+2.2 GAP ANALYSIS
+
+Dimension              | Existing Platforms                   | PrepWise Solution
+-----------------------|--------------------------------------|--------------------------------------
+Platform Consolidation | Disjointed (4-5 sites required)      | All-in-one unified web portal
+Assessment Types       | Only Coding OR only Aptitude         | Aptitude + Core CS + DSA + Coding
+Performance Analytics  | Generic problem count lists          | Multi-dimensional visual charts
+Evaluator Experience   | Requires mandatory account setup     | Instant 1-click Demo access
+Resilience             | Server downtime halts student study  | Client-side fallback datasets
+
+
+================================================================================
+CHAPTER 3: SYSTEM ANALYSIS & REQUIREMENTS
+================================================================================
+
+3.1 PROBLEM STATEMENT
+Engineering and CS graduates struggle to systematically prepare for campus placements
+due to the absence of a unified, comprehensive platform that covers Aptitude,
+Core Technical CS, DSA, and multi-language programming, coupled with actionable
+visual feedback on individual strengths and weaknesses.
+
+--------------------------------------------------------------------------------
+3.2 OBJECTIVES
+1. Develop an intuitive, single-page application consolidating all placement modules.
+2. Implement secure authentication, profile management, and instant demo access.
+3. Build dynamic timed assessment engines with automatic scoring and review modes.
+4. Integrate visual diagnostic analytics using interactive charts.
+5. Provide offline-capable data resilience to ensure zero learning disruption.
+
+--------------------------------------------------------------------------------
+3.3 EXPECTED OUTCOMES
+- A 40% reduction in preparation context-switching overhead for candidates.
+- Instant visibility into topic-wise accuracy and subject-level proficiency.
+- A seamless, responsive web experience across mobile, tablet, and desktop devices.
+
+--------------------------------------------------------------------------------
+3.4 FEASIBILITY STUDY
+- Technical Feasibility: Built using battle-tested web standards (React 18, Node.js,
+  Express, MongoDB, Chart.js) with predictable maintenance costs.
+- Operational Feasibility: Zero installation required on client devices; runs on any
+  modern standard web browser.
+- Economic Feasibility: Open-source tech stack with scalable cloud hosting tiers
+  (Vercel, Render, MongoDB Atlas).
+
+
+================================================================================
+CHAPTER 4: TECHNOLOGY STACK & ENVIRONMENT
+================================================================================
+
+4.1 FRONTEND TECHNOLOGIES
+- Core Framework: React.js (v18.3.1) with Functional Components & Hooks
+- Build Tool: Vite (v6.0.5) for lightning-fast Hot Module Replacement (HMR)
+- Styling: TailwindCSS (v3.4.17) with custom glassmorphism design tokens
+- Routing: React Router DOM (v6.28.1)
+- Data Visualization: Chart.js (v4.4.7) & react-chartjs-2 (v5.2.0)
+- HTTP Client: Axios (v1.7.9) with custom request & response interceptors
+- Icons & Notifications: React Icons (v5.4.0) & React Hot Toast (v2.4.1)
+
+4.2 BACKEND TECHNOLOGIES
+- Runtime: Node.js (v18+)
+- Web Framework: Express.js (v4.18.2) REST API
+- Security: JSON Web Tokens (JWT) for stateless sessions, bcryptjs for password hashing,
+  Helmet for HTTP header protection, express-rate-limit for DDoS mitigation
+- Cross-Origin Resource Sharing: CORS middleware
+
+4.3 DATABASE
+- DBMS: MongoDB (NoSQL Document Store)
+- ODM: Mongoose (v8.1.1) for strictly typed document schemas, validation, and hooks
+- Hosting: MongoDB Atlas Multi-Region Cloud Database
+
+4.4 DEVELOPMENT ENVIRONMENT
+- Operating System: Windows 11 / Linux compatible
+- Code Editor: Visual Studio Code / Antigravity IDE
+- Version Control: Git & GitHub
+
+
+================================================================================
+CHAPTER 5: SYSTEM DESIGN & ARCHITECTURE
+================================================================================
+
+5.1 SYSTEM ARCHITECTURE
+PrepWise follows a decoupled 3-Tier Client-Server Architecture:
+
+[ Client Tier: React 18 SPA (Vite + TailwindCSS) ]
+                     |
+             HTTPS / REST (JSON)
+                     |
+[ Application Tier: Express.js / Node.js REST API Server ]
+       |                  |                  |
+[ Auth Service ]  [ Quiz Service ]  [ Analytics Service ]
+                     |
+[ Data Tier: MongoDB Atlas Database (Mongoose ODM) ]
+
+--------------------------------------------------------------------------------
+5.2 MODULE DESCRIPTION
+1. Auth & Profile Module: Manages user lifecycle, secure sessions, streak tracking,
+   and educational credentials.
+2. Assessment Module: Serves categorized questions, evaluates answers, computes
+   accuracy, and stores timestamped performance results.
+3. Analytics Module: Aggregates historical test attempts, calculates category-wise
+   proficiency, and delivers chart-ready metrics.
+4. Leaderboard & Gamification Module: Computes user rankings based on completed tests,
+   accuracy, and awards achievement badges.
+
+--------------------------------------------------------------------------------
+5.3 DATABASE DESIGN (SCHEMAS)
+1. User Schema:
+   - _id, name, email, password, role, college, branch, graduationYear,
+     streak, totalSolved, totalCorrect, badges, achievements, createdAt.
+2. Question Schema:
+   - _id, title, category, subject, topic, difficulty, type, question,
+     options, correctAnswer, explanation, hints, solution, tags.
+3. Result Schema:
+   - _id, user, category, subject, totalQuestions, correctAnswers,
+     wrongAnswers, percentage, timeTaken, answers, createdAt.
+
+
+================================================================================
+CHAPTER 6: IMPLEMENTATION DETAILS
+================================================================================
+
+6.1 DEVELOPMENT METHODOLOGY
+The project followed an Agile / Iterative Software Development Lifecycle (SDLC):
+- Sprint 1: Requirement Gathering, Database Schema Modeling, and API design.
+- Sprint 2: Core Frontend Design System, Glassmorphic UI, and Top Navigation.
+- Sprint 3: Aptitude, Technical, and DSA Quiz Engines with Timer Integration.
+- Sprint 4: Visual Analytics Charts, Gamification, and Leaderboards.
+- Sprint 5: Offline Fallback Resilience, Demo 1-Click Access, and Production Deployment.
+
+--------------------------------------------------------------------------------
+6.2 API ENDPOINTS
+- POST /api/auth/register       : Create new candidate account
+- POST /api/auth/login          : Authenticate and receive JWT token
+- GET  /api/auth/profile        : Retrieve current user information
+- PUT  /api/auth/profile        : Update educational and personal details
+- GET  /api/questions           : Fetch questions filtered by category/subject/difficulty
+- POST /api/results             : Submit test results and compute metrics
+- GET  /api/results             : Retrieve historical test attempts
+- GET  /api/results/leaderboard : Retrieve global rank list
+- GET  /api/progress/analytics  : Retrieve aggregated performance analytics
+
+
+================================================================================
+CHAPTER 7: TESTING & QUALITY ASSURANCE
+================================================================================
+
+7.1 TESTING STRATEGIES
+1. Unit Testing: Verified individual utility functions (accuracy calculation, grade
+   labels, date formatting, token decoder).
+2. Integration Testing: Verified API endpoint communication, middleware authorization,
+   and database transaction persistence.
+3. UI / Responsiveness Testing: Tested across desktop (1920x1080), tablet (768x1024),
+   and mobile viewports (375x667).
+4. Resilience Testing: Simulated backend cold-starts and network disconnects to ensure
+   seamless local fallback rendering.
+
+--------------------------------------------------------------------------------
+7.2 TEST CASES
+Test ID | Test Scenario                  | Expected Result                     | Status
+--------|--------------------------------|-------------------------------------|-------
+TC-01   | User registration valid data   | Account created, JWT returned       | PASS
+TC-02   | Login with 1-click Demo button | Instant session created, no delay   | PASS
+TC-03   | Aptitude quiz timer expiry     | Auto-submits and displays score     | PASS
+TC-04   | Submit quiz results            | Accurate percentage and review mode | PASS
+TC-05   | Analytics page rendering       | Interactive charts display data     | PASS
+TC-06   | Responsive mobile menu toggle  | Menu expands and collapses cleanly  | PASS
+
+
+================================================================================
+CHAPTER 8: ADVANTAGES & FUTURE SCOPE
+================================================================================
+
+8.1 ADVANTAGES
+- Unified all-in-one preparation ecosystem.
+- Modern, distraction-free aesthetic with high usability.
+- Zero-friction onboarding with pre-loaded demo personas.
+- Actionable, real-time analytics to target specific weak subjects.
+
+--------------------------------------------------------------------------------
+8.2 FUTURE SCOPE
+1. Peer-to-Peer Mock Interviews using WebRTC video calling.
+2. AI-Powered Resume Parsing & ATS compatibility scoring.
+3. Adaptive Quiz Difficulty Engine based on Item Response Theory (IRT).
+4. Voice-driven AI Technical Interrogator with speech analysis.
+
+
+================================================================================
+CHAPTER 9: CONCLUSION
+================================================================================
+PrepWise delivers a state-of-the-art, comprehensive placement preparation platform
+tailored for contemporary technical recruitment standards. By unifying quantitative
+aptitude, core computer science disciplines, algorithmic problem-solving, and visual
+learning diagnostics into a resilient web application, it substantially empowers
+students to achieve interview readiness with confidence and empirical tracking.
+
+
+================================================================================
+CHAPTER 10: REFERENCES
+================================================================================
+1. Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. (2009).
+   "Introduction to Algorithms", 3rd Edition, MIT Press.
+2. Silberschatz, A., Galvin, P. B., & Gagne, G. (2018).
+   "Operating System Concepts", 10th Edition, Wiley.
+3. Elmasri, R., & Navathe, S. B. (2015).
+   "Fundamentals of Database Systems", 7th Edition, Pearson.
+4. Kurose, J. F., & Ross, K. W. (2021).
+   "Computer Networking: A Top-Down Approach", 8th Edition, Pearson.
+5. React Documentation: https://react.dev/
+6. Node.js & Express.js Documentation: https://nodejs.org/ | https://expressjs.com/
+7. MongoDB Atlas & Mongoose Documentation: https://www.mongodb.com/docs/
+
+================================================================================
+                            END OF PROJECT REPORT
+================================================================================
