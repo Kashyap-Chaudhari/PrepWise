@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { HiOutlineMail, HiOutlineLockClosed, HiOutlineUser, HiOutlineAcademicCap } from 'react-icons/hi';
+import { HiOutlineMail, HiOutlineLockClosed, HiOutlineUser, HiOutlineAcademicCap, HiOutlineSparkles } from 'react-icons/hi';
 import useAuth from '../hooks/useAuth';
 import Button from '../components/Button';
 import Input from '../components/Input';
@@ -47,6 +47,20 @@ const Register = () => {
     if (errors[e.target.name]) setErrors({ ...errors, [e.target.name]: '' });
   };
 
+  const handleFillDemoData = () => {
+    const randomNum = Math.floor(Math.random() * 900 + 100);
+    setFormData({
+      name: 'Sarah Connor',
+      email: `sarah.student${randomNum}@prepwise.com`,
+      password: 'demo123456',
+      confirmPassword: 'demo123456',
+      college: 'Indian Institute of Technology',
+      branch: 'Computer Science',
+      graduationYear: '2026',
+    });
+    setErrors({});
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-20">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -66,6 +80,18 @@ const Register = () => {
         </div>
 
         <div className="glass-card p-8" id="register-form-card">
+          <div className="flex items-center justify-between pb-4 mb-4 border-b border-dark-700/60">
+            <span className="text-xs text-dark-400">Want to test quickly?</span>
+            <button
+              type="button"
+              onClick={handleFillDemoData}
+              className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium text-primary-400 hover:text-primary-300 bg-primary-500/10 hover:bg-primary-500/20 rounded-lg transition-colors"
+            >
+              <HiOutlineSparkles className="w-3.5 h-3.5" />
+              Auto-fill Demo Info
+            </button>
+          </div>
+
           <form onSubmit={handleSubmit} className="space-y-4">
             <Input
               id="register-name"
@@ -175,3 +201,4 @@ const Register = () => {
 };
 
 export default Register;
+
