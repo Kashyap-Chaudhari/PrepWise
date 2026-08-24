@@ -1,0 +1,596 @@
+================================================================================
+          PREPWISE: AI-POWERED PLACEMENT PREPARATION PLATFORM
+               ACADEMIC PROJECT REPORT & QUESTION-ANSWER DATASET
+================================================================================
+
+================================================================================
+PART 1: LITERATURE REVIEW
+================================================================================
+
+1.1 INTRODUCTION & BACKGROUND
+Technical placement preparation is one of the most critical phases in higher
+education for engineering and computer science graduates. Traditional placement
+preparation approaches primarily involve scattered learning resources, textbooks,
+independent coding platforms (e.g., LeetCode, HackerRank, GeeksforGeeks), and
+static aptitude test booklets.
+
+While these individual platforms serve specific niche domains, students face
+significant challenges integrating quantitative aptitude, core computer science
+fundamentals (Operating Systems, DBMS, Computer Networks, OOP), Data Structures &
+Algorithms (DSA), coding practice in various programming languages, and mock
+interviews into a single cohesive, trackable ecosystem.
+
+--------------------------------------------------------------------------------
+1.2 REVIEW OF EXISTING SYSTEMS
+--------------------------------------------------------------------------------
+
+1. LeetCode / HackerRank:
+   - Strengths: Extensive collection of competitive coding and algorithmic problems;
+     automated judge systems.
+   - Limitations: Lacks comprehensive coverage of quantitative aptitude, verbal
+     ability, core CS subjective/MCQ assessments, structured curriculum-aligned
+     mock interviews, and personalized multi-domain progress tracking for college
+     placements.
+
+2. GeeksforGeeks / Sanfoundry:
+   - Strengths: Vast textual tutorials and article-based MCQs across diverse CS
+     domains.
+   - Limitations: Fragmented user experience; limited real-time assessment feedback;
+     lack of integrated timed testing environments and gamified streak trackers.
+
+3. IndiaBIX / Testbook:
+   - Strengths: Extensive aptitude and reasoning question banks.
+   - Limitations: Static web interfaces without modern interactive coding sandboxes,
+     AI-assisted interview evaluation, or personalized performance dashboards.
+
+--------------------------------------------------------------------------------
+1.3 COMPARATIVE ANALYSIS MATRIX
+--------------------------------------------------------------------------------
+Feature / Dimension          | Traditional Portals | Competitive Judges | PrepWise (Proposed)
+-----------------------------|--------------------|--------------------|--------------------
+Aptitude & Verbal Practice   | Yes (Static)       | No                 | Yes (Interactive)
+Core CS MCQs (OS, DBMS, CN)  | Partial            | No                 | Yes (Categorized)
+DSA Topic-Wise Roadmap       | Partial            | Yes                | Yes (11 Topics)
+Multi-Language Coding        | Limited            | Yes                | Yes (9 Languages)
+Timed Mock Assessments       | No                 | Contest-based only | Yes (Custom Timers)
+Unified Analytics Dashboard  | No                 | Isolated Score     | Yes (Visual Charts)
+Streak & Gamification Badges | Rare               | Partial            | Yes (Integrated)
+Offline / Resilience Mode    | No                 | No                 | Yes (Built-in)
+
+--------------------------------------------------------------------------------
+1.4 RESEARCH GAPS IDENTIFIED
+--------------------------------------------------------------------------------
+1. Fragmented Learning Ecosystem: Students switch between 4-5 different websites
+   to prepare for an on-campus placement drive.
+2. Absence of Centralized Performance Analytics: Students lack an aggregated view
+   of their strengths and weaknesses across both algorithmic and theoretical topics.
+3. High Cognitive Load & Low Engagement: Without gamification (streaks, badges,
+   instant explanations), consistency and completion rates drop drastically.
+
+================================================================================
+PART 2: PROPOSED SYSTEM ARCHITECTURE & DESIGN
+================================================================================
+
+2.1 SYSTEM OVERVIEW
+PrepWise is an end-to-end, full-stack placement preparation web application designed
+to streamline the campus recruitment journey. It consolidates Aptitude, Technical CS,
+DSA, Multi-Language Coding, Mock Interviews, and visual progress analytics into a
+single, intuitive, and responsive single-page application (SPA).
+
+--------------------------------------------------------------------------------
+2.2 KEY ARCHITECTURAL MODULES
+--------------------------------------------------------------------------------
+
+1. Authentication & Role Management Module:
+   - JWT-based token authentication with bcrypt password hashing.
+   - 1-click Demo accounts for instantaneous evaluator preview without cold-start delay.
+   - Protected route middleware ensuring authenticated state across sessions.
+
+2. Quantitative Aptitude & Reasoning Engine:
+   - Categorized assessments: Quantitative Aptitude, Logical Reasoning, Verbal Ability.
+   - Real-time countdown timer with auto-submission triggers.
+   - Instant scoring breakdown (accuracy percentage, correct vs. wrong, review mode).
+
+3. Technical Core CS Assessment Module:
+   - 10 Subject tracks: Database Management Systems (DBMS), Operating Systems (OS),
+     Computer Networks (CN), OOP, Java, C++, Python, SQL, Software Engineering,
+     and Machine Learning.
+   - Comprehensive explanations with references to standard computer science theory.
+
+4. Data Structures & Algorithms (DSA) Engine:
+   - 11 Topic categories: Arrays, Strings, Linked Lists, Stacks, Queues, Trees,
+     Graphs, Recursion, Dynamic Programming, Sorting, and Searching.
+   - Interactive hints, complexity analysis (Time & Space), and reference implementations.
+
+5. Multi-Language Coding Sandbox:
+   - 9 Programming Languages supported: Python, Java, C++, C, JavaScript,
+     TypeScript, C#, PHP, SQL.
+   - Problem statements with input/output specifications, edge case constraints,
+     sample test cases, and optimal algorithmic solutions.
+
+6. Visual Analytics & Gamification Engine:
+   - Dynamic Chart.js visualizations for 30-day activity logs, topic accuracy bars,
+     and overall accuracy doughnut charts.
+   - Gamification mechanism: Daily streak counter, achievement badges, and global
+     leaderboards.
+
+--------------------------------------------------------------------------------
+2.3 TECHNOLOGY STACK
+--------------------------------------------------------------------------------
+- Frontend: React 18 (Vite SPA), TailwindCSS, Chart.js / react-chartjs-2, React Router v6
+- Backend: Node.js, Express.js REST API
+- Database: MongoDB with Mongoose ODM
+- Deployment: Vercel (Frontend), Render (Backend), MongoDB Atlas (Cloud Database)
+
+================================================================================
+PART 3: COMPLETE QUESTION & ANSWER REPOSITORY
+================================================================================
+
+--------------------------------------------------------------------------------
+SECTION 3.1: QUANTITATIVE APTITUDE & LOGICAL REASONING
+--------------------------------------------------------------------------------
+
+[Q1] Category: Quantitative Aptitude | Topic: Speed, Distance & Time
+Question: A car travels 180 km in 3 hours. What is its speed in m/s?
+Options:
+  A) 16.67 m/s
+  B) 15 m/s
+  C) 20 m/s
+  D) 25 m/s
+Correct Answer: A) 16.67 m/s
+Explanation: Speed in km/hr = 180 / 3 = 60 km/hr.
+Converting km/hr to m/s: 60 * (5 / 18) = 300 / 18 = 16.67 m/s.
+
+--------------------------------------------------------------------------------
+[Q2] Category: Logical Reasoning | Topic: Blood Relations
+Question: Pointing to a photograph, Rohit said, "She is the daughter of my grandfather's only son." How is the woman related to Rohit?
+Options:
+  A) Sister
+  B) Mother
+  C) Aunt
+  D) Cousin
+Correct Answer: A) Sister
+Explanation: "My grandfather's only son" refers to Rohit's father.
+The daughter of Rohit's father is Rohit's sister.
+
+--------------------------------------------------------------------------------
+[Q3] Category: Verbal Ability | Topic: Vocabulary / Antonyms
+Question: Choose the exact antonym of the word "METICULOUS":
+Options:
+  A) Careless
+  B) Thorough
+  C) Precise
+  D) Cautious
+Correct Answer: A) Careless
+Explanation: "Meticulous" means showing great attention to detail and being very careful.
+Its exact opposite/antonym is "Careless".
+
+--------------------------------------------------------------------------------
+[Q4] Category: Quantitative Aptitude | Topic: Pipes & Cisterns
+Question: Pipe A can fill a tank in 6 hours and Pipe B can empty it in 8 hours. If both pipes are opened together, how long will it take to fill the tank?
+Options:
+  A) 24 hours
+  B) 14 hours
+  C) 12 hours
+  D) 18 hours
+Correct Answer: A) 24 hours
+Explanation: Rate of Pipe A = +1/6 per hour. Rate of Pipe B = -1/8 per hour.
+Net Rate = (1/6) - (1/8) = (4 - 3) / 24 = 1/24 tank per hour.
+Time required to fill completely = 24 hours.
+
+--------------------------------------------------------------------------------
+[Q5] Category: Logical Reasoning | Topic: Number Series Completion
+Question: Find the missing number in the series: 2, 6, 12, 20, 30, ?
+Options:
+  A) 42
+  B) 36
+  C) 40
+  D) 48
+Correct Answer: A) 42
+Explanation: Pattern 1: Differences are 4, 6, 8, 10, 12 (+2 increment). 30 + 12 = 42.
+Pattern 2: n^2 + n -> 1^2+1=2, 2^2+2=6, 3^2+3=12, 4^2+4=20, 5^2+5=30, 6^2+6=42.
+
+--------------------------------------------------------------------------------
+[Q6] Category: Quantitative Aptitude | Topic: Profit & Loss
+Question: An article bought for $400 is sold for $500. What is the profit percentage?
+Options:
+  A) 20%
+  B) 25%
+  C) 15%
+  D) 30%
+Correct Answer: B) 25%
+Explanation: Profit = $500 - $400 = $100. Profit % = (100 / 400) * 100 = 25%.
+
+--------------------------------------------------------------------------------
+[Q7] Category: Logical Reasoning | Topic: Syllogisms
+Question: Statements: All apples are fruits. Some fruits are sweet.
+Conclusions: I. Some apples are sweet. II. Some fruits are apples.
+Options:
+  A) Only conclusion I follows
+  B) Only conclusion II follows
+  C) Both follow
+  D) Neither follows
+Correct Answer: B) Only conclusion II follows
+Explanation: Since all apples are fruits, the converse "some fruits are apples" is valid.
+However, apples and sweet items may not overlap, so I does not necessarily follow.
+
+--------------------------------------------------------------------------------
+[Q8] Category: Verbal Ability | Topic: Sentence Correction
+Question: Choose the correct form: "Neither the teacher nor the students ____ present."
+Options:
+  A) was
+  B) were
+  C) is
+  D) has been
+Correct Answer: B) were
+Explanation: When subjects are connected by "neither... nor", the verb agrees with
+the subject closest to it ("the students", which is plural -> "were").
+
+--------------------------------------------------------------------------------
+SECTION 3.2: CORE TECHNICAL COMPUTER SCIENCE MCQs
+--------------------------------------------------------------------------------
+
+[Q1] Subject: DBMS | Topic: Transactions & Concurrency
+Question: Which ACID property in DBMS ensures that all operations in a database transaction are completed successfully or none at all?
+Options:
+  A) Atomicity
+  B) Consistency
+  C) Isolation
+  D) Durability
+Correct Answer: A) Atomicity
+Explanation: Atomicity guarantees that a transaction is treated as a single "all-or-nothing" unit of work.
+
+--------------------------------------------------------------------------------
+[Q2] Subject: Operating Systems | Topic: Deadlocks
+Question: Which of the following is NOT one of the Coffman conditions required for a deadlock to occur?
+Options:
+  A) Mutual Exclusion
+  B) Hold and Wait
+  C) No Preemption
+  D) Preemptive Scheduling
+Correct Answer: D) Preemptive Scheduling
+Explanation: The 4 Coffman conditions for deadlock are: 1. Mutual Exclusion,
+2. Hold and Wait, 3. No Preemption, 4. Circular Wait. Preemptive scheduling prevents deadlocks.
+
+--------------------------------------------------------------------------------
+[Q3] Subject: Computer Networks | Topic: OSI Reference Model
+Question: How many layers are present in the standard ISO OSI reference model for networking?
+Options:
+  A) 4 layers
+  B) 5 layers
+  C) 7 layers
+  D) 6 layers
+Correct Answer: C) 7 layers
+Explanation: The 7 layers in top-down order are: Application, Presentation, Session,
+Transport, Network, Data Link, and Physical.
+
+--------------------------------------------------------------------------------
+[Q4] Subject: Java | Topic: Memory Management & JVM
+Question: Where are object instances allocated memory in the Java Runtime Environment (JRE)?
+Options:
+  A) Stack Memory
+  B) Heap Memory
+  C) Method Area
+  D) Program Counter Register
+Correct Answer: B) Heap Memory
+Explanation: In Java, all objects and arrays are dynamically allocated on the Heap memory,
+which is managed by the Garbage Collector. Reference variables reside on the Stack.
+
+--------------------------------------------------------------------------------
+[Q5] Subject: C++ | Topic: Object Oriented Programming & Polymorphism
+Question: What mechanisms does the C++ compiler use to support dynamic/runtime polymorphism via virtual functions?
+Options:
+  A) vptr (virtual pointer) and vtable (virtual method table)
+  B) Template Specialization
+  C) Function Overloading table
+  D) Inline expansion
+Correct Answer: A) vptr (virtual pointer) and vtable (virtual method table)
+Explanation: C++ generates a vtable for every class with virtual methods and inserts
+a hidden vptr pointer into every object instance pointing to the appropriate vtable.
+
+--------------------------------------------------------------------------------
+[Q6] Subject: Python | Topic: Concurrency & Internals
+Question: What is the Global Interpreter Lock (GIL) in CPython?
+Options:
+  A) A mechanism that speeds up math calculations
+  B) A mutex that prevents multiple native threads from executing Python bytecodes simultaneously
+  C) A memory management tool for garbage collection
+  D) A compiler flag for code optimization
+Correct Answer: B) A mutex that prevents multiple native threads from executing Python bytecodes simultaneously
+Explanation: CPython uses the GIL to ensure thread safety of its memory management
+and reference counting mechanisms, executing one bytecode instruction at a time per process.
+
+--------------------------------------------------------------------------------
+[Q7] Subject: SQL | Topic: Indexing & Performance
+Question: Which data structure is most commonly used by relational database management systems (RDBMS) for indexing tables?
+Options:
+  A) B+ Tree
+  B) Binary Search Tree
+  C) Queue
+  D) Min-Heap
+Correct Answer: A) B+ Tree
+Explanation: B+ Trees keep data sorted, have high branching factors (shallow height),
+and store all records in leaf nodes linked sequentially, making range queries optimal on disk.
+
+--------------------------------------------------------------------------------
+[Q8] Subject: Software Engineering | Topic: Design Patterns
+Question: Which design pattern ensures that a class has only one instance and provides a global point of access to it?
+Options:
+  A) Factory Pattern
+  B) Singleton Pattern
+  C) Observer Pattern
+  D) Adapter Pattern
+Correct Answer: B) Singleton Pattern
+Explanation: The Singleton pattern restricts class instantiation to a single object
+instance with a private constructor and a static instance getter.
+
+--------------------------------------------------------------------------------
+SECTION 3.3: DATA STRUCTURES & ALGORITHMS (DSA)
+--------------------------------------------------------------------------------
+
+[Q1] Topic: Arrays | Problem: Two Sum Problem
+Difficulty: Easy
+Question: Given an array of integers `nums` and an integer `target`, return indices of the two numbers such that they add up to `target`.
+Options:
+  A) O(N^2) Time, O(1) Space using brute force
+  B) O(N log N) Time using Sorting & Two Pointers
+  C) O(N) Time, O(N) Space using Hash Map
+  D) All of the above are valid approaches
+Correct Answer: D) All of the above are valid approaches
+Explanation: The optimal approach uses a Hash Map in O(N) time and O(N) space.
+Reference Solution (Java):
+```java
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            int diff = target - nums[i];
+            if (map.containsKey(diff)) return new int[]{map.get(diff), i};
+            map.put(nums[i], i);
+        }
+        return new int[]{};
+    }
+}
+```
+
+--------------------------------------------------------------------------------
+[Q2] Topic: Arrays | Problem: Maximum Subarray (Kadane's Algorithm)
+Difficulty: Medium
+Question: What is the time complexity of Kadane's algorithm for finding the maximum sum contiguous subarray in an array of size N?
+Options:
+  A) O(N^2)
+  B) O(N log N)
+  C) O(N)
+  D) O(2^N)
+Correct Answer: C) O(N)
+Explanation: Kadane's algorithm computes local and global maximums in a single pass O(N) time and O(1) auxiliary space.
+Reference Solution (C++):
+```cpp
+int maxSubArray(vector<int>& nums) {
+    int maxSoFar = nums[0], currMax = nums[0];
+    for (int i = 1; i < nums.size(); i++) {
+        currMax = max(nums[i], currMax + nums[i]);
+        maxSoFar = max(maxSoFar, currMax);
+    }
+    return maxSoFar;
+}
+```
+
+--------------------------------------------------------------------------------
+[Q3] Topic: Strings | Problem: Valid Anagram
+Difficulty: Easy
+Question: Given two strings s and t, return true if t is an anagram of s. What is the optimal time complexity using character frequency counting?
+Options:
+  A) O(N^2)
+  B) O(N)
+  C) O(N log N)
+  D) O(1)
+Correct Answer: B) O(N)
+Explanation: Counting frequencies with a 26-element array takes O(N) time and O(1) space.
+Reference Solution (C++):
+```cpp
+bool isAnagram(string s, string t) {
+    if (s.length() != t.length()) return false;
+    int count[26] = {0};
+    for (int i = 0; i < s.length(); i++) {
+        count[s[i] - 'a']++;
+        count[t[i] - 'a']--;
+    }
+    for (int c : count) if (c != 0) return false;
+    return true;
+}
+```
+
+--------------------------------------------------------------------------------
+[Q4] Topic: Linked List | Problem: Reverse Singly Linked List
+Difficulty: Easy
+Question: How many pointer variables are required to reverse a singly linked list iteratively in-place?
+Options:
+  A) 1 pointer
+  B) 2 pointers
+  C) 3 pointers (prev, curr, next)
+  D) 4 pointers
+Correct Answer: C) 3 pointers (prev, curr, next)
+Explanation: `prev`, `curr`, and `next` pointers are required to update forward pointers backward without losing list references.
+Reference Solution (C++):
+```cpp
+ListNode* reverseList(ListNode* head) {
+    ListNode *prev = nullptr, *curr = head, *next = nullptr;
+    while (curr != nullptr) {
+        next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+    }
+    return prev;
+}
+```
+
+--------------------------------------------------------------------------------
+[Q5] Topic: Linked List | Problem: Detect Cycle (Floyd's Algorithm)
+Difficulty: Medium
+Question: What is Floyd's Cycle Detection Algorithm also known as?
+Options:
+  A) Tortoise and Hare Algorithm
+  B) Kadane's Algorithm
+  C) KMP Algorithm
+  D) Boyer-Moore Algorithm
+Correct Answer: A) Tortoise and Hare Algorithm
+Explanation: Slow pointer moves 1 step, Fast pointer moves 2 steps. If a loop exists, Fast catches Slow in O(N) time.
+
+--------------------------------------------------------------------------------
+[Q6] Topic: Stack | Problem: Valid Parentheses
+Difficulty: Easy
+Question: Which property of a Stack makes it the ideal data structure for syntax bracket matching?
+Options:
+  A) FIFO (First In First Out)
+  B) LIFO (Last In First Out)
+  C) Random Index Access
+  D) Key-Value Mapping
+Correct Answer: B) LIFO (Last In First Out)
+Explanation: LIFO ensures the most recently opened bracket matches the next encountered closing bracket.
+
+--------------------------------------------------------------------------------
+[Q7] Topic: Trees | Problem: Inorder Traversal
+Difficulty: Easy
+Question: In which order are tree nodes visited during an Inorder traversal?
+Options:
+  A) Root -> Left -> Right
+  B) Left -> Root -> Right
+  C) Left -> Right -> Root
+  D) Root -> Right -> Left
+Correct Answer: B) Left -> Root -> Right
+Explanation: Inorder recursively visits Left Subtree, Current Root Node, and Right Subtree.
+
+--------------------------------------------------------------------------------
+[Q8] Topic: Graphs | Problem: Breadth-First Search (BFS)
+Difficulty: Medium
+Question: Which data structure is fundamentally utilized to implement Breadth-First Search (BFS) on a graph?
+Options:
+  A) Stack
+  B) Queue
+  C) Priority Queue
+  D) Disjoint Set
+Correct Answer: B) Queue
+Explanation: BFS explores vertices level by level, requiring First-In-First-Out (FIFO) queue order.
+
+--------------------------------------------------------------------------------
+[Q9] Topic: Dynamic Programming | Problem: Fibonacci / 1D DP
+Difficulty: Easy
+Question: What reduces the time complexity of recursive Fibonacci calculation from O(2^N) to O(N)?
+Options:
+  A) Greedy Approach
+  B) Memoization / Tabulation
+  C) Binary Search
+  D) Sorting
+Correct Answer: B) Memoization / Tabulation
+Explanation: Storing already computed subproblems in an array (DP table) avoids re-computations.
+
+--------------------------------------------------------------------------------
+[Q10] Topic: Searching | Problem: Binary Search Precondition
+Difficulty: Easy
+Question: What precondition MUST be satisfied by an array before applying Binary Search?
+Options:
+  A) Elements must be strictly positive
+  B) Array size must be even
+  C) Array must be sorted in monotonic order
+  D) Array must contain no duplicate elements
+Correct Answer: C) Array must be sorted in monotonic order
+Explanation: Binary Search relies on element ordering to eliminate half of the search space at each step in O(log N) time.
+
+--------------------------------------------------------------------------------
+SECTION 3.4: PROGRAMMING LANGUAGES CODING SNIPPETS & SOLUTIONS
+--------------------------------------------------------------------------------
+
+[L1] Language: Python | Topic: List Comprehension & Filtering
+Question: Write a Python expression to filter even numbers from list `nums` and return their squares.
+Options:
+  A) [x**2 for x in nums if x % 2 == 0]
+  B) list(map(lambda x: x**2, filter(lambda x: x % 2 == 0, nums)))
+  C) Both A and B are correct
+  D) x**2 for x in nums
+Correct Answer: C) Both A and B are correct
+Solution:
+```python
+def square_evens(nums):
+    return [x**2 for x in nums if x % 2 == 0]
+```
+
+--------------------------------------------------------------------------------
+[L2] Language: Java | Topic: String Immutability & StringBuilder
+Question: Why is StringBuilder preferred over String for repeated concatenations in a loop?
+Options:
+  A) String is mutable while StringBuilder is immutable
+  B) String creates new heap objects on every concatenation O(N^2), whereas StringBuilder modifies internal buffer in-place O(N)
+  C) StringBuilder uses GPU acceleration
+  D) There is no performance difference
+Correct Answer: B) String creates new heap objects on every concatenation O(N^2), whereas StringBuilder modifies internal buffer in-place O(N)
+Solution:
+```java
+public String concatenate(String[] words) {
+    StringBuilder sb = new StringBuilder();
+    for (String w : words) {
+        sb.append(w);
+    }
+    return sb.toString();
+}
+```
+
+--------------------------------------------------------------------------------
+[L3] Language: C++ | Topic: Move Semantics (std::move)
+Question: What is the primary purpose of move semantics introduced in C++11?
+Options:
+  A) To move objects to another CPU core
+  B) To transfer resource ownership without deep copying temporary objects
+  C) To convert floats to integers
+  D) To sort arrays faster
+Correct Answer: B) To transfer resource ownership without deep copying temporary objects
+Solution:
+```cpp
+template<typename T>
+void swap(T& a, T& b) {
+    T temp = std::move(a);
+    a = std::move(b);
+    b = std::move(temp);
+}
+```
+
+--------------------------------------------------------------------------------
+[L4] Language: JavaScript | Topic: Closures & Lexical Scope
+Question: What will be logged by: `for (var i = 0; i < 3; i++) { setTimeout(() => console.log(i), 100); }`?
+Options:
+  A) 0, 1, 2
+  B) 3, 3, 3
+  C) undefined, undefined, undefined
+  D) 0, 0, 0
+Correct Answer: B) 3, 3, 3
+Explanation: `var` is function-scoped. By the time the timeout executes after 100ms, the loop has finished and `i` is 3. Replacing `var` with `let` yields `0, 1, 2`.
+
+--------------------------------------------------------------------------------
+[L5] Language: SQL | Topic: Window Functions (RANK vs DENSE_RANK)
+Question: What is the difference between RANK() and DENSE_RANK() when ties occur?
+Options:
+  A) RANK() leaves gaps in numerical ranking for ties, whereas DENSE_RANK() does not leave gaps
+  B) DENSE_RANK() leaves gaps, RANK() does not
+  C) They are identical
+  D) RANK() only works on MySQL
+Correct Answer: A) RANK() leaves gaps in numerical ranking for ties, whereas DENSE_RANK() does not leave gaps
+Solution:
+```sql
+SELECT name, score,
+       DENSE_RANK() OVER (ORDER BY score DESC) as rank
+FROM students;
+```
+
+================================================================================
+PART 4: CONCLUSION & FUTURE ENHANCEMENTS
+================================================================================
+PrepWise bridges the gap between disparate interview preparation resources by
+providing a unified platform. In future releases, the system can be enhanced with:
+1. Real-time WebRTC collaborative peer mock interviews.
+2. AI-driven adaptive question difficulty adjustment (Item Response Theory).
+3. Automated voice-to-text behavioral interview evaluation using Large Language Models.
+
+================================================================================
+                            END OF REPORT & DATASET
+================================================================================
