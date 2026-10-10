@@ -51,11 +51,16 @@ const Dashboard = () => {
   const [recentResults, setRecentResults] = useState(DEFAULT_RECENT_RESULTS);
   const [dailyChallenge, setDailyChallenge] = useState(DEFAULT_DAILY_CHALLENGE);
   const [leaderboard, setLeaderboard] = useState(DEFAULT_LEADERBOARD);
-  const [heatmapData, setHeatmapData] = useState(() => Array.from({ length: 119 }).map((_, i) => {
-    const d = new Date();
-    d.setDate(d.getDate() - (118 - i));
-    return { date: d, level: 0, count: 0 };
-  }));
+  const [heatmapData, setHeatmapData] = useState(() => {
+    const today = new Date();
+    const dayOfWeek = today.getDay(); // 0 (Sun) to 6 (Sat)
+    const totalDays = 16 * 7 + (dayOfWeek + 1); // 16 full weeks + current week
+    return Array.from({ length: totalDays }).map((_, i) => {
+      const d = new Date();
+      d.setDate(d.getDate() - (totalDays - 1 - i));
+      return { date: d, level: 0, count: 0 };
+    });
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -80,9 +85,13 @@ const Dashboard = () => {
             activityMap[dateStr] = (activityMap[dateStr] || 0) + (p.questionsAttempted || 0);
           });
 
-          const generated = Array.from({ length: 119 }).map((_, i) => {
+          const today = new Date();
+          const dayOfWeek = today.getDay();
+          const totalDays = 16 * 7 + (dayOfWeek + 1);
+
+          const generated = Array.from({ length: totalDays }).map((_, i) => {
             const d = new Date();
-            d.setDate(d.getDate() - (118 - i));
+            d.setDate(d.getDate() - (totalDays - 1 - i));
             const dateStr = d.toISOString().split('T')[0];
             const count = activityMap[dateStr] || 0;
             
@@ -235,11 +244,22 @@ const Dashboard = () => {
         <div className="glass-card p-6 flex flex-col">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-lg font-semibold text-dark-100">Activity Heatmap</h2>
-            <span className="text-xs font-medium px-2 py-1 rounded-md bg-dark-800/50 text-dark-300 border border-dark-700/50">Last 119 Days</span>
+            <span className="text-xs font-medium px-2 py-1 rounded-md bg-dark-800/50 text-dark-300 border border-dark-700/50">Last 4 Months</span>
           </div>
           
-          <div className="flex-1 flex flex-col justify-center items-center overflow-x-auto pb-4 custom-scrollbar">
-            <div className="min-w-max">
+          <div className="flex-1 flex justify-center items-center overflow-x-auto pb-4 custom-scrollbar">
+            <div className="flex gap-2 min-w-max">
+              {/* Day Labels (Mon, Wed, Fri) */}
+              <div className="grid grid-rows-7 gap-1.5 text-[10px] text-dark-400 font-medium pr-1 text-right">
+                <div className="flex items-center h-3.5"></div>
+                <div className="flex items-center h-3.5">Mon</div>
+                <div className="flex items-center h-3.5"></div>
+                <div className="flex items-center h-3.5">Wed</div>
+                <div className="flex items-center h-3.5"></div>
+                <div className="flex items-center h-3.5">Fri</div>
+                <div className="flex items-center h-3.5"></div>
+              </div>
+              
               <div className="grid grid-rows-7 grid-flow-col gap-1.5">
                 {heatmapData.map((day, i) => {
                   let bgColor = 'bg-dark-800/40 border border-dark-700/30'; 
