@@ -119,24 +119,60 @@ const DSA = () => {
 
     return (
       <div className="space-y-6 animate-fade-in max-w-4xl mx-auto">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <button
             onClick={handleBackToList}
             className="text-sm text-dark-400 hover:text-dark-200 flex items-center gap-1"
           >
             <HiOutlineArrowLeft className="w-4 h-4" /> Back to List
           </button>
-          <button
-            onClick={() => toggleSolved(q._id)}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold transition-all ${
-              solvedQuestions.has(q._id)
-                ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-400'
-                : 'bg-dark-800/40 border-dark-700/30 text-dark-400 hover:text-dark-200'
-            }`}
-          >
-            <HiOutlineCheckCircle className="w-4 h-4" />
-            {solvedQuestions.has(q._id) ? 'Solved' : 'Mark Solved'}
-          </button>
+          
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1">
+              <button
+                onClick={() => {
+                  const currentIndex = filteredQuestions.findIndex(q => q._id === selectedQuestion._id);
+                  if (currentIndex > 0) {
+                    setSelectedQuestion(filteredQuestions[currentIndex - 1]);
+                    setShowHint(false);
+                    setShowSolution(false);
+                  }
+                }}
+                disabled={filteredQuestions.findIndex(q => q._id === selectedQuestion._id) <= 0}
+                className="p-1.5 rounded-lg border border-dark-700/50 text-dark-400 hover:text-dark-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors bg-dark-800/30"
+                title="Previous Question"
+              >
+                <HiChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => {
+                  const currentIndex = filteredQuestions.findIndex(q => q._id === selectedQuestion._id);
+                  if (currentIndex < filteredQuestions.length - 1) {
+                    setSelectedQuestion(filteredQuestions[currentIndex + 1]);
+                    setShowHint(false);
+                    setShowSolution(false);
+                  }
+                }}
+                disabled={filteredQuestions.findIndex(q => q._id === selectedQuestion._id) === filteredQuestions.length - 1}
+                className="p-1.5 rounded-lg border border-dark-700/50 text-dark-400 hover:text-dark-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors bg-dark-800/30"
+                title="Next Question"
+              >
+                <HiChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+
+            <button
+              onClick={() => toggleSolved(q._id)}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold transition-all ${
+                solvedQuestions.has(q._id)
+                  ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-400'
+                  : 'bg-dark-800/40 border-dark-700/30 text-dark-400 hover:text-dark-200'
+              }`}
+            >
+              <HiOutlineCheckCircle className="w-4 h-4" />
+              {solvedQuestions.has(q._id) ? 'Solved' : 'Mark Solved'}
+            </button>
+          </div>
         </div>
 
         <div className="glass-card p-6 md:p-8 space-y-6">
@@ -190,17 +226,52 @@ const DSA = () => {
           )}
 
           {/* Action buttons (Hints & Solutions) */}
-          <div className="border-t border-dark-700/30 pt-6 flex flex-wrap gap-3">
-            {q.hints && q.hints.length > 0 && (
-              <Button onClick={() => setShowHint(!showHint)} variant="secondary" size="sm">
-                {showHint ? 'Hide Hint' : 'Show Hint'}
+          <div className="border-t border-dark-700/30 pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="flex flex-wrap gap-3">
+              {q.hints && q.hints.length > 0 && (
+                <Button onClick={() => setShowHint(!showHint)} variant="secondary" size="sm">
+                  {showHint ? 'Hide Hint' : 'Show Hint'}
+                </Button>
+              )}
+              {q.solution && (
+                <Button onClick={() => setShowSolution(!showSolution)} variant="outline" size="sm">
+                  {showSolution ? 'Hide Solution' : 'Show Solution'}
+                </Button>
+              )}
+            </div>
+
+            <div className="flex gap-2">
+              <Button
+                onClick={() => {
+                  const currentIndex = filteredQuestions.findIndex(q => q._id === selectedQuestion._id);
+                  if (currentIndex > 0) {
+                    setSelectedQuestion(filteredQuestions[currentIndex - 1]);
+                    setShowHint(false);
+                    setShowSolution(false);
+                  }
+                }}
+                disabled={filteredQuestions.findIndex(q => q._id === selectedQuestion._id) <= 0}
+                variant="secondary"
+                size="sm"
+              >
+                Previous
               </Button>
-            )}
-            {q.solution && (
-              <Button onClick={() => setShowSolution(!showSolution)} variant="outline" size="sm">
-                {showSolution ? 'Hide Solution' : 'Show Solution'}
+              <Button
+                onClick={() => {
+                  const currentIndex = filteredQuestions.findIndex(q => q._id === selectedQuestion._id);
+                  if (currentIndex < filteredQuestions.length - 1) {
+                    setSelectedQuestion(filteredQuestions[currentIndex + 1]);
+                    setShowHint(false);
+                    setShowSolution(false);
+                  }
+                }}
+                disabled={filteredQuestions.findIndex(q => q._id === selectedQuestion._id) === filteredQuestions.length - 1}
+                variant="secondary"
+                size="sm"
+              >
+                Next
               </Button>
-            )}
+            </div>
           </div>
 
           {/* Hint Panel */}

@@ -101,6 +101,31 @@ const Coding = () => {
             <HiOutlineArrowLeft className="w-4 h-4" /> Back to Problems
           </button>
           <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 mr-2">
+              <button
+                onClick={() => {
+                  const currentIndex = filteredQuestions.findIndex(q => q._id === selectedQuestion._id);
+                  if (currentIndex > 0) handleSelectQuestion(filteredQuestions[currentIndex - 1]);
+                }}
+                disabled={filteredQuestions.findIndex(q => q._id === selectedQuestion._id) <= 0}
+                className="p-1.5 rounded-lg border border-dark-700/50 text-dark-400 hover:text-dark-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors bg-dark-800/30"
+                title="Previous Question"
+              >
+                <HiChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => {
+                  const currentIndex = filteredQuestions.findIndex(q => q._id === selectedQuestion._id);
+                  if (currentIndex < filteredQuestions.length - 1) handleSelectQuestion(filteredQuestions[currentIndex + 1]);
+                }}
+                disabled={filteredQuestions.findIndex(q => q._id === selectedQuestion._id) === filteredQuestions.length - 1}
+                className="p-1.5 rounded-lg border border-dark-700/50 text-dark-400 hover:text-dark-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors bg-dark-800/30"
+                title="Next Question"
+              >
+                <HiChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+            
             <span className={`badge ${difficultyClass}`}>{q.difficulty}</span>
             {solvedQuestions.has(q._id) && (
               <span className="badge bg-emerald-500/15 text-emerald-400 border border-emerald-500/25 flex items-center gap-1">
@@ -207,12 +232,36 @@ const Coding = () => {
               />
             </div>
 
-            <div className="flex items-center justify-between border-t border-dark-700/30 pt-4">
-              <div className="text-xs">
-                {runStatus === 'running' && <span className="text-amber-400 animate-pulse">Running test cases...</span>}
-                {runStatus === 'success' && <span className="text-emerald-400 font-semibold">Test cases passed! (100%)</span>}
-              </div>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-t border-dark-700/30 pt-4 gap-4">
               <div className="flex gap-2">
+                <Button
+                  onClick={() => {
+                    const currentIndex = filteredQuestions.findIndex(q => q._id === selectedQuestion._id);
+                    if (currentIndex > 0) handleSelectQuestion(filteredQuestions[currentIndex - 1]);
+                  }}
+                  disabled={filteredQuestions.findIndex(q => q._id === selectedQuestion._id) <= 0}
+                  variant="secondary"
+                  size="sm"
+                >
+                  Previous
+                </Button>
+                <Button
+                  onClick={() => {
+                    const currentIndex = filteredQuestions.findIndex(q => q._id === selectedQuestion._id);
+                    if (currentIndex < filteredQuestions.length - 1) handleSelectQuestion(filteredQuestions[currentIndex + 1]);
+                  }}
+                  disabled={filteredQuestions.findIndex(q => q._id === selectedQuestion._id) === filteredQuestions.length - 1}
+                  variant="secondary"
+                  size="sm"
+                >
+                  Next
+                </Button>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="text-xs">
+                  {runStatus === 'running' && <span className="text-amber-400 animate-pulse">Running test cases...</span>}
+                  {runStatus === 'success' && <span className="text-emerald-400 font-semibold">Passed!</span>}
+                </div>
                 <Button
                   onClick={handleRunCode}
                   loading={runStatus === 'running'}

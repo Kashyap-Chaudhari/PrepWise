@@ -142,7 +142,7 @@ const Dashboard = () => {
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl md:text-3xl font-bold text-dark-100">
-              Welcome back, <span className="gradient-text">{user?.name?.split(' ')[0]}</span>! {getStreakEmoji(user?.streak)}
+              Welcome back, <span className="gradient-text">{user?.name?.split(' ')?.[0] || 'Guest'}</span>! {getStreakEmoji(user?.streak)}
             </h1>
             <p className="text-dark-400 mt-1">Ready to level up your preparation today?</p>
           </div>
