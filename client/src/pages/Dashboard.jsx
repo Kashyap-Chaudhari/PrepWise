@@ -44,6 +44,19 @@ const DEFAULT_LEADERBOARD = [
   { user: { name: 'Demo Student' }, testsCompleted: 28, totalScore: 1390 },
 ];
 
+// Generate 119 days of mock activity data (17 weeks * 7 days)
+const MOCK_ACTIVITY_DATA = Array.from({ length: 119 }).map((_, i) => {
+  const date = new Date();
+  date.setDate(date.getDate() - (118 - i));
+  const rand = Math.random();
+  let level = 0;
+  if (rand > 0.6) level = 1;
+  if (rand > 0.8) level = 2;
+  if (rand > 0.9) level = 3;
+  if (rand > 0.95) level = 4;
+  return { date, level };
+});
+
 const Dashboard = () => {
   const { user } = useAuth();
   const [loading, setLoading] = useState(true);
@@ -199,34 +212,46 @@ const Dashboard = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Recent Activity */}
-        <div className="glass-card p-6">
-          <h2 className="text-lg font-semibold text-dark-100 mb-4">Recent Activity</h2>
-          {recentResults.length > 0 ? (
-            <div className="space-y-3">
-              {recentResults.map((result, index) => (
-                <div key={index} className="flex items-center justify-between p-3 rounded-xl bg-dark-800/30 border border-dark-700/20">
-                  <div>
-                    <p className="text-sm font-medium text-dark-200 capitalize">{result.category} Test</p>
-                    <p className="text-xs text-dark-400">{formatDate(result.createdAt)}</p>
-                  </div>
-                  <div className="text-right">
-                    <p className={`text-sm font-bold ${result.percentage >= 70 ? 'text-emerald-400' : result.percentage >= 50 ? 'text-amber-400' : 'text-red-400'}`}>
-                      {result.percentage}%
-                    </p>
-                    <p className="text-xs text-dark-400">{result.correctAnswers}/{result.totalQuestions}</p>
-                  </div>
-                </div>
-              ))}
+        {/* Activity Heatmap */}
+        <div className="glass-card p-6 flex flex-col">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-lg font-semibold text-dark-100">Activity Heatmap</h2>
+            <span className="text-xs font-medium px-2 py-1 rounded-md bg-dark-800/50 text-dark-300 border border-dark-700/50">Last 119 Days</span>
+          </div>
+          
+          <div className="flex-1 flex flex-col justify-center items-center overflow-x-auto pb-4 custom-scrollbar">
+            <div className="min-w-max">
+              <div className="grid grid-rows-7 grid-flow-col gap-1.5">
+                {MOCK_ACTIVITY_DATA.map((day, i) => {
+                  let bgColor = 'bg-dark-800/40 border border-dark-700/30'; 
+                  let shadow = '';
+                  
+                  if (day.level === 1) { bgColor = 'bg-emerald-500/20 border border-emerald-500/10'; }
+                  else if (day.level === 2) { bgColor = 'bg-emerald-500/40 border border-emerald-500/20'; }
+                  else if (day.level === 3) { bgColor = 'bg-emerald-500/60 border border-emerald-500/40'; shadow = 'shadow-[0_0_8px_rgba(16,185,129,0.3)]'; }
+                  else if (day.level === 4) { bgColor = 'bg-emerald-400 border border-emerald-300'; shadow = 'shadow-[0_0_12px_rgba(52,211,153,0.5)]'; }
+
+                  return (
+                    <div
+                      key={i}
+                      className={`w-3.5 h-3.5 rounded-[4px] ${bgColor} ${shadow} transition-all duration-300 hover:scale-125 cursor-pointer`}
+                      title={`${day.date.toDateString()}: ${day.level * 2} contributions`}
+                    />
+                  );
+                })}
+              </div>
             </div>
-          ) : (
-            <div className="text-center py-8">
-              <p className="text-dark-400 text-sm">No activity yet. Start practicing!</p>
-              <Link to="/aptitude" className="text-sm text-primary-400 hover:text-primary-300 mt-2 inline-block">
-                Start Now →
-              </Link>
-            </div>
-          )}
+          </div>
+
+          <div className="flex items-center justify-end gap-2 mt-auto pt-4 border-t border-dark-700/30 text-xs text-dark-400">
+            <span>Less</span>
+            <div className="w-3.5 h-3.5 rounded-[4px] bg-dark-800/40 border border-dark-700/30" />
+            <div className="w-3.5 h-3.5 rounded-[4px] bg-emerald-500/20 border border-emerald-500/10" />
+            <div className="w-3.5 h-3.5 rounded-[4px] bg-emerald-500/40 border border-emerald-500/20" />
+            <div className="w-3.5 h-3.5 rounded-[4px] bg-emerald-500/60 border border-emerald-500/40 shadow-[0_0_8px_rgba(16,185,129,0.3)]" />
+            <div className="w-3.5 h-3.5 rounded-[4px] bg-emerald-400 border border-emerald-300 shadow-[0_0_12px_rgba(52,211,153,0.5)]" />
+            <span>More</span>
+          </div>
         </div>
 
         {/* Leaderboard */}
