@@ -44,19 +44,6 @@ const DEFAULT_LEADERBOARD = [
   { user: { name: 'Demo Student' }, testsCompleted: 28, totalScore: 1390 },
 ];
 
-// Generate 119 days of mock activity data (17 weeks * 7 days)
-const MOCK_ACTIVITY_DATA = Array.from({ length: 119 }).map((_, i) => {
-  const date = new Date();
-  date.setDate(date.getDate() - (118 - i));
-  const rand = Math.random();
-  let level = 0;
-  if (rand > 0.6) level = 1;
-  if (rand > 0.8) level = 2;
-  if (rand > 0.9) level = 3;
-  if (rand > 0.95) level = 4;
-  return { date, level };
-});
-
 const Dashboard = () => {
   const { user } = useAuth();
   const [loading, setLoading] = useState(true);
@@ -64,12 +51,18 @@ const Dashboard = () => {
   const [recentResults, setRecentResults] = useState(DEFAULT_RECENT_RESULTS);
   const [dailyChallenge, setDailyChallenge] = useState(DEFAULT_DAILY_CHALLENGE);
   const [leaderboard, setLeaderboard] = useState(DEFAULT_LEADERBOARD);
+  const [heatmapData, setHeatmapData] = useState(() => Array.from({ length: 119 }).map((_, i) => {
+    const d = new Date();
+    d.setDate(d.getDate() - (118 - i));
+    return { date: d, level: 0, count: 0 };
+  }));
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [progressRes, resultsRes, challengeRes, leaderboardRes] = await Promise.allSettled([
+        const [progressRes, heatmapRes, resultsRes, challengeRes, leaderboardRes] = await Promise.allSettled([
           progressService.getProgress('week'),
+          progressService.getProgress('year'),
           resultService.getResults({ limit: 5 }),
           questionService.getDailyChallenge(),
           resultService.getLeaderboard(),
@@ -78,6 +71,32 @@ const Dashboard = () => {
         if (progressRes.status === 'fulfilled' && progressRes.value?.data?.progress?.length > 0) {
           setWeeklyProgress(progressRes.value.data.progress);
         }
+        
+        if (heatmapRes.status === 'fulfilled' && heatmapRes.value?.data?.progress) {
+          const apiProgress = heatmapRes.value.data.progress;
+          const activityMap = {};
+          apiProgress.forEach(p => {
+            const dateStr = new Date(p.date).toISOString().split('T')[0];
+            activityMap[dateStr] = (activityMap[dateStr] || 0) + (p.questionsAttempted || 0);
+          });
+
+          const generated = Array.from({ length: 119 }).map((_, i) => {
+            const d = new Date();
+            d.setDate(d.getDate() - (118 - i));
+            const dateStr = d.toISOString().split('T')[0];
+            const count = activityMap[dateStr] || 0;
+            
+            let level = 0;
+            if (count > 0) level = 1;
+            if (count >= 3) level = 2;
+            if (count >= 7) level = 3;
+            if (count >= 12) level = 4;
+            
+            return { date: d, level, count };
+          });
+          setHeatmapData(generated);
+        }
+
         if (resultsRes.status === 'fulfilled' && resultsRes.value?.data?.results?.length > 0) {
           setRecentResults(resultsRes.value.data.results);
         }
@@ -222,7 +241,7 @@ const Dashboard = () => {
           <div className="flex-1 flex flex-col justify-center items-center overflow-x-auto pb-4 custom-scrollbar">
             <div className="min-w-max">
               <div className="grid grid-rows-7 grid-flow-col gap-1.5">
-                {MOCK_ACTIVITY_DATA.map((day, i) => {
+                {heatmapData.map((day, i) => {
                   let bgColor = 'bg-dark-800/40 border border-dark-700/30'; 
                   let shadow = '';
                   
@@ -235,7 +254,7 @@ const Dashboard = () => {
                     <div
                       key={i}
                       className={`w-3.5 h-3.5 rounded-[4px] ${bgColor} ${shadow} transition-all duration-300 hover:scale-125 cursor-pointer`}
-                      title={`${day.date.toDateString()}: ${day.level * 2} contributions`}
+                      title={`${day.date.toDateString()}: ${day.count} contributions`}
                     />
                   );
                 })}
