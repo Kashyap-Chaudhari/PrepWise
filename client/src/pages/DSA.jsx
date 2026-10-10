@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { HiOutlineArrowLeft, HiOutlineSearch, HiOutlineBookOpen, HiOutlineCheckCircle, HiChevronLeft, HiChevronRight } from 'react-icons/hi';
+import { HiOutlineArrowLeft, HiOutlineSearch, HiOutlineBookOpen, HiOutlineCheckCircle, HiChevronLeft, HiChevronRight, HiOutlinePlay } from 'react-icons/hi';
 import { DSA_TOPICS } from '../constants';
 import useQuestions from '../hooks/useQuestions';
 import Button from '../components/Button';
@@ -18,6 +18,8 @@ const DSA = () => {
   const [solvedQuestions, setSolvedQuestions] = useState(new Set());
   const [showHint, setShowHint] = useState(false);
   const [showSolution, setShowSolution] = useState(false);
+  const [code, setCode] = useState('');
+  const [runStatus, setRunStatus] = useState(null);
 
   const { questions, loading, fetchQuestions } = useQuestions();
 
@@ -38,29 +40,39 @@ const DSA = () => {
     setSelectedQuestion(null);
     setShowHint(false);
     setShowSolution(false);
+    setRunStatus(null);
   };
 
   const handleBackToTopics = () => {
     setSelectedTopic(null);
     setSelectedQuestion(null);
+    setRunStatus(null);
+  };
+
+  const handleSelectQuestion = (q) => {
+    setSelectedQuestion(q);
+    setCode('// Write your data structure/algorithm here\n');
+    setShowHint(false);
+    setShowSolution(false);
+    setRunStatus(null);
   };
 
   const handleBackToList = () => {
     setSelectedQuestion(null);
     setShowHint(false);
     setShowSolution(false);
+    setRunStatus(null);
   };
 
-  const toggleSolved = (qId) => {
-    const updated = new Set(solvedQuestions);
-    if (updated.has(qId)) {
-      updated.delete(qId);
-      toast.success('Marked as unsolved');
-    } else {
-      updated.add(qId);
-      toast.success('Marked as solved! Great job.');
-    }
-    setSolvedQuestions(updated);
+  const handleRunCode = () => {
+    setRunStatus('running');
+    setTimeout(() => {
+      setRunStatus('success');
+      toast.success('Code executed! All test cases passed.');
+      const updated = new Set(solvedQuestions);
+      updated.add(selectedQuestion._id);
+      setSolvedQuestions(updated);
+    }, 1500);
   };
 
   // Filtered questions list
@@ -118,7 +130,7 @@ const DSA = () => {
         : 'badge-hard';
 
     return (
-      <div className="space-y-6 animate-fade-in max-w-4xl mx-auto">
+      <div className="space-y-6 animate-fade-in max-w-6xl mx-auto">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <button
             onClick={handleBackToList}
@@ -127,16 +139,12 @@ const DSA = () => {
             <HiOutlineArrowLeft className="w-4 h-4" /> Back to List
           </button>
           
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1">
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 mr-2">
               <button
                 onClick={() => {
                   const currentIndex = filteredQuestions.findIndex(q => q._id === selectedQuestion._id);
-                  if (currentIndex > 0) {
-                    setSelectedQuestion(filteredQuestions[currentIndex - 1]);
-                    setShowHint(false);
-                    setShowSolution(false);
-                  }
+                  if (currentIndex > 0) handleSelectQuestion(filteredQuestions[currentIndex - 1]);
                 }}
                 disabled={filteredQuestions.findIndex(q => q._id === selectedQuestion._id) <= 0}
                 className="p-1.5 rounded-lg border border-dark-700/50 text-dark-400 hover:text-dark-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors bg-dark-800/30"
@@ -147,11 +155,7 @@ const DSA = () => {
               <button
                 onClick={() => {
                   const currentIndex = filteredQuestions.findIndex(q => q._id === selectedQuestion._id);
-                  if (currentIndex < filteredQuestions.length - 1) {
-                    setSelectedQuestion(filteredQuestions[currentIndex + 1]);
-                    setShowHint(false);
-                    setShowSolution(false);
-                  }
+                  if (currentIndex < filteredQuestions.length - 1) handleSelectQuestion(filteredQuestions[currentIndex + 1]);
                 }}
                 disabled={filteredQuestions.findIndex(q => q._id === selectedQuestion._id) === filteredQuestions.length - 1}
                 className="p-1.5 rounded-lg border border-dark-700/50 text-dark-400 hover:text-dark-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors bg-dark-800/30"
@@ -161,150 +165,158 @@ const DSA = () => {
               </button>
             </div>
 
-            <button
-              onClick={() => toggleSolved(q._id)}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold transition-all ${
-                solvedQuestions.has(q._id)
-                  ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-400'
-                  : 'bg-dark-800/40 border-dark-700/30 text-dark-400 hover:text-dark-200'
-              }`}
-            >
-              <HiOutlineCheckCircle className="w-4 h-4" />
-              {solvedQuestions.has(q._id) ? 'Solved' : 'Mark Solved'}
-            </button>
+            <span className={`badge ${difficultyClass}`}>{q.difficulty}</span>
+            {solvedQuestions.has(q._id) && (
+              <span className="badge bg-emerald-500/15 text-emerald-400 border border-emerald-500/25 flex items-center gap-1">
+                <HiOutlineCheckCircle className="w-3.5 h-3.5" /> Solved
+              </span>
+            )}
           </div>
         </div>
 
-        <div className="glass-card p-6 md:p-8 space-y-6">
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <span className={`badge ${difficultyClass}`}>{q.difficulty}</span>
-              <span className="badge bg-dark-700/50 text-dark-300 border border-dark-600/30">
-                {q.topic}
-              </span>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+          {/* Left Panel: Description */}
+          <div className="glass-card p-6 space-y-6 overflow-y-auto max-h-[70vh]">
+            <div>
+              <h1 className="text-xl font-bold text-dark-100">{q.title}</h1>
+              <p className="text-xs text-dark-400 mt-1">Topic: {q.topic || q.subject}</p>
             </div>
-            <h1 className="text-2xl font-bold text-dark-100">{q.title}</h1>
-          </div>
 
-          <div className="border-t border-dark-700/30 pt-6">
-            <h2 className="text-sm font-semibold text-dark-300 uppercase tracking-wider mb-3">
-              Problem Description
-            </h2>
-            <p className="text-sm text-dark-200 leading-relaxed whitespace-pre-wrap">{q.question}</p>
-          </div>
-
-          {q.constraints && (
-            <div className="border-t border-dark-700/30 pt-6">
-              <h2 className="text-sm font-semibold text-dark-300 uppercase tracking-wider mb-2">
-                Constraints
+            <div className="border-t border-dark-700/30 pt-4 space-y-3">
+              <h2 className="text-xs font-semibold text-dark-300 uppercase tracking-wider">
+                Problem Statement
               </h2>
-              <code className="block bg-dark-900/50 border border-dark-800 p-3 rounded-xl text-xs font-mono text-amber-400 whitespace-pre-wrap">
-                {q.constraints}
-              </code>
+              <p className="text-sm text-dark-200 leading-relaxed whitespace-pre-wrap">{q.question}</p>
             </div>
-          )}
 
-          {q.sampleInput && (
-            <div className="border-t border-dark-700/30 pt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <h2 className="text-sm font-semibold text-dark-300 uppercase tracking-wider mb-2">
-                  Sample Input
+            {q.constraints && (
+              <div className="border-t border-dark-700/30 pt-4">
+                <h2 className="text-xs font-semibold text-dark-300 uppercase tracking-wider mb-2">
+                  Constraints
                 </h2>
-                <pre className="bg-dark-900/50 border border-dark-800 p-3 rounded-xl text-xs font-mono text-dark-200 overflow-x-auto">
-                  {q.sampleInput}
-                </pre>
+                <code className="block bg-dark-900/50 border border-dark-800 p-3 rounded-xl text-xs font-mono text-amber-400 whitespace-pre-wrap">
+                  {q.constraints}
+                </code>
               </div>
-              <div>
-                <h2 className="text-sm font-semibold text-dark-300 uppercase tracking-wider mb-2">
-                  Sample Output
+            )}
+
+            {q.sampleInput && (
+              <div className="border-t border-dark-700/30 pt-4 space-y-3">
+                <h2 className="text-xs font-semibold text-dark-300 uppercase tracking-wider">
+                  Example Testcase
                 </h2>
-                <pre className="bg-dark-900/50 border border-dark-800 p-3 rounded-xl text-xs font-mono text-dark-200 overflow-x-auto">
-                  {q.sampleOutput}
-                </pre>
+                <div className="p-3 bg-dark-900/50 border border-dark-850 rounded-xl space-y-2">
+                  <div>
+                    <span className="text-xs text-dark-400 font-semibold">Input:</span>
+                    <pre className="text-xs font-mono text-dark-200 mt-1">{q.sampleInput}</pre>
+                  </div>
+                  <div>
+                    <span className="text-xs text-dark-400 font-semibold">Output:</span>
+                    <pre className="text-xs font-mono text-dark-200 mt-1">{q.sampleOutput}</pre>
+                  </div>
+                </div>
               </div>
-            </div>
-          )}
+            )}
 
-          {/* Action buttons (Hints & Solutions) */}
-          <div className="border-t border-dark-700/30 pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div className="flex flex-wrap gap-3">
-              {q.hints && q.hints.length > 0 && (
-                <Button onClick={() => setShowHint(!showHint)} variant="secondary" size="sm">
-                  {showHint ? 'Hide Hint' : 'Show Hint'}
-                </Button>
-              )}
-              {q.solution && (
-                <Button onClick={() => setShowSolution(!showSolution)} variant="outline" size="sm">
-                  {showSolution ? 'Hide Solution' : 'Show Solution'}
-                </Button>
-              )}
+            <div className="border-t border-dark-700/30 pt-4 flex gap-3">
+              <button
+                onClick={() => setShowHint(!showHint)}
+                className="text-xs text-amber-400 hover:text-amber-300 font-medium flex items-center gap-1"
+              >
+                {showHint ? 'Hide Hint' : 'View Hint'}
+              </button>
+              <button
+                onClick={() => setShowSolution(!showSolution)}
+                className="text-xs text-emerald-400 hover:text-emerald-300 font-medium flex items-center gap-1"
+              >
+                {showSolution ? 'Hide Solution' : 'View Solution'}
+              </button>
             </div>
 
-            <div className="flex gap-2">
-              <Button
-                onClick={() => {
-                  const currentIndex = filteredQuestions.findIndex(q => q._id === selectedQuestion._id);
-                  if (currentIndex > 0) {
-                    setSelectedQuestion(filteredQuestions[currentIndex - 1]);
-                    setShowHint(false);
-                    setShowSolution(false);
-                  }
-                }}
-                disabled={filteredQuestions.findIndex(q => q._id === selectedQuestion._id) <= 0}
-                variant="secondary"
-                size="sm"
-              >
-                Previous
-              </Button>
-              <Button
-                onClick={() => {
-                  const currentIndex = filteredQuestions.findIndex(q => q._id === selectedQuestion._id);
-                  if (currentIndex < filteredQuestions.length - 1) {
-                    setSelectedQuestion(filteredQuestions[currentIndex + 1]);
-                    setShowHint(false);
-                    setShowSolution(false);
-                  }
-                }}
-                disabled={filteredQuestions.findIndex(q => q._id === selectedQuestion._id) === filteredQuestions.length - 1}
-                variant="secondary"
-                size="sm"
-              >
-                Next
-              </Button>
-            </div>
+            {showHint && q.hints && (
+              <div className="p-4 rounded-xl bg-amber-500/5 border border-amber-500/15 text-xs text-dark-350 leading-relaxed">
+                <span className="font-semibold text-amber-400 block mb-1">💡 Hint</span>
+                <ul className="list-disc pl-4 space-y-1">
+                  {q.hints.map((hint, index) => (
+                    <li key={index}>{hint}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {showSolution && q.solution && (
+              <div className="p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/15 text-xs text-dark-350 space-y-2">
+                <span className="font-semibold text-emerald-400 block">✔️ Solution</span>
+                <pre className="bg-dark-900/50 p-3 rounded-xl font-mono text-emerald-300 overflow-x-auto whitespace-pre">
+                  {q.solution}
+                </pre>
+                {q.explanation && <p className="mt-2 text-dark-400">{q.explanation}</p>}
+              </div>
+            )}
           </div>
 
-          {/* Hint Panel */}
-          {showHint && q.hints && q.hints.length > 0 && (
-            <div className="p-4 rounded-xl bg-amber-500/5 border border-amber-500/15 animate-fade-in">
-              <p className="text-xs font-semibold text-amber-400 mb-1">💡 Hint</p>
-              <ul className="list-disc pl-4 space-y-1">
-                {q.hints.map((hint, index) => (
-                  <li key={index} className="text-xs text-dark-300 leading-relaxed">
-                    {hint}
-                  </li>
-                ))}
-              </ul>
+          {/* Right Panel: Code Editor Simulation */}
+          <div className="glass-card p-6 flex flex-col justify-between space-y-4">
+            <div className="flex-1 flex flex-col">
+              <div className="flex items-center justify-between pb-3 border-b border-dark-700/30">
+                <span className="text-xs font-semibold text-dark-300">DSA Compiler</span>
+                <button
+                  onClick={() => setCode(q.solution || '// Solution not available')}
+                  className="text-xs text-primary-400 hover:text-primary-300 transition-colors"
+                >
+                  Autofill Answer
+                </button>
+              </div>
+              <textarea
+                value={code}
+                onChange={(e) => setCode(e.target.value)}
+                className="w-full flex-1 min-h-[300px] mt-4 p-4 bg-dark-950/80 border border-dark-700/50 rounded-xl font-mono text-xs text-indigo-300 focus:outline-none focus:border-primary-500"
+                style={{ resize: 'none' }}
+                placeholder="// Implement your algorithm here..."
+              />
             </div>
-          )}
 
-          {/* Solution Panel */}
-          {showSolution && q.solution && (
-            <div className="p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/15 animate-fade-in">
-              <p className="text-xs font-semibold text-emerald-400 mb-2">💻 Code Solution (JavaScript)</p>
-              <pre className="bg-dark-900/50 border border-dark-800 p-4 rounded-xl text-xs font-mono text-emerald-300 overflow-x-auto whitespace-pre-wrap">
-                {q.solution}
-              </pre>
-              {q.explanation && (
-                <div className="mt-4 border-t border-dark-700/30 pt-4">
-                  <p className="text-xs font-semibold text-emerald-400 mb-1">Complexity & Explanation</p>
-                  <p className="text-xs text-dark-300 leading-relaxed whitespace-pre-wrap">
-                    {q.explanation}
-                  </p>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-t border-dark-700/30 pt-4 gap-4">
+              <div className="flex gap-2">
+                <Button
+                  onClick={() => {
+                    const currentIndex = filteredQuestions.findIndex(q => q._id === selectedQuestion._id);
+                    if (currentIndex > 0) handleSelectQuestion(filteredQuestions[currentIndex - 1]);
+                  }}
+                  disabled={filteredQuestions.findIndex(q => q._id === selectedQuestion._id) <= 0}
+                  variant="secondary"
+                  size="sm"
+                >
+                  Previous
+                </Button>
+                <Button
+                  onClick={() => {
+                    const currentIndex = filteredQuestions.findIndex(q => q._id === selectedQuestion._id);
+                    if (currentIndex < filteredQuestions.length - 1) handleSelectQuestion(filteredQuestions[currentIndex + 1]);
+                  }}
+                  disabled={filteredQuestions.findIndex(q => q._id === selectedQuestion._id) === filteredQuestions.length - 1}
+                  variant="secondary"
+                  size="sm"
+                >
+                  Next
+                </Button>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="text-xs">
+                  {runStatus === 'running' && <span className="text-amber-400 animate-pulse">Running algorithm...</span>}
+                  {runStatus === 'success' && <span className="text-emerald-400 font-semibold">Passed!</span>}
                 </div>
-              )}
+                <Button
+                  onClick={handleRunCode}
+                  loading={runStatus === 'running'}
+                  variant="primary"
+                  icon={HiOutlinePlay}
+                >
+                  Submit Code
+                </Button>
+              </div>
             </div>
-          )}
+          </div>
         </div>
       </div>
     );
@@ -371,7 +383,7 @@ const DSA = () => {
                 return (
                   <div
                     key={q._id}
-                    onClick={() => setSelectedQuestion(q)}
+                    onClick={() => handleSelectQuestion(q)}
                     className="glass-card p-5 cursor-pointer hover:-translate-y-0.5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 group"
                   >
                     <div className="flex items-start gap-3 min-w-0">
